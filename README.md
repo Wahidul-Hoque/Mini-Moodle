@@ -2,7 +2,7 @@
 
 A minimal clone of the Moodle Learning Management System (LMS), built as a term project for CSE 108 - OOP Sessional course in Level-1/Term-2.
 
-Contributors:
+Contributors:<br>
 **Project Group:**
 1. [Mehedi Hasan Kanon](https://github.com/mehedihasankanon)
 2. [Wahidul Hoque](https://github.com/wahidul-hoque)
