@@ -10,6 +10,7 @@ module com.example.minimoodle {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
 
     opens com.example.minimoodle to javafx.fxml;
     exports com.example.minimoodle;
