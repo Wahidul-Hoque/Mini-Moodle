@@ -1,7 +1,6 @@
 # Mini-Moodle
 
-A minimal clone of the Moodle Learning Management System (LMS), built as a term project for **CSE 108: Object-Oriented Programming Sessional**  
-(Level 1, Term 2 – BUET CSE).
+A minimal clone of the Moodle Learning Management System (LMS), built as a term project for **CSE 108: Object-Oriented Programming Sessional** (Level 1, Term 2 – BUET CSE).
 
 ---
 
