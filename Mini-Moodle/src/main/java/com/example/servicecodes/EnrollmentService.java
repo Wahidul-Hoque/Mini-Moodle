@@ -1,6 +1,13 @@
+package com.example.servicecodes;
+
+import java.sql.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+// Import DatabaseConnection
+import com.example.utils.DatabaseConnection;
 
 public class EnrollmentService {
 
