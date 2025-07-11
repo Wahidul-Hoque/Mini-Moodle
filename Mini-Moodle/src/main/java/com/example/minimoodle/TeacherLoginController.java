@@ -1,13 +1,9 @@
 package com.example.minimoodle;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import java.awt.*;
 
 public class TeacherLoginController {
     @FXML
@@ -17,10 +13,10 @@ public class TeacherLoginController {
     private PasswordField teacherLoginPasswordBox;
 
     @FXML
-    private CheckBox teacherLoginPasswordCheckBox;
+    private TextField teacherLoginPasswordVisibleBox;
 
     @FXML
-    private Button teacherLoginButton;
+    private CheckBox teacherLoginPasswordCheckBox;
 
     private boolean showPassword = false;
 
@@ -28,10 +24,54 @@ public class TeacherLoginController {
     private String enteredPassword;
 
     @FXML
-    private void toggleTeacherLoginPasswordVisibility()
-    {
-        if(showPassword) showPassword = false;
-        else showPassword = true;
+    //
+    // initialize() method is called by the JavaFX framework to initialize the controller
+    // This method sets up the initial state of the password visibility box.
+    // It binds the text property of the visible password box to the password field.
+    // 
+    private void initialize() {
+        teacherLoginPasswordVisibleBox.setManaged(false);
+        teacherLoginPasswordVisibleBox.setVisible(false);
+
+        teacherLoginPasswordVisibleBox.textProperty().bindBidirectional(teacherLoginPasswordBox.textProperty());
+    }
+
+    @FXML
+    //
+    // When Show Password Button is clicked, toggle the visibility of the password field
+    // What does this do?
+    // setVisible() method controls whether the password field is visible or not.
+    // setManaged() method controls whether the password field is managed by the layout.
+    //
+    private void toggleTeacherLoginPasswordVisibility() {
+        showPassword = !showPassword;
+        if (showPassword) {
+            teacherLoginPasswordVisibleBox.setText(teacherLoginPasswordBox.getText());
+            teacherLoginPasswordVisibleBox.setVisible(true);
+            teacherLoginPasswordVisibleBox.setManaged(true);
+            teacherLoginPasswordBox.setVisible(false);
+            teacherLoginPasswordBox.setManaged(false);
+        } else {
+            teacherLoginPasswordBox.setText(teacherLoginPasswordVisibleBox.getText());
+            teacherLoginPasswordBox.setVisible(true);
+            teacherLoginPasswordBox.setManaged(true);
+            teacherLoginPasswordVisibleBox.setVisible(false);
+            teacherLoginPasswordVisibleBox.setManaged(false);
+        }
+    }
+
+    @FXML
+    // When the login button is clicked, we retrieve the entered ID and password
+    // and print them
+    public void processTeacherLogin() {
+        enteredId = teacherLoginIdBox.getText();
+        enteredPassword = showPassword ? teacherLoginPasswordVisibleBox.getText() : teacherLoginPasswordBox.getText();
+
+        // For demonstration purposes, we print the ID and password to the console
+        System.out.println("Entered ID: " + enteredId);
+        System.out.println("Entered Password: " + enteredPassword);
+
+        // Here you would typically handle the login logic, such as validating credentials
     }
 
 
