@@ -71,7 +71,11 @@ public class TeacherLoginController {
         System.out.println("Entered ID: " + enteredId);
         System.out.println("Entered Password: " + enteredPassword);
 
-        // Here you would typically handle the login logic, such as validating credentials
+        
+        // TODO: Implement the logic to handle teacher login
+        // We need to pull data from the database to verify the admin credentials
+
+
     }
 
 
