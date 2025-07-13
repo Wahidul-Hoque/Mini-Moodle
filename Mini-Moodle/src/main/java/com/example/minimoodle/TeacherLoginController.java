@@ -1,9 +1,12 @@
 package com.example.minimoodle;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import com.example.servicecodes.TeacherLoginService;
 
 public class TeacherLoginController {
     @FXML
@@ -74,8 +77,25 @@ public class TeacherLoginController {
         
         // TODO: Implement the logic to handle teacher login
         // We need to pull data from the database to verify the admin credentials
+        boolean isValidLogin = TeacherLoginService.validateTeacherLogin(enteredId, enteredPassword);
 
+        if (isValidLogin) {
+            // Proceed to the next screen or show a success message
+            showAlert("Login Successful", "Welcome, Teacher " + enteredId, Alert.AlertType.INFORMATION);
+        }
+        else {
+            // Show an error message if the credentials are invalid
+            showAlert("Login Failed", "Invalid username or password. Please try again.", Alert.AlertType.ERROR);
+        }
 
+    }
+    // Helper method to display an alert message
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 
