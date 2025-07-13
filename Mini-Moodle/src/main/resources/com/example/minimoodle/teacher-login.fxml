@@ -8,23 +8,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.TeacherLoginController">
+<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.TeacherLoginController">
    <children>
       <Label layoutX="219.0" layoutY="46.0" text="Teacher Login" textAlignment="JUSTIFY">
          <font>
             <Font name="Trebuchet MS" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="208.0" layoutY="108.0" text="Enter Teacher ID and Password" textAlignment="JUSTIFY">
+      <Label layoutX="208.0" layoutY="108.0" text="Enter Teacher ID and Password"
+         textAlignment="JUSTIFY">
          <font>
             <Font name="Trebuchet MS" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="teacherLoginIdBox" layoutX="218.0" layoutY="164.0" prefHeight="35.0" prefWidth="230.0" promptText="Teacher ID" />
-      <PasswordField fx:id="teacherLoginPasswordBox" layoutX="218.0" layoutY="208.0" prefHeight="35.0" prefWidth="230.0" promptText="Password" />
-      <TextField fx:id="teacherLoginPasswordVisibleBox" layoutX="218.0" layoutY="208.0" prefHeight="35.0" prefWidth="230.0" promptText="Password" />
-      <CheckBox fx:id="teacherLoginPasswordCheckBox" layoutX="281.0" layoutY="255.0" mnemonicParsing="false" onAction="#toggleTeacherLoginPasswordVisibility" text="Show Password" textAlignment="JUSTIFY" />
-      <Button fx:id="teacherLoginButton" layoutX="256.0" layoutY="287.0" mnemonicParsing="false" onAction="#processTeacherLogin" prefHeight="42.0" prefWidth="154.0" text="Login" textAlignment="JUSTIFY">
+      <TextField fx:id="teacherLoginIdBox" layoutX="218.0" layoutY="164.0" prefHeight="35.0"
+         prefWidth="230.0" promptText="Teacher ID" />
+      <PasswordField fx:id="teacherLoginPasswordBox" layoutX="218.0" layoutY="208.0"
+         prefHeight="35.0" prefWidth="230.0" promptText="Password" />
+      <TextField fx:id="teacherLoginPasswordVisibleBox" layoutX="218.0" layoutY="208.0"
+         prefHeight="35.0" prefWidth="230.0" promptText="Password" />
+      <CheckBox fx:id="teacherLoginPasswordCheckBox" layoutX="281.0" layoutY="255.0"
+         mnemonicParsing="false" onAction="#toggleTeacherLoginPasswordVisibility"
+         text="Show Password" textAlignment="JUSTIFY" />
+      <Button fx:id="teacherLoginButton" layoutX="256.0" layoutY="287.0" mnemonicParsing="false"
+         onAction="#processTeacherLogin" prefHeight="42.0" prefWidth="154.0" text="Login"
+         textAlignment="JUSTIFY">
          <font>
             <Font name="Trebuchet MS" size="16.0" />
          </font>
