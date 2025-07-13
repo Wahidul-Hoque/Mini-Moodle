@@ -28,9 +28,10 @@ CREATE TABLE teacher (
 );
 
 -- Insert Teacher
-INSERT INTO teacher ( username, password,email, name)
-VALUES ('t_john', 'teach123','john@moodle.com', 'John Cen');
-
+INSERT INTO teacher ( username, password,name,email)
+VALUES ('t_john', 'teach123','John Cen','john@moodle.com');
+INSERT INTO teacher ( username, password,name,email)
+VALUES ('wahid', 'wahid','Wahidul', 'wahid.com');
 -- Create Student table
 CREATE TABLE student (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

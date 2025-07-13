@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:sqlite:moodle.db";  // Path to your SQLite database
+    private static final String URL = "jdbc:sqlite:E:/Mini-Moodle/Mini-Moodle/resources/moodle.db";  // Path to your SQLite database
     private static Connection connection = null;
 
     // Method to connect to the database
