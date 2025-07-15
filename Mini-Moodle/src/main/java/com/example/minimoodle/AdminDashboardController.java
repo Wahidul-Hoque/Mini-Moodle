@@ -34,6 +34,10 @@ public class AdminDashboardController {
     private Label totalTeachersLabel;
 
     @FXML
+    /**
+     * 
+     * handle logout
+     */
     void handleAdminLogout(ActionEvent event) {
 
         try {

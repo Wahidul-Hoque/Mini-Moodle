@@ -52,6 +52,11 @@ public class AdminLoginController {
     }
 
     @FXML
+    /**
+     * 
+     * @param event
+     * process admin login here. we pull data from the database and check if the login credentials are correct or not
+     */
     public void processAdminLogin(ActionEvent event) {
         String enteredId = adminLoginIdBox.getText();
         String enteredPassword = adminLoginPasswordBox.getText();
@@ -59,12 +64,9 @@ public class AdminLoginController {
         System.out.println("Admin ID: " + enteredId);
         System.out.println("Admin Password: " + enteredPassword);
 
-        // TODO: Implement the logic to handle admin login
-        // We need to pull data from the database to verify the admin credentials
         boolean isValidLogin = AdminLoginService.validateAdminLogin(enteredId, enteredPassword);
 
         if (isValidLogin) {
-            // Proceed to the next screen or show a success message
             showAlert("Login Successful", "Welcome, Admin " + enteredId, Alert.AlertType.INFORMATION);
             try{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-dashboard.fxml"));
@@ -88,7 +90,6 @@ public class AdminLoginController {
             }
         }
         else {
-            // Show an error message if the credentials are invalid
             showAlert("Login Failed", "Invalid username or password. Please try again.", Alert.AlertType.ERROR);
         }
 
