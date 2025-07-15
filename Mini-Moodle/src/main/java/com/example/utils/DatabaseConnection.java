@@ -5,20 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
+
     private static final String URL = "jdbc:sqlite:E:/Mini-Moodle/Mini-Moodle/resources/moodle.db";  // Path to your SQLite database
-    private static Connection connection = null;
 
     // Method to connect to the database
     public static Connection getConnection() throws SQLException {
-        if (connection == null) {
-            connection = DriverManager.getConnection(URL);
-        }
-        return connection;
+        // Open a new connection every time
+        return DriverManager.getConnection(URL);
     }
 
     // Method to close the connection
-    public static void closeConnection() throws SQLException {
-        if (connection != null) {
+    public static void closeConnection(Connection connection) throws SQLException {
+        // Close the provided connection
+        if (connection != null && !connection.isClosed()) {
             connection.close();
         }
     }

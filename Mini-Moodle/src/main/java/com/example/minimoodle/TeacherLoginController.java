@@ -92,30 +92,31 @@ public class TeacherLoginController {
         if (isValidLogin) {
             // Proceed to the next screen or show a success message
             showAlert("Login Successful", "Welcome, Teacher " + enteredId, Alert.AlertType.INFORMATION);
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) teacherLoginButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Dashboard - " + enteredId);
+
+            } catch (java.io.IOException | NullPointerException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Loading Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to load the login page: " + e.getMessage());
+                alert.showAndWait();
+
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
         }
         else {
             // Show an error message if the credentials are invalid
             showAlert("Login Failed", "Invalid username or password. Please try again.", Alert.AlertType.ERROR);
         }
 
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard.fxml"));
-            Parent root = loader.load();
 
-            Stage stage = (Stage) teacherLoginButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Dashboard - " + enteredId);
-            
-        } catch (java.io.IOException | NullPointerException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Loading Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Failed to load the login page: " + e.getMessage());
-            alert.showAndWait();
-
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
 
     }
     // Helper method to display an alert message
