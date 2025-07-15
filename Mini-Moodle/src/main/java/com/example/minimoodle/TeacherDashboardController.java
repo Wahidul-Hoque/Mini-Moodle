@@ -1,5 +1,7 @@
 package com.example.minimoodle;
 
+import com.example.servicecodes.CourseService;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
-import com.example.servicecodes.CourseService;
-import com.example.servicecodes.TeacherLoginService;
 
 public class TeacherDashboardController {
 
@@ -70,7 +69,6 @@ public class TeacherDashboardController {
 
     @FXML
     void handleTeacherLogout(ActionEvent event) {
-        // TODO: LOG OUT and take me to WelcomePage
 
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("welcome-page.fxml"));
