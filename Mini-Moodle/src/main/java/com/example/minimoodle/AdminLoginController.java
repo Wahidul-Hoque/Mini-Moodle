@@ -1,11 +1,18 @@
 package com.example.minimoodle;
 
+import com.example.servicecodes.AdminLoginService; // Importing the service class for teacher login validation
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage; 
 
 public class AdminLoginController {
 
@@ -23,11 +30,6 @@ public class AdminLoginController {
 
     @FXML
     private TextField adminLoginPasswordVisibleBox;
-
-    @FXML
-    void processAdminLogin(ActionEvent event) {
-
-    }
 
     private boolean showPassword = false;
 
@@ -50,7 +52,7 @@ public class AdminLoginController {
     }
 
     @FXML
-    public void processAdminLogin() {
+    public void processAdminLogin(ActionEvent event) {
         String enteredId = adminLoginIdBox.getText();
         String enteredPassword = adminLoginPasswordBox.getText();
 
@@ -59,7 +61,36 @@ public class AdminLoginController {
 
         // TODO: Implement the logic to handle admin login
         // We need to pull data from the database to verify the admin credentials
+        boolean isValidLogin = AdminLoginService.validateAdminLogin(enteredId, enteredPassword);
 
+        if (isValidLogin) {
+            // Proceed to the next screen or show a success message
+            showAlert("Login Successful", "Welcome, Admin " + enteredId, Alert.AlertType.INFORMATION);
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-dashboard.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) adminLoginButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Dashboard - " + enteredId);
+
+                TeacherDashboardController controller = loader.getController();
+
+            } catch (java.io.IOException | NullPointerException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Loading Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to load the login page: " + e.getMessage());
+                alert.showAndWait();
+
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        else {
+            // Show an error message if the credentials are invalid
+            showAlert("Login Failed", "Invalid username or password. Please try again.", Alert.AlertType.ERROR);
+        }
 
     }
 
@@ -69,6 +100,15 @@ public class AdminLoginController {
         adminLoginPasswordVisibleBox.setVisible(false);
 
         adminLoginPasswordVisibleBox.textProperty().bindBidirectional(adminLoginPasswordBox.textProperty());
+    }
+
+    
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }
