@@ -87,15 +87,16 @@ public class TeacherLoginController {
         
         // TODO: Implement the logic to handle teacher login
         // We need to pull data from the database to verify the admin credentials
-        boolean isValidLogin = TeacherLoginService.validateTeacherLogin(enteredId, enteredPassword);
+        int teacherId = TeacherLoginService.validateTeacherLogin(enteredId, enteredPassword);
 
-        if (isValidLogin) {
+        if (teacherId>0) {
             // Proceed to the next screen or show a success message
             showAlert("Login Successful", "Welcome, Teacher " + enteredId, Alert.AlertType.INFORMATION);
             try{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard.fxml"));
                 Parent root = loader.load();
-
+                TeacherDashboardController controller = loader.getController();
+                controller.initialize(teacherId);  // Pass the teacherId to the dashboard controller
                 Stage stage = (Stage) teacherLoginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Dashboard - " + enteredId);

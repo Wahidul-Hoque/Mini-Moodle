@@ -10,6 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import com.example.servicecodes.CourseService;
+import com.example.servicecodes.TeacherLoginService;
+
 public class TeacherDashboardController {
 
     @FXML
@@ -36,9 +39,28 @@ public class TeacherDashboardController {
     @FXML
     private Button teacherDashboardRefreshButton;
 
+    private int teacherId;
+    private String courseId;
+
+    // This method will be called after the teacher logs in
+    public void initialize(int teacherId) {
+        this.teacherId = teacherId;
+        loadCourseData();
+    }
+
+    private void loadCourseData(){
+        courseId = CourseService.getCourseIdForTeacher(teacherId);
+        String courseName = CourseService.getCourseName(courseId);
+        int enrolledStudentsCount= CourseService.getEnrolledStudents(courseId).size();
+
+        courseIdLabel.setText(courseId);
+        courseNameLabel.setText(courseName);
+        enrolledStudentsLabel.setText("Enrolled Students: " + enrolledStudentsCount);
+    }
     @FXML
     void handleTeacherDashboardRefresh(ActionEvent event) {
         // TODO: refresh the teacher dashboard
+        loadCourseData();
     }
 
     @FXML

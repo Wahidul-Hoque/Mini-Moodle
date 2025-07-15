@@ -49,6 +49,9 @@ CREATE TABLE course (
     teacher_id INTEGER,
     FOREIGN KEY (teacher_id) REFERENCES teacher(id)
 );
+-- Insert sample courses with a fixed teacher ID
+INSERT INTO course (title, description, teacher_id)
+VALUES ('CS101', 'Intro to Computer Science', 1);
 
 --enrollment
 CREATE TABLE enrollment (

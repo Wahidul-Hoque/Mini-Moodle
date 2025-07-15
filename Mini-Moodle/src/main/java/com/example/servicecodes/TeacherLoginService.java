@@ -10,9 +10,9 @@ import com.example.utils.DatabaseConnection;
 public class TeacherLoginService {
 
     // Method to validate teacher login credentials
-    public static boolean validateTeacherLogin(String enteredId, String enteredPassword) {
+    public static int validateTeacherLogin(String enteredId, String enteredPassword) {
         String sql = "SELECT * FROM teacher WHERE username = ? AND password = ?";  // Query to check if teacher exists
-
+        int teacherId = -1;
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -25,16 +25,16 @@ public class TeacherLoginService {
 
             // If a result is found, the teacher is registered and the credentials match
             if (rs.next()) {
+                teacherId = rs.getInt("id");
                 System.out.println("Login successful for teacher: " + enteredId);
-                return true;
             } else {
                 System.out.println("Invalid ID or password.");
-                return false;
             }
 
         } catch (SQLException e) {
             System.out.println("Error in validating teacher login: " + e.getMessage());
-            return false;
+
         }
+        return teacherId;
     }
 }
