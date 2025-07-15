@@ -1,12 +1,17 @@
 package com.example.minimoodle;
 
+import com.example.servicecodes.TeacherLoginService; // Importing the service class for teacher login validation
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import com.example.servicecodes.TeacherLoginService;
+import javafx.stage.Stage; 
 
 public class TeacherLoginController {
     @FXML
@@ -20,6 +25,9 @@ public class TeacherLoginController {
 
     @FXML
     private CheckBox teacherLoginPasswordCheckBox;
+
+    @FXML
+    private Button teacherLoginButton;
 
     private boolean showPassword = false;
 
@@ -61,6 +69,8 @@ public class TeacherLoginController {
             teacherLoginPasswordVisibleBox.setVisible(false);
             teacherLoginPasswordVisibleBox.setManaged(false);
         }
+
+        
     }
 
     @FXML
@@ -86,6 +96,25 @@ public class TeacherLoginController {
         else {
             // Show an error message if the credentials are invalid
             showAlert("Login Failed", "Invalid username or password. Please try again.", Alert.AlertType.ERROR);
+        }
+
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) teacherLoginButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Dashboard - " + enteredId);
+            
+        } catch (java.io.IOException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load the login page: " + e.getMessage());
+            alert.showAndWait();
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }
