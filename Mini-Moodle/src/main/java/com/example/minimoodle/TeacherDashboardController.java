@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 public class TeacherDashboardController {
 
     @FXML
+    private Label teacherIdLabel;
+
+    @FXML
     private Label courseIdLabel;
 
     @FXML
@@ -52,8 +55,10 @@ public class TeacherDashboardController {
         String courseName = CourseService.getCourseName(courseId);
         int enrolledStudentsCount= CourseService.getEnrolledStudents(courseId).size();
 
-        courseIdLabel.setText(courseId);
-        courseNameLabel.setText(courseName);
+        // TODO: get teacher name, not teacher ID. This is displaying teacher ID instead of name
+        teacherIdLabel.setText("Welcome, teacher " + teacherId); 
+        courseIdLabel.setText("Course ID: " + courseId);
+        courseNameLabel.setText("Course Name: " + courseName);
         enrolledStudentsLabel.setText("Enrolled Students: " + enrolledStudentsCount);
     }
     @FXML

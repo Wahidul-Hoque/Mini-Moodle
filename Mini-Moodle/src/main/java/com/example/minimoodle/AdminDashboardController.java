@@ -67,7 +67,7 @@ public class AdminDashboardController {
 
     @FXML
     void handleManageStudentsButton(ActionEvent event) {
-
+        
     }
 
     @FXML
