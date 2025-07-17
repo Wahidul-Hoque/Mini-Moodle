@@ -162,7 +162,7 @@ public class TeacherGradingPageController {
         // Replace with actual navigation logic, e.g., loading another FXML
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/teacher-dashboard.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));

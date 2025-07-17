@@ -86,6 +86,25 @@ public class TeacherDashboardController {
     @FXML
     void handleTeacherGrading(ActionEvent event) {
         // TODO: take me to the grading page
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-grading-page.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) teacherDashboardGradingButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Teacher Grading Page");
+
+        } catch (java.io.IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load the grading page: " + e.getMessage());
+            alert.showAndWait();
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -125,7 +144,7 @@ public class TeacherDashboardController {
 
     @FXML
     void handleTeacherRefresh(ActionEvent event) {
-    
+        loadCourseData();
     }
 
     @FXML
