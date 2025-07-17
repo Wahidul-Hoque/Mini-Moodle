@@ -73,6 +73,7 @@ public class TeacherGradingPageController {
         // Placeholder for SQL data retrieval
         try (Connection conn = getDatabaseConnection()) {
             String query = "SELECT id, name, grade FROM students WHERE course_id = ?"; // Example query
+            // TODO: Complete the SQL connection and query execution
             // Execute query and populate studentData
             // ResultSet rs = conn.prepareStatement(query).executeQuery();
             // while (rs.next()) {
@@ -89,7 +90,7 @@ public class TeacherGradingPageController {
 
     private Connection getDatabaseConnection() throws SQLException {
         // Placeholder for SQL connection
-        return null; // Replace with actual database connection logic
+        return null; // TODO: Replace with actual database connection logic
     }
 
     private void showGradeDialog(StudentInfo student) {
@@ -118,7 +119,7 @@ public class TeacherGradingPageController {
             if (isValidGrade(grade)) {
                 student.setGrade(grade);
                 studentTable.refresh();
-                // Placeholder for SQL update
+                // TODO: Complete the SQL update logic to save the grade
                 // try (Connection conn = getDatabaseConnection()) {
                 //     String query = "UPDATE students SET grade = ? WHERE id = ?";
                 //     PreparedStatement stmt = conn.prepareStatement(query);
@@ -156,9 +157,7 @@ public class TeacherGradingPageController {
 
     @FXML
     private void handleGoBack(ActionEvent event) {
-        // Placeholder for navigation to teacher dashboard
         System.out.println("Navigating to teacher dashboard...");
-        // Replace with actual navigation logic, e.g., loading another FXML
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/teacher-dashboard.fxml"));
@@ -172,26 +171,4 @@ public class TeacherGradingPageController {
         }
     }
 
-    // public static class Student {
-    //     private final SimpleStringProperty id;
-    //     private final SimpleStringProperty name;
-    //     private final SimpleStringProperty grade;
-    //     public Student(String id, String name, String grade) {
-    //         this.id = new SimpleStringProperty(id);
-    //         this.name = new SimpleStringProperty(name);
-    //         this.grade = new SimpleStringProperty(grade);
-    //     }
-    //     public String getId() {
-    //         return id.get();
-    //     }
-    //     public String getName() {
-    //         return name.get();
-    //     }
-    //     public String getGrade() {
-    //         return grade.get();
-    //     }
-    //     public void setGrade(String grade) {
-    //         this.grade.set(grade);
-    //     }
-    // }
 }
