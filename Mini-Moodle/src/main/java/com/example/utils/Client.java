@@ -46,7 +46,24 @@ public class Client {
             dataOut.writeUTF(username);
             dataOut.writeUTF(password);
 
-            // Get the response (adminId or -1)
+            return dataIn.readInt();  // Return the adminId (or -1 if invalid)
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return -1;  // Error case
+        }
+    }
+
+    public static int sendStudentLoginRequest(String username, String password) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("STUDENT_LOGIN");
+
+            // Send the username and password
+            dataOut.writeUTF(username);
+            dataOut.writeUTF(password);
+
             return dataIn.readInt();  // Return the adminId (or -1 if invalid)
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());

@@ -2,10 +2,9 @@ package com.example.utils;
 import java.io.*;
 import java.net.*;
 import java.sql.*;
-import com.example.servicecodes.CourseService;
 
-import com.example.servicecodes.AdminLoginService;
-import com.example.servicecodes.TeacherLoginService;
+import com.example.servicecodes.*;
+
 public class Server {
     private static final int PORT = 12345;
     public static void main(String[] args) {
@@ -57,6 +56,13 @@ class ClientHandler extends Thread {
 
                 boolean adminId = AdminLoginService.validateAdminLogin(username, password);
                 dataOut.writeBoolean(adminId);
+            }
+            else if ("STUDENT_LOGIN".equals(action)) {
+                String username = dataIn.readUTF();
+                String password = dataIn.readUTF();
+
+                int studentId = StudentLoginService.validateStudentLogin(username, password);
+                dataOut.writeInt(studentId);
             }
             else if( "GET_COURSE_ID".equals(action)) {
                 int teacherId = dataIn.readInt();
