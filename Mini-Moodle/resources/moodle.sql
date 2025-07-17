@@ -51,7 +51,7 @@ CREATE TABLE course (
 );
 -- Insert sample courses with a fixed teacher ID
 INSERT INTO course (title, description, teacher_id)
-VALUES ('CS101', 'Intro to Computer Science', 1);
+VALUES ('CS101', 'Intro to Computer Science', 2);
 
 --enrollment
 CREATE TABLE enrollment (

@@ -2,6 +2,9 @@ package com.example.utils;
 import java.io.*;
 import java.net.*;
 import java.sql.*;
+import com.example.servicecodes.CourseService;
+
+import com.example.servicecodes.AdminLoginService;
 import com.example.servicecodes.TeacherLoginService;
 public class Server {
     private static final int PORT = 12345;
@@ -48,6 +51,29 @@ class ClientHandler extends Thread {
                 // Send response back to client (teacherId or -1 if invalid)
                 dataOut.writeInt(teacherId);
             }
+            else if ("ADMIN_LOGIN".equals(action)) {
+                String username = dataIn.readUTF();
+                String password = dataIn.readUTF();
+
+                boolean adminId = AdminLoginService.validateAdminLogin(username, password);
+                dataOut.writeBoolean(adminId);
+            }
+            else if( "GET_COURSE_ID".equals(action)) {
+                int teacherId = dataIn.readInt();
+                String courseId = CourseService.getCourseIdForTeacher(teacherId);
+                dataOut.writeUTF(courseId);
+            }
+            else if( "GET_COURSE_NAME".equals(action)) {
+                String courseId = dataIn.readUTF();
+                String courseName= CourseService.getCourseName(courseId);
+                dataOut.writeUTF(courseName);
+            }
+            else if( "GET_TEACHER_NAME".equals(action)) {
+                int teacherId = dataIn.readInt();
+                String name = CourseService.getTeacherName(teacherId);
+                dataOut.writeUTF(name);
+            }
+
         } catch (Exception  e) {
             System.err.println("Error handling client request: " + e.getMessage());
         }

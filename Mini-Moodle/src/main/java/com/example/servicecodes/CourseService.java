@@ -10,6 +10,26 @@ import com.example.utils.DatabaseConnection;
 
 public class CourseService {
 
+    public static String getTeacherName(int teacherId) {
+        String teacherName = null;
+        String sql = "SELECT name FROM teacher WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, teacherId);
+
+            // Execute the query and get the result
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                teacherName = rs.getString("name");  // Retrieve teacher name
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getting teacher name: " + e.getMessage());
+        }
+        return teacherName;
+    }
     // Method to get the course ID assigned to a teacher
     public static String getCourseIdForTeacher(int teacherId) {
         String courseId = null;

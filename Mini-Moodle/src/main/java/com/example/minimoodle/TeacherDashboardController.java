@@ -2,6 +2,7 @@ package com.example.minimoodle;
 
 import com.example.servicecodes.CourseService;
 
+import com.example.utils.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,8 +58,9 @@ public class TeacherDashboardController {
     private MenuButton teacherSettingsButton;
 
     private int teacherId;
-    private String courseId;
-
+    public int getTeacherId() {
+        return teacherId;
+    }
     // This method will be called after the teacher logs in
     public void initialize(int teacherId) {
         this.teacherId = teacherId;
@@ -66,15 +68,15 @@ public class TeacherDashboardController {
     }
 
     private void loadCourseData() {
-        courseId = CourseService.getCourseIdForTeacher(teacherId);
-        String courseName = CourseService.getCourseName(courseId);
-        int enrolledStudentsCount = CourseService.getEnrolledStudents(courseId).size();
+        String courseId = Client.getCourseIdForTeacher(getTeacherId());
+        String courseName = Client.getCourseName(courseId);
+        String teacherName= Client.getTeacherName(getTeacherId());
 
         // TODO: get teacher name, not teacher ID. This is displaying teacher ID instead of name
-        teacherIdLabel.setText("Welcome, teacher " + teacherId);
+        teacherIdLabel.setText("Welcome, teacher " + teacherName);
         courseIdLabel.setText("Course ID: " + courseId);
         courseNameLabel.setText("Course Name: " + courseName);
-        enrolledStudentsLabel.setText("Enrolled Students: " + enrolledStudentsCount);
+
     }
 
     @FXML
