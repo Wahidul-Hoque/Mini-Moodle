@@ -1,7 +1,6 @@
 package com.example.minimoodle.teacherfunctionalities;
 
 // import CourseService.StudentInfo;
-
 import com.example.servicecodes.CourseService;
 
 import javafx.collections.FXCollections;
@@ -20,7 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 
 public class EnrolledStudentsPageController {
 
@@ -41,7 +39,6 @@ public class EnrolledStudentsPageController {
 
     @FXML
     private Button blockButton;
-
 
     @FXML
     private Button goBackButton;
@@ -72,18 +69,19 @@ public class EnrolledStudentsPageController {
     }
 
     private String currentCourseId;
+
     public void setCurrentCourseId(String courseId) {
         this.currentCourseId = courseId;
     }
 
     private void fetchEnrolledStudents() {
         // Temporary dummy data for demonstration
-        studentList.add(new StudentInfo("S001", "Alice", "alice@gmail.com" ,"A"));
+        studentList.add(new StudentInfo("S001", "Alice", "alice@gmail.com", "A"));
         studentList.add(new StudentInfo("S002", "Bob", "bob@example.com", "B+"));
         studentList.add(new StudentInfo("S003", "Charlie", "charlie@example.com", "C"));
 
-        var students = CourseService.getEnrolledStudents(currentCourseId); 
-    
+        var students = CourseService.getEnrolledStudents(currentCourseId);
+
         for (CourseService.StudentInfo studentInfo : students) {
             studentList.add(new StudentInfo(studentInfo));
         }
@@ -100,7 +98,8 @@ public class EnrolledStudentsPageController {
     @FXML
     public void handleGoBack(ActionEvent event) {
         // Handle going back to the previous page (e.g., Teacher Dashboard)
-        System.out.println("Going back to the teacher dashboard...");System.out.println("Navigating to teacher dashboard...");
+        System.out.println("Going back to the teacher dashboard...");
+        System.out.println("Navigating to teacher dashboard...");
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/teacher-dashboard.fxml"));
@@ -119,11 +118,11 @@ public class EnrolledStudentsPageController {
         // Handle blocking the selected student
         StudentInfo selectedStudent = studentTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
-            blockStudent(selectedStudent);
+            teacherBlockStudent(selectedStudent);
         }
     }
 
-    private void blockStudent(StudentInfo student) {
+    private void teacherBlockStudent(StudentInfo student) {
         // Placeholder logic for blocking a student
         // Remove student from the list and database if necessary
         showAlert("Blocked Student", "Student " + student.getName() + " has been blocked.");
@@ -140,6 +139,4 @@ public class EnrolledStudentsPageController {
         alert.showAndWait();
     }
 
-    
 }
-

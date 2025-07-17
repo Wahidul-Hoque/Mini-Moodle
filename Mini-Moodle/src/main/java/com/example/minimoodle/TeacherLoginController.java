@@ -1,7 +1,7 @@
 package com.example.minimoodle;
 
-import com.example.servicecodes.TeacherLoginService; // Importing the service class for teacher login validation
-import com.example.utils.PasswordUtils;
+import com.example.utils.Client; // Importing the service class for teacher login validation
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +12,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import com.example.utils.Client;
 
 public class TeacherLoginController {
     @FXML
@@ -86,8 +85,6 @@ public class TeacherLoginController {
         System.out.println("Entered Password: " + enteredPassword);
 
         
-        // TODO: Implement the logic to handle teacher login
-        // We need to pull data from the database to verify the admin credentials
         int teacherId = Client.sendLoginRequest(enteredId, enteredPassword);
 
         if (teacherId>0) {

@@ -53,9 +53,9 @@ public class AdminLoginController {
 
     @FXML
     /**
-     * 
+     * Handles the admin login button click event.
      * @param event
-     * process admin login here. we pull data from the database and check if the login credentials are correct or not
+     * @return void
      */
     public void processAdminLogin(ActionEvent event) {
         String enteredId = adminLoginIdBox.getText();
@@ -76,7 +76,7 @@ public class AdminLoginController {
                 stage.setScene(new Scene(root));
                 stage.setTitle("Dashboard - " + enteredId);
 
-                TeacherDashboardController controller = loader.getController();
+                AdminDashboardController controller = loader.getController();
 
             } catch (java.io.IOException | NullPointerException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
