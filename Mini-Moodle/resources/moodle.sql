@@ -11,32 +11,32 @@ DROP TABLE IF EXISTS student;
 CREATE TABLE admin (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
     email TEXT
 );
 
 -- Insert Admin
-INSERT INTO admin ( username, password,email) VALUES ('admin', 'admin123','admin@moodle.com');
+INSERT INTO admin ( username, password_hash,email) VALUES ('admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9','admin@moodle.com');
 
 -- Create Teacher table
 CREATE TABLE teacher (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
     name TEXT,
     email TEXT
 );
 
 -- Insert Teacher
-INSERT INTO teacher ( username, password,name,email)
-VALUES ('t_john', 'teach123','John Cen','john@moodle.com');
-INSERT INTO teacher ( username, password,name,email)
-VALUES ('wahid', 'wahid','Wahidul', 'wahid.com');
+INSERT INTO teacher ( username, password_hash,name,email)
+VALUES ('t_john', '63cb9c6fa2d65784658539a93ad47f2274a02ddff344537beb97bd399938ad22','John Cen','john@moodle.com');
+INSERT INTO teacher ( username, password_hash,name,email)
+VALUES ('wahid', '78d8b6e2ec5dde994a31b498f16595d609995935e1e69f99f56aa0c968b7e079','Wahidul', 'wahid.com');
 -- Create Student table
 CREATE TABLE student (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
     name TEXT,
     email TEXT
 );
