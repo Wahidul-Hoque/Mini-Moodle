@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 
 public class TeacherDashboardController {
 
-        @FXML
+    @FXML
     private Label courseIdLabel;
 
     @FXML
@@ -84,29 +84,6 @@ public class TeacherDashboardController {
     }
 
     @FXML
-    void handleTeacherGrading(ActionEvent event) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-grading-page.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) teacherDashboardGradingButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Teacher Grading Page");
-
-        } catch (java.io.IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Loading Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Failed to load the grading page: " + e.getMessage());
-            alert.showAndWait();
-
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     void handleTeacherLogout(ActionEvent event) {
 
         try {
@@ -137,9 +114,48 @@ public class TeacherDashboardController {
     @FXML
     void handleTeacherViewEnrolledStudentsTable(ActionEvent event) {
         // TODO: enrolled students page
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard-enrolled-students.fxml"));
+            Parent root = loader.load();
 
+            Stage stage = (Stage) teacherDashboardEnrolledStudentsButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Enrolled Students");
+
+        } catch (java.io.IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load the enrolled students page: " + e.getMessage());
+            alert.showAndWait();
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
+    @FXML
+    void handleTeacherGrading(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-grading-page.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) teacherDashboardGradingButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Teacher Grading Page");
+
+        } catch (java.io.IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load the grading page: " + e.getMessage());
+            alert.showAndWait();
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void handleTeacherRefresh(ActionEvent event) {

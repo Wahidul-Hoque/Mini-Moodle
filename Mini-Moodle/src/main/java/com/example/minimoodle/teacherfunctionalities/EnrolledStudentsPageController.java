@@ -115,7 +115,7 @@ public class EnrolledStudentsPageController {
     }
 
     @FXML
-    public void handleBlockStudent(ActionEvent event) {
+    public void handleTeacherBlockStudent(ActionEvent event) {
         // Handle blocking the selected student
         StudentInfo selectedStudent = studentTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
