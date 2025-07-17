@@ -1,7 +1,7 @@
 package com.example.minimoodle;
 
 import com.example.servicecodes.TeacherLoginService; // Importing the service class for teacher login validation
-
+import com.example.utils.PasswordUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
