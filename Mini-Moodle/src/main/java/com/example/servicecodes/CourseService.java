@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.example.utils.DatabaseConnection;
 
 public class CourseService {
@@ -44,6 +45,12 @@ public class CourseService {
 
     //(only approved students)
     public static List<StudentInfo> getEnrolledStudents(String courseId) {
+
+        if(courseId == null || courseId.isEmpty()) {
+            System.out.println("Course ID is null or empty.");
+            return new ArrayList<>();
+        }
+
         List<StudentInfo> enrolledStudents = new ArrayList<>();
         String sql = "SELECT s.id, s.name, s.email FROM student s INNER JOIN enrollment e ON s.id = e.student_id " +
                 "WHERE e.course_id = ? AND e.status = 'approved'";
@@ -72,10 +79,12 @@ public class CourseService {
         private int id;
         private String name;
         private String email;
+        private String grade;
         public StudentInfo(int id,String name,String email){
             this.id = id;
             this.name = name;
             this.email = email;
+            this.grade = null; // Default grade
         }
         public int getId() {
             return id;
@@ -85,6 +94,9 @@ public class CourseService {
         }
         public String getEmail() {
             return email;
+        }
+        public String getGrade() {
+            return grade;
         }
         @Override
         public String toString() {

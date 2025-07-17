@@ -85,7 +85,6 @@ public class TeacherDashboardController {
 
     @FXML
     void handleTeacherGrading(ActionEvent event) {
-        // TODO: take me to the grading page
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-grading-page.fxml"));
