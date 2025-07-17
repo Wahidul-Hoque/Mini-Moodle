@@ -3,7 +3,6 @@ package com.example.minimoodle.teacherfunctionalities;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,19 +27,19 @@ import javafx.stage.Stage;
 public class TeacherGradingPageController {
 
     @FXML
-    private TableView<Student> studentTable;
+    private TableView<StudentInfo> studentTable;
     @FXML
-    private TableColumn<Student, String> idColumn;
+    private TableColumn<StudentInfo, String> idColumn;
     @FXML
-    private TableColumn<Student, String> nameColumn;
+    private TableColumn<StudentInfo, String> nameColumn;
     @FXML
-    private TableColumn<Student, String> gradeColumn;
+    private TableColumn<StudentInfo, String> gradeColumn;
     @FXML
-    private TableColumn<Student, Void> actionColumn;
+    private TableColumn<StudentInfo, Void> actionColumn;
     @FXML
     private Button goBackButton;
 
-    private ObservableList<Student> studentData = FXCollections.observableArrayList();
+    private ObservableList<StudentInfo> studentData = FXCollections.observableArrayList();
     private static final String[] VALID_GRADES = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "D", "F"};
 
     @FXML
@@ -59,7 +58,7 @@ public class TeacherGradingPageController {
                     setGraphic(null);
                     return;
                 }
-                Student student = getTableView().getItems().get(getIndex());
+                StudentInfo student = getTableView().getItems().get(getIndex());
                 actionButton.setText(student.getGrade() == null ? "Add Grade" : "Update Grade");
                 actionButton.setOnAction(event -> showGradeDialog(student));
                 setGraphic(actionButton);
@@ -84,8 +83,8 @@ public class TeacherGradingPageController {
         }
 
         // Temporary dummy data for demonstration
-        studentData.add(new Student("S001", "John Doe", null));
-        studentData.add(new Student("S002", "Jane Smith", "B+"));
+        studentData.add(new StudentInfo("S001", "John Doe", "jd@java.com", null));
+        studentData.add(new StudentInfo("S002", "Jane Smith", "js@java.com", "B+"));
     }
 
     private Connection getDatabaseConnection() throws SQLException {
@@ -93,7 +92,7 @@ public class TeacherGradingPageController {
         return null; // Replace with actual database connection logic
     }
 
-    private void showGradeDialog(Student student) {
+    private void showGradeDialog(StudentInfo student) {
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle(student.getGrade() == null ? "Add Grade" : "Update Grade");
         dialog.setHeaderText("Enter grade for " + student.getName());
@@ -102,7 +101,7 @@ public class TeacherGradingPageController {
         dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
 
         TextField gradeField = new TextField(student.getGrade() != null ? student.getGrade() : "");
-        gradeField.setPromptText("Enter letter grade (e.g., A, B+, C)");
+        gradeField.setPromptText("Enter letter grade");
 
         VBox content = new VBox(10);
         content.getChildren().addAll(new Label("Grade:"), gradeField);
@@ -173,32 +172,26 @@ public class TeacherGradingPageController {
         }
     }
 
-    public static class Student {
-
-        private final SimpleStringProperty id;
-        private final SimpleStringProperty name;
-        private final SimpleStringProperty grade;
-
-        public Student(String id, String name, String grade) {
-            this.id = new SimpleStringProperty(id);
-            this.name = new SimpleStringProperty(name);
-            this.grade = new SimpleStringProperty(grade);
-        }
-
-        public String getId() {
-            return id.get();
-        }
-
-        public String getName() {
-            return name.get();
-        }
-
-        public String getGrade() {
-            return grade.get();
-        }
-
-        public void setGrade(String grade) {
-            this.grade.set(grade);
-        }
-    }
+    // public static class Student {
+    //     private final SimpleStringProperty id;
+    //     private final SimpleStringProperty name;
+    //     private final SimpleStringProperty grade;
+    //     public Student(String id, String name, String grade) {
+    //         this.id = new SimpleStringProperty(id);
+    //         this.name = new SimpleStringProperty(name);
+    //         this.grade = new SimpleStringProperty(grade);
+    //     }
+    //     public String getId() {
+    //         return id.get();
+    //     }
+    //     public String getName() {
+    //         return name.get();
+    //     }
+    //     public String getGrade() {
+    //         return grade.get();
+    //     }
+    //     public void setGrade(String grade) {
+    //         this.grade.set(grade);
+    //     }
+    // }
 }
