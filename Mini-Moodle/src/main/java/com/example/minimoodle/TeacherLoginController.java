@@ -11,7 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage; 
+import javafx.stage.Stage;
+import com.example.utils.Client;
 
 public class TeacherLoginController {
     @FXML
@@ -87,7 +88,7 @@ public class TeacherLoginController {
         
         // TODO: Implement the logic to handle teacher login
         // We need to pull data from the database to verify the admin credentials
-        int teacherId = TeacherLoginService.validateTeacherLogin(enteredId, enteredPassword);
+        int teacherId = Client.sendLoginRequest(enteredId, enteredPassword);
 
         if (teacherId>0) {
             // Proceed to the next screen or show a success message
