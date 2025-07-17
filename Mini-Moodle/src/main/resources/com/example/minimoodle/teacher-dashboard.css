@@ -1,0 +1,127 @@
+/* General Styles */
+* {
+    -fx-font-family: "System";
+}
+
+/* Background */
+.AnchorPane {
+    -fx-background-color: linear-gradient(to bottom right, #1e3a8a, #3b82f6);
+}
+
+/* VBox */
+.VBox {
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+/* Label Styles */
+.Label {
+    -fx-text-fill: #4b5563;
+    -fx-font-size: 18px;
+    -fx-alignment: center;
+}
+
+/* Welcome Label */
+#teacherIdLabel {
+    -fx-text-fill: #1e3a8a;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+/* Button Styles */
+.Button {
+    -fx-background-radius: 10;
+    -fx-padding: 12 25;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);
+}
+
+.Button:hover {
+    -fx-background-color: #2563eb;
+}
+
+/* Applicants Button */
+#teacherDashboardApplicantsButton {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+#teacherDashboardApplicantsButton:hover {
+    -fx-background-color: #2563eb;
+}
+
+/* Enrolled Students Button */
+#teacherDashboardEnrolledStudentsButton {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+#teacherDashboardEnrolledStudentsButton:hover {
+    -fx-background-color: #2563eb;
+}
+
+/* Grading Button */
+#teacherDashboardGradingButton {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+#teacherDashboardGradingButton:hover {
+    -fx-background-color: #2563eb;
+}
+
+/* Refresh Button */
+#teacherDashboardRefreshButton {
+    -fx-background-color: #34d399;
+    -fx-text-fill: white;
+}
+
+#teacherDashboardRefreshButton:hover {
+    -fx-background-color: #10b981;
+}
+
+/* Settings Menu */
+.MenuButton {
+    -fx-background-color: #6b7280;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-padding: 12 25;
+}
+
+.MenuButton:hover {
+    -fx-background-color: #4b5563;
+}
+
+/* Logout Button */
+#teacherDashboardLogoutButton {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+}
+
+#teacherDashboardLogoutButton:hover {
+    -fx-background-color: #dc2626;
+}
+
+/* Menu Item Styles */
+.MenuItem {
+    -fx-font-size: 16px;
+}
+
+/* AnchorPane styling for inner elements */
+.AnchorPane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5);
+}
+
+/* Add a hover effect for all buttons */
+.styleClass {
+    -fx-cursor: hand;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #1e3a8a;
+    -fx-text-fill: white;
+}

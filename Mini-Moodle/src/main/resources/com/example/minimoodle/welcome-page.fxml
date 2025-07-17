@@ -4,45 +4,83 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.WelcomePageController">
+<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.WelcomePageController">
    <children>
-      <VBox alignment="CENTER" layoutX="184.0" layoutY="110.0" spacing="10.0"
-         AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-         AnchorPane.topAnchor="20.0">
+      <VBox alignment="CENTER" layoutX="100.0" layoutY="50.0" spacing="15.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
-            <Label text="Welcome to Mini Moodle!" textAlignment="JUSTIFY">
+            <!-- Main Title with Flashy Effects -->
+            <Label text="Welcome to Mini Moodle!" textAlignment="CENTER">
                <font>
-                  <Font name="Trebuchet MS" size="24.0" />
+                  <Font name="Trebuchet MS" size="30.0" />
                </font>
+               <effect>
+                  <DropShadow color="#4B9CD3" offsetX="2.0" offsetY="2.0" radius="7.5" spread="0.6" />
+               </effect>
+               <style>
+                  -fx-text-fill: linear-gradient(to right, #FF416C, #FF4B2B);
+               </style>
             </Label>
-            <Label text="Select Your Role...">
+            
+            <!-- Subheading -->
+            <Label text="Select Your Role..." textAlignment="CENTER">
                <font>
-                  <Font name="JetBrains Mono Regular" size="18.0" />
+                  <Font name="JetBrains Mono" size="20.0" />
                </font>
+               <style>
+                  -fx-text-fill: #5C5C5C;
+               </style>
             </Label>
-            <RadioButton fx:id="welcomePageAdminRadioButton" mnemonicParsing="false"
-               prefHeight="19.0" prefWidth="78.0" text="Admin">
+            
+            <!-- Admin Radio Button -->
+            <RadioButton fx:id="welcomePageAdminRadioButton" mnemonicParsing="false" text="Admin">
                <font>
-                  <Font name="Trebuchet MS" size="14.0" />
+                  <Font name="Trebuchet MS" size="16.0" />
                </font>
+               <style>
+                  -fx-text-fill: #5C5C5C;
+                  -fx-background-color: #F8F8F8;
+                  -fx-border-radius: 5;
+                  -fx-border-color: #BDBDBD;
+                  -fx-padding: 10px;
+               </style>
                <toggleGroup>
                   <ToggleGroup fx:id="roleGroup" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="welcomePageTeacherRadioButton" mnemonicParsing="false"
-               selected="true" text="Teacher" toggleGroup="$roleGroup">
+            
+            <!-- Teacher Radio Button -->
+            <RadioButton fx:id="welcomePageTeacherRadioButton" mnemonicParsing="false" selected="true" text="Teacher" toggleGroup="$roleGroup">
                <font>
-                  <Font name="Trebuchet MS" size="14.0" />
+                  <Font name="Trebuchet MS" size="16.0" />
                </font>
+               <style>
+                  -fx-text-fill: #5C5C5C;
+                  -fx-background-color: #F8F8F8;
+                  -fx-border-radius: 5;
+                  -fx-border-color: #BDBDBD;
+                  -fx-padding: 10px;
+               </style>
             </RadioButton>
-            <Button fx:id="welcomePageContinueButton" mnemonicParsing="false"
-               onAction="#handleWelcomePageContinueButton" text="Continue to Login" />
+            
+            <!-- Continue Button -->
+            <Button fx:id="welcomePageContinueButton" mnemonicParsing="false" onAction="#handleWelcomePageContinueButton" text="Continue to Login">
+               <font>
+                  <Font name="Trebuchet MS" size="16.0" />
+               </font>
+               <style>
+                  -fx-background-color: linear-gradient(to right, #FF416C, #FF4B2B);
+                  -fx-text-fill: white;
+                  -fx-font-weight: bold;
+                  -fx-border-radius: 25;
+                  -fx-padding: 10px 20px;
+                  -fx-effect: dropshadow(gaussian, #333333, 10, 0.5, 0, 2);
+               </style>
+            </Button>
          </children>
       </VBox>
    </children>

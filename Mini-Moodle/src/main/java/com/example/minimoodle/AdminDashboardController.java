@@ -62,7 +62,9 @@ public class AdminDashboardController {
 
     @FXML
     void handleManageCoursesButton(ActionEvent event) {
-
+        // TODO: redirect to course management page
+        // We add a new course and set teachers there
+        
     }
 
     @FXML

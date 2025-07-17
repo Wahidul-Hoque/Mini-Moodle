@@ -8,6 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -20,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class TeacherGradingPageController {
 
@@ -132,9 +136,13 @@ public class TeacherGradingPageController {
     }
 
     private boolean isValidGrade(String grade) {
-        if (grade == null || grade.isEmpty()) return false;
+        if (grade == null || grade.isEmpty()) {
+            return false;
+        }
         for (String validGrade : VALID_GRADES) {
-            if (validGrade.equals(grade)) return true;
+            if (validGrade.equals(grade)) {
+                return true;
+            }
         }
         return false;
     }
@@ -152,9 +160,21 @@ public class TeacherGradingPageController {
         // Placeholder for navigation to teacher dashboard
         System.out.println("Navigating to teacher dashboard...");
         // Replace with actual navigation logic, e.g., loading another FXML
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) goBackButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Teacher Dashboard");
+        } catch (java.io.IOException | NullPointerException e) {
+            showAlert("Loading Error", "Failed to load the teacher dashboard: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static class Student {
+
         private final SimpleStringProperty id;
         private final SimpleStringProperty name;
         private final SimpleStringProperty grade;
