@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="580.0" prefWidth="640.0" style="-fx-background-color: linear-gradient(to bottom right, #FF6F61, #FFD54F);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.StudentDashboardController">
+   <children>
+      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <AnchorPane style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+               <children>
+                  <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                     <children>
+                        <!-- Welcome Label -->
+                        <Label fx:id="studentDashboardLabel" style="-fx-text-fill: #d84315; -fx-font-weight: bold;" text="Welcome, Student" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Label>
+
+                        <!-- System Overview -->
+                        <Label fx:id="enrolledCoursesLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Enrolled Courses: [Count]" textAlignment="CENTER">
+                           <font>
+                              <Font name="System" size="18.0" />
+                           </font>
+                        </Label>
+                        <!-- <Label fx:id="completedCoursesLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Completed Courses: [Count]" textAlignment="CENTER">
+                           <font>
+                              <Font name="System" size="18.0" />
+                           </font>
+                        </Label> -->
+                        <!-- <Label fx:id="studentGradeLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Current Grade: [Grade]" textAlignment="CENTER">
+                           <font>
+                              <Font name="System" size="18.0" />
+                           </font>
+                        </Label> -->
+
+                        <!-- Buttons Section -->
+                        <VBox alignment="CENTER" spacing="10.0">
+                           <Button fx:id="viewCoursesButton" mnemonicParsing="false" onAction="#handleViewCoursesButton" style="-fx-background-color: #FF6F61; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="View Courses">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+
+                           <Button fx:id="viewGradesButton" mnemonicParsing="false" onAction="#handleViewGradesButton" style="-fx-background-color: #FFD54F; -fx-text-fill: #d84315; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="View Grades">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+
+                           <Button fx:id="studentRefreshButton" mnemonicParsing="false" onAction="#handleStudentRefresh" style="-fx-background-color: #ffb74d; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Refresh">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+
+                           <Button fx:id="studentLogoutButton" mnemonicParsing="false" onAction="#handleStudentLogout" style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Logout">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
