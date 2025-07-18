@@ -38,7 +38,7 @@ public class EnrolledStudentsPageController {
     private Label studentEmailLabel;
 
     @FXML
-    private Button blockButton;
+    private Button teacherBlockButton;
 
     @FXML
     private Button goBackButton;
@@ -54,6 +54,7 @@ public class EnrolledStudentsPageController {
         // Fetch enrolled students (Placeholder for actual data fetching)
         fetchEnrolledStudents();
         studentTable.setItems(studentList);
+        teacherBlockButton.setDisable(true);
 
         // Set up event handler for when a row is clicked
         studentTable.setRowFactory(tv -> {
@@ -92,14 +93,13 @@ public class EnrolledStudentsPageController {
         // Display student name and email
         studentNameLabel.setText("Name: " + student.getName());
         studentEmailLabel.setText("Email: " + student.getEmail());
-        blockButton.setDisable(false); // Enable the "Block Student" button
+        teacherBlockButton.setDisable(false); // Enable the "Block Student" button
     }
 
     @FXML
     public void handleGoBack(ActionEvent event) {
         // Handle going back to the previous page (e.g., Teacher Dashboard)
         System.out.println("Going back to the teacher dashboard...");
-        System.out.println("Navigating to teacher dashboard...");
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/teacher-dashboard.fxml"));
@@ -127,6 +127,9 @@ public class EnrolledStudentsPageController {
         // Remove student from the list and database if necessary
         showAlert("Blocked Student", "Student " + student.getName() + " has been blocked.");
         studentList.remove(student);
+        studentNameLabel.setText("Name: ");
+        studentEmailLabel.setText("Email: ");
+        teacherBlockButton.setDisable(true);
 
         // TODO: Update the database to reflect the blocking action
     }

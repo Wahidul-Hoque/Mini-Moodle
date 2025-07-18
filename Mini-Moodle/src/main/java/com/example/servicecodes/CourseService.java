@@ -63,7 +63,7 @@ public class CourseService {
         return courseName;
     }
 
-    //(only approved students)
+    // (only approved students)
     public static List<StudentInfo> getEnrolledStudents(String courseId) {
 
         if(courseId == null || courseId.isEmpty()) {

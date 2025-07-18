@@ -1,8 +1,7 @@
 package com.example.minimoodle;
 
-import com.example.servicecodes.CourseService;
-
 import com.example.utils.Client;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -110,12 +109,28 @@ public class TeacherDashboardController {
 
     @FXML
     void handleTeacherSeeApplyingStudents(ActionEvent event) {
-        // TODO: take to applicants page
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard-applying-students.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) teacherDashboardApplicantsButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Teacher Applicants Page");
+
+        } catch (java.io.IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load the applicants page: " + e.getMessage());
+            alert.showAndWait();
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void handleTeacherViewEnrolledStudentsTable(ActionEvent event) {
-        // TODO: enrolled students page
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard-enrolled-students.fxml"));
             Parent root = loader.load();

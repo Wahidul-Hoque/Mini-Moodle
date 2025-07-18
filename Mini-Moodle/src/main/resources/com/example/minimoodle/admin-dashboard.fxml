@@ -3,54 +3,80 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="640.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.AdminDashboardController">
+<AnchorPane prefHeight="580.0" prefWidth="640.0" style="-fx-background-color: linear-gradient(to bottom right, #4CAF50, #81C784);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.AdminDashboardController">
    <children>
-      <!-- Title -->
-      <Label layoutX="172.0" layoutY="38.0" text="Admin Dashboard" textAlignment="JUSTIFY">
-         <font>
-            <Font name="Trebuchet MS" size="36.0" />
-         </font>
-      </Label>
+      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <AnchorPane style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+               <children>
+                  <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                     <children>
+                        <!-- Welcome Label -->
+                        <Label fx:id="adminDashboardLabel" style="-fx-text-fill: #1e3a8a; -fx-font-weight: bold;" text="Welcome, Admin" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Label>
 
-      <!-- System Overview -->
-      <Label fx:id="totalTeachersLabel" layoutX="100.0" layoutY="120.0" text="Total Teachers: [Count]" textAlignment="JUSTIFY">
-         <font>
-            <Font name="Trebuchet MS" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="totalCoursesLabel" layoutX="100.0" layoutY="150.0" text="Total Courses: [Count]" textAlignment="JUSTIFY">
-         <font>
-            <Font name="Trebuchet MS" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="totalStudentsLabel" layoutX="100.0" layoutY="180.0" text="Total Students: [Count]" textAlignment="JUSTIFY">
-         <font>
-            <Font name="Trebuchet MS" size="18.0" />
-         </font>
-      </Label>
+                        <!-- System Overview -->
+                        <Label fx:id="totalTeachersLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Total Teachers: [Count]" textAlignment="CENTER">
+                           <font>
+                              <Font name="System" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="totalCoursesLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Total Courses: [Count]" textAlignment="CENTER">
+                           <font>
+                              <Font name="System" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="totalStudentsLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Total Students: [Count]" textAlignment="CENTER">
+                           <font>
+                              <Font name="System" size="18.0" />
+                           </font>
+                        </Label>
 
-      <!-- Buttons -->
-      <Button fx:id="manageTeachersButton" layoutX="100.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleManageTeachersButton" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;" text="Manage Teachers" textAlignment="JUSTIFY">
-         <font>
-            <Font name="Trebuchet MS" size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="manageCoursesButton" layoutX="280.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleManageCoursesButton" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5;" text="Manage Courses" textAlignment="JUSTIFY">
-         <font>
-            <Font name="Trebuchet MS" size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="manageStudentsButton" layoutX="100.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleManageStudentsButton" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-background-radius: 5;" text="Manage Students" textAlignment="JUSTIFY">
-         <font>
-            <Font name="Trebuchet MS" size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="adminLogoutButton" layoutX="541.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleAdminLogout" prefHeight="32.0" prefWidth="69.0" style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-background-radius: 5;" text="Logout" textAlignment="JUSTIFY">
-         <font>
-            <Font name="Trebuchet MS" size="16.0" />
-         </font>
-      </Button>
+                        <!-- Buttons Section -->
+                        <VBox alignment="CENTER" spacing="10.0">
+                           <Button fx:id="manageTeachersButton" mnemonicParsing="false" onAction="#handleManageTeachersButton" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Manage Teachers">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+
+                           <Button fx:id="manageCoursesButton" mnemonicParsing="false" onAction="#handleManageCoursesButton" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Manage Courses">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+
+                           <Button fx:id="manageStudentsButton" mnemonicParsing="false" onAction="#handleManageStudentsButton" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Manage Students">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+
+                           <!-- Refresh Button -->
+                           <Button fx:id="adminRefreshButton" mnemonicParsing="false" onAction="#handleAdminRefresh" style="-fx-background-color: #34d399; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Refresh">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+
+                           <!-- Logout Button -->
+                           <Button fx:id="adminLogoutButton" mnemonicParsing="false" onAction="#handleAdminLogout" style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Logout">
+                              <font>
+                                 <Font name="System" size="16.0" />
+                              </font>
+                           </Button>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

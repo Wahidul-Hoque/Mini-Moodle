@@ -78,8 +78,7 @@
                   -fx-font-weight: bold;
                   -fx-border-radius: 25;
                   -fx-padding: 10px 20px;
-                  -fx-effect: dropshadow(gaussian, #333333, 10, 0.5, 0, 2);
-               </style>
+                  -fx-effect: dropshadow(gaussian, #333333, 10, 0.5, 0, 2);-fx-cursor: hand;</style>
             </Button>
          </children>
       </VBox>
