@@ -1,5 +1,6 @@
 package com.example.minimoodle;
 
+import com.example.utils.Client;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -56,7 +57,10 @@ public class StudentLoginController {
         enteredId = studentLoginIdBox.getText();
         enteredPassword = showPassword ? studentLoginPasswordVisibleBox.getText() : studentLoginPasswordBox.getText();
 
-        
+        int studentId = Client.sendStudentLoginRequest(enteredId, enteredPassword);
+        if(studentId >0) {
+            //valid student.Kanon: now do the same work as teacher login fxml
+        }
 
     }
 
