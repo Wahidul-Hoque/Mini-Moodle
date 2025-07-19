@@ -30,7 +30,7 @@ public class PasswordUtils {
     }
     public static void main(String[] args) {
         // Test hashing of passwords
-        String teacherPassword = "wahid";
+        String teacherPassword = "4";
 
         System.out.println("Teacher Hashed Password: " + hashPassword(teacherPassword));
     }

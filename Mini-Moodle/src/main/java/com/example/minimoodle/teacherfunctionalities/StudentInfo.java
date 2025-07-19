@@ -23,7 +23,7 @@ public class StudentInfo {
         this.grade = new SimpleStringProperty(grade);
     }
 
-    public StudentInfo(CourseService.StudentInfo studentInfo) {
+    public StudentInfo(StudentInfo studentInfo) {
         this.id = new SimpleStringProperty(Integer.toString(studentInfo.getId()));
         this.name = new SimpleStringProperty(studentInfo.getName());
         this.email = new SimpleStringProperty(studentInfo.getEmail());

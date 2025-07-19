@@ -64,65 +64,40 @@ public class CourseService {
     }
 
     // (only approved students)
-    public static List<StudentInfo> getEnrolledStudents(String courseId) {
-
-        if(courseId == null || courseId.isEmpty()) {
-            System.out.println("Course ID is null or empty.");
-            return new ArrayList<>();
-        }
-
-        List<StudentInfo> enrolledStudents = new ArrayList<>();
-        String sql = "SELECT s.id, s.name, s.email FROM student s INNER JOIN enrollment e ON s.id = e.student_id " +
+    public static List<StudentInfo> getEnrolledStudents(int courseId) {
+        List<StudentInfo> approvedStudents = new ArrayList<>();
+        String sql = "SELECT s.id, s.name, s.email, e.grade " +
+                "FROM student s " +
+                "INNER JOIN enrollment e ON s.id = e.student_id " +
                 "WHERE e.course_id = ? AND e.status = 'approved'";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, courseId);
+            stmt.setInt(1, courseId);  // Set the courseId parameter in the query
             ResultSet rs = stmt.executeQuery();
+
+            // Process the results
             while (rs.next()) {
                 int studentId = rs.getInt("id");
                 String studentName = rs.getString("name");
                 String studentEmail = rs.getString("email");
-                StudentInfo student = new StudentInfo(studentId, studentName, studentEmail);
-                enrolledStudents.add(student);
+                String studentGrade = rs.getString("grade");
+
+                // Create a StudentInfo object for each approved student
+                StudentInfo student = new StudentInfo(studentId, studentName, studentEmail, studentGrade);
+                approvedStudents.add(student);
             }
 
         } catch (SQLException e) {
-            System.out.println("Error in getting enrolled students: " + e.getMessage());
+            System.out.println("Error in getting approved students: " + e.getMessage());
         }
-        return enrolledStudents;
+
+        return approvedStudents;
     }
 
     // StudentInfo class to hold the student details
-    public static class StudentInfo{
-        private int id;
-        private String name;
-        private String email;
-        private String grade;
-        public StudentInfo(int id,String name,String email){
-            this.id = id;
-            this.name = name;
-            this.email = email;
-            this.grade = null; // Default grade
-        }
-        public int getId() {
-            return id;
-        }
-        public String getName() {
-            return name;
-        }
-        public String getEmail() {
-            return email;
-        }
-        public String getGrade() {
-            return grade;
-        }
-        @Override
-        public String toString() {
-            return "ID: " + id + ", Name: " + name + ", Email: " + email;
-        }
-    }
+
 
 
 }

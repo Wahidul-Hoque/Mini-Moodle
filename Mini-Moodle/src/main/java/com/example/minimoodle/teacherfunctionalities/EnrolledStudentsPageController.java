@@ -1,8 +1,9 @@
 package com.example.minimoodle.teacherfunctionalities;
 
 // import CourseService.StudentInfo;
-import com.example.servicecodes.CourseService;
+import com.example.servicecodes.*;
 
+import com.example.utils.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -81,9 +82,9 @@ public class EnrolledStudentsPageController {
         studentList.add(new StudentInfo("S002", "Bob", "bob@example.com", "B+"));
         studentList.add(new StudentInfo("S003", "Charlie", "charlie@example.com", "C"));
 
-        var students = CourseService.getEnrolledStudents(currentCourseId);
+        var students = Client.getEnrolledStudents(currentCourseId);
 
-        for (CourseService.StudentInfo studentInfo : students) {
+        for (StudentInfo studentInfo : students) {
             studentList.add(new StudentInfo(studentInfo));
         }
         // return students;

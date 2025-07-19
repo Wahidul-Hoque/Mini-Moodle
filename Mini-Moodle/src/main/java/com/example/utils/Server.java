@@ -2,7 +2,7 @@ package com.example.utils;
 import java.io.*;
 import java.net.*;
 import java.sql.*;
-
+import java.util.*;
 import com.example.servicecodes.*;
 
 public class Server {
@@ -78,6 +78,17 @@ class ClientHandler extends Thread {
                 int teacherId = dataIn.readInt();
                 String name = CourseService.getTeacherName(teacherId);
                 dataOut.writeUTF(name);
+            }
+            else if ("GET_APPROVED_STUDENTS".equals(action)){
+                String courseId = dataIn.readUTF();
+                List<StudentInfo> students = CourseService.getEnrolledStudents(Integer.parseInt(courseId));
+                dataOut.writeInt(students.size());
+                for (StudentInfo student : students) {
+                    dataOut.writeInt(student.getId());
+                    dataOut.writeUTF(student.getName());
+                    dataOut.writeUTF(student.getEmail());
+                    dataOut.writeUTF(student.getGrade());
+                }
             }
 
         } catch (Exception  e) {
