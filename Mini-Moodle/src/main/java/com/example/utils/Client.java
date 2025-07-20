@@ -4,9 +4,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.example.servicecodes.*;
+import com.example.servicecodes.CourseInfo;
+import com.example.servicecodes.StudentInfo;
 
 public class Client {
     private static final String SERVER_ADDRESS = "127.0.0.1";  // Server address (localhost for now)
@@ -184,11 +186,33 @@ public class Client {
         return students;
     }
 
+    public static int getEnrolledStudentCount(String courseId) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            // Send the action type to get approved students
+            dataOut.writeUTF("GET_APPROVED_STUDENT_COUNT");
+
+            // Send the courseId to the server
+            dataOut.writeUTF(courseId);
+
+            // Receive the count of enrolled students
+            return dataIn.readInt();
+
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return -1;  // Error case
+        }
+    }
+
     public static List<StudentInfo> getPendingStudents(String courseId) {
         List<StudentInfo> students = new ArrayList<>();
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            System.out.println("chilam");
 
             // Send the action type to get approved students
             dataOut.writeUTF("GET_PENDING_STUDENTS");

@@ -53,13 +53,13 @@ public class ApplyingStudentsPageController {
         this.teacherId = teacherId;
     }
 
-    private ObservableList<Student> requestList = FXCollections.observableArrayList();
-
     private String courseId; 
 
     public void setCurrentCourseId(String courseId) {
         this.courseId = courseId;
     }
+
+    private ObservableList<Student> requestList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize(int teacherId, String courseId) {
@@ -93,12 +93,13 @@ public class ApplyingStudentsPageController {
     }
 
     private void fetchApplyingStudents() {
-        requestList.add(new Student("1", "John Doe", "johndoe@example.com", null));
-        requestList.add(new Student("2", "Jane Smith", "janesmith@example.com", null));
+        // requestList.add(new Student("1", "John Doe", "johndoe@example.com", null));
+        // requestList.add(new Student("2", "Jane Smith", "janesmith@example.com", null));
 
-        System.out.println(courseId);        
+        // System.out.println(courseId);        
         var students = Client.getPendingStudents(courseId);
-        for(StudentInfo studentInfo : students) {
+        System.out.println(students);
+        for (StudentInfo studentInfo : students) {
             requestList.add(new Student(studentInfo));
         }
     }

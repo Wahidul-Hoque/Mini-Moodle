@@ -120,6 +120,22 @@ public class CourseService {
         return approvedStudents;
     }
 
+    public static int getEnrolledStudentCount(int courseId) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM enrollment WHERE course_id = ? AND status = 'approved'";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, courseId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);  // Retrieve the count of approved students
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in getting enrolled student count: " + e.getMessage());
+        }
+        return count;
+    }
+
     public static List<StudentInfo> getPendingStudents(int courseId) {
         List<StudentInfo> pendingStudents = new ArrayList<>();
         String sql = "SELECT s.id, s.name, s.email, e.grade " +

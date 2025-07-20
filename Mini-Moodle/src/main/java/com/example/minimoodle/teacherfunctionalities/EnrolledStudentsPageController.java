@@ -97,12 +97,11 @@ public class EnrolledStudentsPageController {
         // Display student name and email
         studentNameLabel.setText("Name: " + student.getName());
         studentEmailLabel.setText("Email: " + student.getEmail());
-        teacherBlockButton.setDisable(false); // Enable the "Block Student" button
+        teacherBlockButton.setDisable(false); 
     }
 
     @FXML
     public void handleGoBack(ActionEvent event) {
-        // Handle going back to the previous page (e.g., Teacher Dashboard)
         System.out.println("Going back to the teacher dashboard...");
 
         try {

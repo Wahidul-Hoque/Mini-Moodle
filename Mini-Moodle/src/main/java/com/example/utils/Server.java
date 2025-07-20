@@ -90,6 +90,11 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(student.getGrade());
                 }
             }
+            else if ("GET_APPROVED_STUDENT_COUNT".equals(action)){
+                String courseId = dataIn.readUTF();
+                int count = CourseService.getEnrolledStudentCount(Integer.parseInt(courseId));
+                dataOut.writeInt(count);
+            }
             else if ("GET_PENDING_STUDENTS".equals(action)){
                 String courseId = dataIn.readUTF();
                 List<StudentInfo> students = CourseService.getPendingStudents(Integer.parseInt(courseId));

@@ -82,12 +82,14 @@ public class TeacherDashboardController {
         String courseId = Client.getCourseIdForTeacher(getTeacherId());
         String courseName = Client.getCourseName(courseId);
         String teacherName = Client.getTeacherName(getTeacherId());
+        int studentCount = Client.getEnrolledStudentCount(courseId);
 
         teacherCourseID = courseId;
 
         teacherIdLabel.setText("Welcome, teacher " + teacherName);
         courseIdLabel.setText("Course ID: " + courseId);
         courseNameLabel.setText("Course Name: " + courseName);
+        enrolledStudentsLabel.setText("Enrolled Students: " + studentCount);
 
     }
 
@@ -155,8 +157,7 @@ public class TeacherDashboardController {
             stage.setTitle("Enrolled Students");
             
             EnrolledStudentsPageController controller = loader.getController();
-            controller.setTeacherId(teacherId);
-            controller.setCurrentCourseId(teacherCourseID);
+            controller.initialize(teacherId, teacherCourseID);
 
         } catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
