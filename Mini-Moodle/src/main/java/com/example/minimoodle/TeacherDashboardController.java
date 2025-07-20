@@ -1,5 +1,8 @@
 package com.example.minimoodle;
 
+import com.example.minimoodle.teacherfunctionalities.ApplyingStudentsPageController;
+import com.example.minimoodle.teacherfunctionalities.EnrolledStudentsPageController;
+import com.example.minimoodle.teacherfunctionalities.TeacherGradingPageController;
 import com.example.utils.Client;
 
 import javafx.event.ActionEvent;
@@ -57,14 +60,17 @@ public class TeacherDashboardController {
     private MenuButton teacherSettingsButton;
 
     private int teacherId;
-    public int teacherIdCopy;
     public int getTeacherId() {
         return teacherId;
     }
 
+    public int setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+        return this.teacherId;
+    }
+
     public void initialize(int teacherId) {
         this.teacherId = teacherId;
-        this.teacherIdCopy = teacherId;
         loadCourseData();
     }
 
@@ -117,6 +123,9 @@ public class TeacherDashboardController {
             Stage stage = (Stage) teacherDashboardApplicantsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Applicants Page");
+            
+            ApplyingStudentsPageController controller = loader.getController();
+            controller.setTeacherId(teacherId); 
 
         } catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -139,6 +148,9 @@ public class TeacherDashboardController {
             Stage stage = (Stage) teacherDashboardEnrolledStudentsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Enrolled Students");
+            
+            EnrolledStudentsPageController controller = loader.getController();
+            controller.setTeacherId(teacherId); 
 
         } catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -162,6 +174,9 @@ public class TeacherDashboardController {
             Stage stage = (Stage) teacherDashboardGradingButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Grading Page");
+            
+            TeacherGradingPageController controller = loader.getController();
+            controller.setTeacherId(teacherId); 
 
         } catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
