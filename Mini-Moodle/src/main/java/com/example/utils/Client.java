@@ -216,6 +216,38 @@ public class Client {
         return students;
     }
 
+    public static List<CourseInfo> getEnrolledCoursesForStudent(int studentId) {
+        List<CourseInfo> enrolledCourses = new ArrayList<>();
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            // Send the action (GET_ENROLLED_COURSES)
+            dataOut.writeUTF("GET_ENROLLED_COURSES");
+
+            // Send the student ID
+            dataOut.writeInt(studentId);
+
+            // Get the number of courses
+            int courseCount = dataIn.readInt();
+
+            // Read the course details (courseId, courseTitle, grade) from the server
+            for (int i = 0; i < courseCount; i++) {
+                int courseId = dataIn.readInt();
+                String courseTitle = dataIn.readUTF();
+                String grade = dataIn.readUTF();
+
+                // Create a CourseInfo object for each course
+                enrolledCourses.add(new CourseInfo(courseId, courseTitle, grade));
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+        }
+
+        return enrolledCourses;
+    }
+
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
     }

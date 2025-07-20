@@ -106,15 +106,15 @@ class ClientHandler extends Thread {
                 String studentName = CourseService.getStudentName(studentId);
                 dataOut.writeUTF(studentName);
             }
-            else if("GET_ENROLLED_COURSES_FOR_STUDENT".equals(action)) {
-                // Wahid: make sure this is implemented correctly
-                
-                // int studentId = dataIn.readInt();
-                // List<String> enrolledCourses = CourseService.getEnrolledCoursesForStudent(studentId);
-                // dataOut.writeInt(enrolledCourses.size());
-                // for (String course : enrolledCourses) {
-                //     dataOut.writeUTF(course);
-                // }
+            else if("GET_ENROLLED_COURSES".equals(action)) {
+                int studentId = dataIn.readInt();
+                List<CourseInfo> Courses = studentService.getEnrolledCoursesForStudent(studentId);
+                dataOut.writeInt(Courses.size());
+                for (CourseInfo course : Courses) {
+                    dataOut.writeInt(course.getCourseId());
+                    dataOut.writeUTF(course.getCourseTitle());
+                    dataOut.writeUTF(course.getGrade());
+                }
             }
 
         } catch (Exception  e) {
