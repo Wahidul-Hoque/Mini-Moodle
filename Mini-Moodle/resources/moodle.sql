@@ -33,7 +33,7 @@ INSERT INTO teacher ( username, password_hash,name,email)
 VALUES ('wahid', '78d8b6e2ec5dde994a31b498f16595d609995935e1e69f99f56aa0c968b7e079','Wahidul', 'wahid.com'),
        ('teacher1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 'teacher1','teacher1@gmail.com'),
        ('teacher2', 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35', 'teacher2','teacher2@gmail.com'),
-       ('teacher3', '4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce', 'teacher3','teacher3@gmail.com'),
+       ('teacher3', '4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce', 'teacher3','teacher3@gmail.com');
 
 -- Create Student table
 CREATE TABLE student (
