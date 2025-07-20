@@ -47,7 +47,23 @@ INSERT INTO student ( username, password_hash,name,email)
 VALUES ('student1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b','student1','student1@example.com'),
        ('student2', 'd4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35','student2','student2@example.com'),
        ('student3', '4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce','student3','student3@example.com'),
-       ('student4', '4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a','student4','student4@example.com');
+       ('student4', '4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a','student4','student4@example.com'),
+       ('student5', 'ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d','student5','student5@example.com'),
+       ('student6', 'e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683','student6','student6@example.com'),
+       ('student7', '7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451','student7','student7@example.com'),
+       ('student8', '2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3','student8','student8@example.com'),
+       ('student9', '19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7','student9','student9@example.com'),
+       ('student10', '4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5','student10','student10@example.com'),
+       ('student11', '4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8','student11','student11@example.com'),
+       ('student12', '6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918','student12','student12@example.com'),
+       ('student13', '3fdba35f04dc8c462986c992bcf875546257113072a909c162f7e470e581e278','student13','student13@example.com'),
+       ('student14', '8527a891e224136950ff32ca212b45bc93f69fbb801c3b1ebedac52775f99e61','student14','student14@example.com'),
+       ('student15', 'e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb','student15','student15@example.com'),
+       ('student16', 'b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9','student16','student16@example.com'),
+       ('student17', '4523540f1504cd17100c4835e85b7eefd49911580f8efff0599a8f283be6b9e3','student17','student17@example.com'),
+       ('student18', '4ec9599fc203d176a301536c2e091a19bc852759b255bd6818810a42c5fed14a','student18','student18@example.com'),
+       ('student19', '9400f1b21cb527d7fa3d3eabba93557a18ebe7a2ca4e471cfe5e4c5b4ca7f767','student19','student19@example.com'),
+       ('student20', 'f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b','student20','student20@example.com');
 --add course
 CREATE TABLE course (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -79,7 +95,27 @@ CREATE TABLE enrollment (
 INSERT INTO enrollment (student_id, course_id, status, email, grade)
 VALUES (1, 2, 'approved', 'student1@example.com', 'A'),
        (2, 2, 'pending', 'student2@example.com', NULL),
-       (3, 2, 'approved', 'student3@example.com', 'B+');
+        (3, 2, 'approved', 'student3@example.com', 'B+'),
+        (4, 2, 'approved', 'student4@example.com', 'A+'),
+       (5, 2, 'approved', 'student5@example.com', 'A-'),
+       (6, 2, 'approved', 'student6@example.com', 'B'),
+       (7, 2, 'approved', 'student7@example.com', 'C'),
+       (8, 2, 'approved', 'student8@example.com', 'D'),
+       (9, 2, 'approved', 'student9@example.com', 'B+'),
+       (10, 2, 'approved', 'student10@example.com', 'B-'),
+       (11, 2, 'approved', 'student11@example.com', 'A-'),
+       (12, 2, 'approved', 'student12@example.com', 'A'),
+       (13, 2, 'pending', 'student13@example.com', NULL),
+       (14, 2, 'pending', 'student14@example.com', NULL),
+       (15, 2, 'pending', 'student15@example.com', NULL),
+       (16, 2, 'pending', 'student16@example.com', NULL),
+       (17, 2, 'pending', 'student17@example.com', NULL),
+       (18, 2, 'pending', 'student18@example.com', NULL),
+       (19, 2, 'pending', 'student19@example.com', NULL),
+       (20, 2, 'pending', 'student20@example.com', NULL);
+
+
+
 
 
 
