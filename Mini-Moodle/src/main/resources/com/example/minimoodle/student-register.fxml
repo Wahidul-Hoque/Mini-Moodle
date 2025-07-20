@@ -130,6 +130,21 @@
                         <Font name="Trebuchet MS" size="18.0" />
                      </font>
                   </Button>
+
+                  <!-- Cancel Button -->
+                  <Button fx:id="studentRegisterCancelButton" mnemonicParsing="false" onAction="#handleStudentRegisterCancel" prefHeight="36.0" prefWidth="200.0" text="Cancel" textAlignment="CENTER">
+                     <font>
+                        <Font name="Trebuchet MS" size="16.0" />
+                     </font>
+                     <style>
+                        -fx-background-color: #EEEEEE;
+                        -fx-text-fill: #FF6F61;
+                        -fx-font-weight: bold;
+                        -fx-border-radius: 20;
+                        -fx-padding: 8px 18px;
+                        -fx-cursor: hand;
+                     </style>
+                  </Button>
                </children>
             </VBox>
          </children>
