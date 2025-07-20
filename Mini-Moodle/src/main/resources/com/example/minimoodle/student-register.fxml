@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.studentRegisterController">
+<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.studentfunctionalities.StudentRegisterController">
    <children>
       <VBox alignment="CENTER" spacing="25.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -35,10 +34,10 @@
             </Label>
 
             <!-- Registration Form -->
-            <VBox alignment="TOP_CENTER" spacing="15.0" prefWidth="400.0">
+            <VBox alignment="TOP_CENTER" prefWidth="400.0" spacing="15.0">
                <children>
                   <!-- Name Field -->
-                  <TextField fx:id="studentRegisterNameBox" promptText="Full Name" prefHeight="40.0" prefWidth="350.0">
+                  <TextField fx:id="studentRegisterNameBox" prefHeight="40.0" prefWidth="350.0" promptText="Full Name">
                      <style>
                         -fx-background-color: #F9F9F9;
                         -fx-border-radius: 5;
@@ -49,7 +48,7 @@
                   </TextField>
 
                   <!-- Email Field -->
-                  <TextField fx:id="studentRegisterEmailBox" promptText="Email" prefHeight="40.0" prefWidth="350.0">
+                  <TextField fx:id="studentRegisterEmailBox" prefHeight="40.0" prefWidth="350.0" promptText="Email">
                      <style>
                         -fx-background-color: #F9F9F9;
                         -fx-border-radius: 5;
@@ -60,7 +59,7 @@
                   </TextField>
 
                   <!-- Student ID Field -->
-                  <TextField fx:id="studentRegisterIdBox" promptText="Student ID" prefHeight="40.0" prefWidth="350.0">
+                  <TextField fx:id="studentRegisterUsernameBox" prefHeight="40.0" prefWidth="350.0" promptText="Username">
                      <style>
                         -fx-background-color: #F9F9F9;
                         -fx-border-radius: 5;
@@ -74,7 +73,7 @@
                   <AnchorPane prefHeight="40.0" prefWidth="350.0">
                      <children>
                         <!-- Password Field (hidden) -->
-                        <PasswordField fx:id="studentRegisterPasswordBox" layoutX="0.0" layoutY="0.0" promptText="Password" prefHeight="40.0" prefWidth="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <PasswordField fx:id="studentRegisterPasswordBox" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="350.0" promptText="Password" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <style>
                               -fx-background-color: #F9F9F9;
                               -fx-border-radius: 5;
@@ -84,7 +83,7 @@
                            </style>
                         </PasswordField>
                         <!-- Password Field (visible) -->
-                        <TextField fx:id="studentRegisterPasswordVisibleBox" layoutX="0.0" layoutY="0.0" promptText="Password" prefHeight="40.0" prefWidth="350.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <TextField fx:id="studentRegisterPasswordVisibleBox" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="350.0" promptText="Password" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <style>
                               -fx-background-color: #F9F9F9;
                               -fx-border-radius: 5;
@@ -100,7 +99,7 @@
                   <AnchorPane prefHeight="40.0" prefWidth="350.0">
                      <children>
                         <!-- Re-enter Password Field (hidden) -->
-                        <PasswordField fx:id="studentRegisterReenterPasswordBox" layoutX="0.0" layoutY="0.0" promptText="Re-enter Password" prefHeight="40.0" prefWidth="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <PasswordField fx:id="studentRegisterReenterPasswordBox" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="350.0" promptText="Re-enter Password" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <style>
                               -fx-background-color: #F9F9F9;
                               -fx-border-radius: 5;
@@ -110,7 +109,7 @@
                            </style>
                         </PasswordField>
                         <!-- Re-enter Password Field (visible) -->
-                        <TextField fx:id="studentRegisterReenterPasswordVisibleBox" layoutX="0.0" layoutY="0.0" promptText="Re-enter Password" prefHeight="40.0" prefWidth="350.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <TextField fx:id="studentRegisterReenterPasswordVisibleBox" layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="350.0" promptText="Re-enter Password" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <style>
                               -fx-background-color: #F9F9F9;
                               -fx-border-radius: 5;
@@ -123,10 +122,10 @@
                   </AnchorPane>
 
                   <!-- Show Password Checkbox -->
-                  <CheckBox fx:id="studentRegisterPasswordCheckBox" mnemonicParsing="false" onAction="#toggleStudentRegisterPasswordVisibility" text="Show Password" textAlignment="JUSTIFY" style="-fx-text-fill: #4F4F4F;"/>
+                  <CheckBox fx:id="studentRegisterPasswordCheckBox" mnemonicParsing="false" onAction="#toggleStudentRegisterPasswordVisibility" style="-fx-text-fill: #4F4F4F;" text="Show Password" textAlignment="JUSTIFY" />
 
                   <!-- Register Button -->
-                  <Button fx:id="studentRegisterButton" mnemonicParsing="false" onAction="#handleStudentRegisterButton" text="Register" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right, #FF6F61, #FFD54F); -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 25; -fx-padding: 10px 20px; -fx-cursor: hand;">
+                  <Button fx:id="studentRegisterButton" mnemonicParsing="false" onAction="#handleStudentRegisterButton" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right, #FF6F61, #FFD54F); -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 25; -fx-padding: 10px 20px; -fx-cursor: hand;" text="Register">
                      <font>
                         <Font name="Trebuchet MS" size="18.0" />
                      </font>

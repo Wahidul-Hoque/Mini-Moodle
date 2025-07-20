@@ -8,41 +8,43 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class StudentLoginController {
+
     @FXML
     private Button studentLoginButton;
-
     @FXML
     private TextField studentLoginIdBox;
-
     @FXML
     private Button studentLoginBackButton;
-
     @FXML
     private PasswordField studentLoginPasswordBox;
-
     @FXML
     private TextField studentLoginPasswordVisibleBox;
-
     @FXML
-    
-    private boolean showPassword = false;
+    private CheckBox studentLoginPasswordCheckBox;
+    @FXML
+    private Button studentRegisterButton;
 
+    private boolean showPassword = false;
     private String enteredId;
     private String enteredPassword;
 
     @FXML
     private void initialize() {
-
+        // Bind password fields for visibility toggle
         studentLoginPasswordVisibleBox.textProperty().bindBidirectional(studentLoginPasswordBox.textProperty());
         studentLoginPasswordVisibleBox.setVisible(false);
         studentLoginPasswordVisibleBox.setManaged(false);
     }
 
+    /**
+     * Handles toggling password visibility when the checkbox is clicked.
+     */
     @FXML
     private void toggleStudentLoginPasswordVisibility() {
         showPassword = !showPassword;
@@ -52,14 +54,11 @@ public class StudentLoginController {
         studentLoginPasswordVisibleBox.setManaged(showPassword);
     }
 
+    /**
+     * Handles the login button click event.
+     */
     @FXML
     public void handleStudentLogin() {
-        // to Wahid: Get enteredId and enteredPassword from fields
-        // Query database to validate credentials
-        // If valid, load dashboard and pass student ID
-        // If invalid, show error alert
-        // Add error handling for database failures
-
         enteredId = studentLoginIdBox.getText();
         enteredPassword = showPassword ? studentLoginPasswordVisibleBox.getText() : studentLoginPasswordBox.getText();
 
@@ -74,22 +73,17 @@ public class StudentLoginController {
                 Stage stage = (Stage) studentLoginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Dashboard - " + enteredId);
-
             } catch (java.io.IOException | NullPointerException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Loading Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Failed to load the login page: " + e.getMessage());
-                alert.showAndWait();
-
+                showAlert("Loading Error", "Failed to load the login page: " + e.getMessage(), Alert.AlertType.ERROR);
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
-
         }
-
     }
-    
+
+    /**
+     * Handles the back button click event to return to the welcome page.
+     */
     @FXML
     private void handleStudentLoginBack(javafx.event.ActionEvent event) {
         try {
@@ -105,6 +99,25 @@ public class StudentLoginController {
         }
     }
 
+    /**
+     * Handles the register button click event to go to the registration page.
+     * TODO: Implement navigation to student registration page.
+     */
+    @FXML
+    private void handleStudentRegister() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("student-register.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) studentRegisterButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Student Registration");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            showAlert("Error", "Failed to load registration page: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
     // Helper method to display an alert message
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
@@ -113,5 +126,4 @@ public class StudentLoginController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }
