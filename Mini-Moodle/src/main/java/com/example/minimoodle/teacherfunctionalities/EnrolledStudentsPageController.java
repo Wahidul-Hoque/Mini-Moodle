@@ -1,9 +1,9 @@
 package com.example.minimoodle.teacherfunctionalities;
 
 // import CourseService.StudentInfo;
-import com.example.servicecodes.*;
-
+import com.example.servicecodes.StudentInfo;
 import com.example.utils.Client;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,13 +24,13 @@ import javafx.stage.Stage;
 public class EnrolledStudentsPageController {
 
     @FXML
-    private TableView<StudentInfo> studentTable;
+    private TableView<Student> studentTable;
 
     @FXML
-    private TableColumn<StudentInfo, String> idColumn;
+    private TableColumn<Student, String> idColumn;
 
     @FXML
-    private TableColumn<StudentInfo, String> nameColumn;
+    private TableColumn<Student, String> nameColumn;
 
     @FXML
     private Label studentNameLabel;
@@ -44,7 +44,7 @@ public class EnrolledStudentsPageController {
     @FXML
     private Button goBackButton;
 
-    private ObservableList<StudentInfo> studentList = FXCollections.observableArrayList();
+    private ObservableList<Student> studentList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -59,10 +59,10 @@ public class EnrolledStudentsPageController {
 
         // Set up event handler for when a row is clicked
         studentTable.setRowFactory(tv -> {
-            TableRow<StudentInfo> row = new TableRow<>();
+            TableRow<Student> row = new TableRow<>();
             row.setOnMouseClicked((MouseEvent event) -> {
                 if (!row.isEmpty()) {
-                    StudentInfo student = row.getItem();
+                    Student student = row.getItem();
                     displayStudentDetails(student);
                 }
             });
@@ -78,19 +78,19 @@ public class EnrolledStudentsPageController {
 
     private void fetchEnrolledStudents() {
         // Temporary dummy data for demonstration
-        studentList.add(new StudentInfo("S001", "Alice", "alice@gmail.com", "A"));
-        studentList.add(new StudentInfo("S002", "Bob", "bob@example.com", "B+"));
-        studentList.add(new StudentInfo("S003", "Charlie", "charlie@example.com", "C"));
+        studentList.add(new Student("S001", "Alice", "alice@gmail.com", "A"));
+        studentList.add(new Student("S002", "Bob", "bob@example.com", "B+"));
+        studentList.add(new Student("S003", "Charlie", "charlie@example.com", "C"));
 
         var students = Client.getEnrolledStudents(currentCourseId);
 
         for (StudentInfo studentInfo : students) {
-            studentList.add(new StudentInfo(studentInfo));
+            studentList.add(new Student(studentInfo));
         }
         // return students;
     }
 
-    private void displayStudentDetails(StudentInfo student) {
+    private void displayStudentDetails(Student student) {
         // Display student name and email
         studentNameLabel.setText("Name: " + student.getName());
         studentEmailLabel.setText("Email: " + student.getEmail());
@@ -117,13 +117,13 @@ public class EnrolledStudentsPageController {
     @FXML
     public void handleTeacherBlockStudent(ActionEvent event) {
         // Handle blocking the selected student
-        StudentInfo selectedStudent = studentTable.getSelectionModel().getSelectedItem();
+        Student selectedStudent = studentTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
             teacherBlockStudent(selectedStudent);
         }
     }
 
-    private void teacherBlockStudent(StudentInfo student) {
+    private void teacherBlockStudent(Student student) {
         // Placeholder logic for blocking a student
         // Remove student from the list and database if necessary
         showAlert("Blocked Student", "Student " + student.getName() + " has been blocked.");

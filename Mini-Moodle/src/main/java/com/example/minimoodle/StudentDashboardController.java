@@ -4,6 +4,27 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import com.example.utils.Client;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 public class StudentDashboardController {
 
     @FXML
@@ -26,10 +47,10 @@ public class StudentDashboardController {
     @FXML
     private Button studentLogoutButton;
 
-    private String studentId;
+    private int studentId;
 
     // Call this after login to initialize dashboard with studentId
-    public void initialize(String studentId) {
+    public void initialize(int studentId) {
         this.studentId = studentId;
         loadStudentDashboardData();
     }
@@ -45,6 +66,10 @@ public class StudentDashboardController {
         enrolledCoursesLabel.setText("Enrolled Courses: [Count]"); // Replace with actual count
         // completedCoursesLabel.setText("Completed Courses: [Count]");
         // studentGradeLabel.setText("Current Grade: [Grade]");
+
+
+        String studentName = Client.getStudentName(studentId);
+        // enrolledCoursesLabel.setText("Enrolled Courses: " + Client.getEnrolledCoursesCount(studentId));
     }
 
     @FXML
@@ -68,7 +93,7 @@ public class StudentDashboardController {
     @FXML
     private void handleStudentLogout() {
         // TODO: Implement logout logic (e.g., return to login or welcome page)
-        
+
     }
 
 }

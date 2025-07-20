@@ -1,11 +1,17 @@
 package com.example.minimoodle;
 
 import com.example.utils.Client;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class StudentLoginController {
 
@@ -58,10 +64,39 @@ public class StudentLoginController {
         enteredPassword = showPassword ? studentLoginPasswordVisibleBox.getText() : studentLoginPasswordBox.getText();
 
         int studentId = Client.sendStudentLoginRequest(enteredId, enteredPassword);
-        if(studentId >0) {
-            //valid student.Kanon: now do the same work as teacher login fxml
+        if (studentId > 0) {
+            showAlert("Login Successful", "Welcome Student " + enteredId, Alert.AlertType.INFORMATION);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("student-dashboard.fxml"));
+                Parent root = loader.load();
+                StudentDashboardController controller = loader.getController();
+                controller.initialize(studentId);  // Pass the studentId to the dashboard controller
+                Stage stage = (Stage) studentLoginButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Dashboard - " + enteredId);
+
+            } catch (java.io.IOException | NullPointerException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Loading Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to load the login page: " + e.getMessage());
+                alert.showAndWait();
+
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+
         }
 
+    }
+
+    // Helper method to display an alert message
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

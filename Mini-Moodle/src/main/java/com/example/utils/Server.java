@@ -90,6 +90,21 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(student.getGrade());
                 }
             }
+            else if("GET_STUDENT_NAME".equals(action)) {
+                int studentId = dataIn.readInt();
+                String studentName = CourseService.getStudentName(studentId);
+                dataOut.writeUTF(studentName);
+            }
+            else if("GET_ENROLLED_COURSES_FOR_STUDENT".equals(action)) {
+                // Wahid: make sure this is implemented correctly
+                
+                // int studentId = dataIn.readInt();
+                // List<String> enrolledCourses = CourseService.getEnrolledCoursesForStudent(studentId);
+                // dataOut.writeInt(enrolledCourses.size());
+                // for (String course : enrolledCourses) {
+                //     dataOut.writeUTF(course);
+                // }
+            }
 
         } catch (Exception  e) {
             System.err.println("Error handling client request: " + e.getMessage());

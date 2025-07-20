@@ -25,16 +25,16 @@ public class ApplyingStudentsPageController {
     private Button goBackButton;
 
     @FXML
-    private TableColumn<StudentInfo, String> idColumn;
+    private TableColumn<Student, String> idColumn;
 
     @FXML
-    private TableColumn<StudentInfo, String> nameColumn;
+    private TableColumn<Student, String> nameColumn;
 
     @FXML
     private Button rejectButton;
 
     @FXML
-    private TableView<StudentInfo> requestTable;
+    private TableView<Student> requestTable;
 
     @FXML
     private Label studentEmailLabel;
@@ -42,7 +42,7 @@ public class ApplyingStudentsPageController {
     @FXML
     private Label studentNameLabel;
 
-    private ObservableList<StudentInfo> requestList = FXCollections.observableArrayList();
+    private ObservableList<Student> requestList = FXCollections.observableArrayList();
 
     private int courseId = 1; // Assuming a course ID for demonstration
 
@@ -64,10 +64,10 @@ public class ApplyingStudentsPageController {
 
         // Set up event handler for when a row is clicked
         requestTable.setRowFactory(tv -> {
-            TableRow<StudentInfo> row = new TableRow<>();
+            TableRow<Student> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty()) {
-                    StudentInfo student = row.getItem();
+                    Student student = row.getItem();
                     studentNameLabel.setText("Name: " + student.getName());
                     studentEmailLabel.setText("Email: " + student.getEmail());
                     approveButton.setDisable(false);
@@ -83,8 +83,8 @@ public class ApplyingStudentsPageController {
         // This should populate requestList with StudentInfo objects
 
         // for now, dummy data
-        requestList.add(new StudentInfo("1", "John Doe", "johndoe@example.com", null));
-        requestList.add(new StudentInfo("2", "Jane Smith", "janesmith@example.com", null));
+        requestList.add(new Student("1", "John Doe", "johndoe@example.com", null));
+        requestList.add(new Student("2", "Jane Smith", "janesmith@example.com", null));
 
         // TODO: complete data fecthing logic
         // var students = 
@@ -92,7 +92,7 @@ public class ApplyingStudentsPageController {
 
     @FXML
     void handleApproveRequest(ActionEvent event) {
-        StudentInfo selectedStudent = requestTable.getSelectionModel().getSelectedItem();
+        Student selectedStudent = requestTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
             // Call the service to approve the enrollment
             // EnrollmentService.approveEnrollment(Integer.parseInt(selectedStudent.getId()), courseId); // Assuming courseId is 1 for now
@@ -125,7 +125,7 @@ public class ApplyingStudentsPageController {
 
     @FXML
     void handleRejectRequest(ActionEvent event) {
-        StudentInfo selectedStudent = requestTable.getSelectionModel().getSelectedItem();
+        Student selectedStudent = requestTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
             // Call the service to approve the enrollment
             // EnrollmentService.rejectEnrollment(Integer.parseInt(selectedStudent.getId()), courseId); // Assuming courseId is 1 for now

@@ -30,6 +30,30 @@ public class CourseService {
         }
         return teacherName;
     }
+
+    // Method to get the student name by studentId
+    // TODO: Check for errors : Wahid
+    public static String getStudentName(int studentId) {
+        String studentName = null;
+        String sql = "SELECT name FROM student WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, studentId);
+
+            // Execute the query and get the result
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                studentName = rs.getString("name");  // Retrieve student name
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getting student name: " + e.getMessage());
+        }
+        return studentName;
+    }
+
     // Method to get the course ID assigned to a teacher
     public static String getCourseIdForTeacher(int teacherId) {
         String courseId = null;
@@ -96,7 +120,6 @@ public class CourseService {
         return approvedStudents;
     }
 
-    // StudentInfo class to hold the student details
 
 
 

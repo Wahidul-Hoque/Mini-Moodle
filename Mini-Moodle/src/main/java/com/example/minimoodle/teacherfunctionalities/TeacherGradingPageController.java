@@ -27,19 +27,19 @@ import javafx.stage.Stage;
 public class TeacherGradingPageController {
 
     @FXML
-    private TableView<StudentInfo> studentTable;
+    private TableView<Student> studentTable;
     @FXML
-    private TableColumn<StudentInfo, String> idColumn;
+    private TableColumn<Student, String> idColumn;
     @FXML
-    private TableColumn<StudentInfo, String> nameColumn;
+    private TableColumn<Student, String> nameColumn;
     @FXML
-    private TableColumn<StudentInfo, String> gradeColumn;
+    private TableColumn<Student, String> gradeColumn;
     @FXML
-    private TableColumn<StudentInfo, Void> actionColumn;
+    private TableColumn<Student, Void> actionColumn;
     @FXML
     private Button goBackButton;
 
-    private ObservableList<StudentInfo> studentData = FXCollections.observableArrayList();
+    private ObservableList<Student> studentData = FXCollections.observableArrayList();
     private static final String[] VALID_GRADES = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "D", "F"};
 
     @FXML
@@ -58,7 +58,7 @@ public class TeacherGradingPageController {
                     setGraphic(null);
                     return;
                 }
-                StudentInfo student = getTableView().getItems().get(getIndex());
+                Student student = getTableView().getItems().get(getIndex());
                 actionButton.setText(student.getGrade() == null ? "Add Grade" : "Update Grade");
                 actionButton.setOnAction(event -> showGradeDialog(student));
                 setGraphic(actionButton);
@@ -84,8 +84,8 @@ public class TeacherGradingPageController {
         }
 
         // Temporary dummy data for demonstration
-        studentData.add(new StudentInfo("S001", "John Doe", "jd@java.com", null));
-        studentData.add(new StudentInfo("S002", "Jane Smith", "js@java.com", "B+"));
+        studentData.add(new Student("S001", "John Doe", "jd@java.com", null));
+        studentData.add(new Student("S002", "Jane Smith", "js@java.com", "B+"));
     }
 
     private Connection getDatabaseConnection() throws SQLException {
@@ -93,7 +93,7 @@ public class TeacherGradingPageController {
         return null; // TODO: Replace with actual database connection logic
     }
 
-    private void showGradeDialog(StudentInfo student) {
+    private void showGradeDialog(Student student) {
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle(student.getGrade() == null ? "Add Grade" : "Update Grade");
         dialog.setHeaderText("Enter grade for " + student.getName());

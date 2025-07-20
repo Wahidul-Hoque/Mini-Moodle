@@ -93,6 +93,27 @@ public class Client {
         }
     }
 
+    public static String getStudentName(int studentId) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            // Send the action (GET_STUDENT_NAME)
+            dataOut.writeUTF("GET_STUDENT_NAME");
+
+            // Send student ID
+            dataOut.writeInt(studentId);
+
+            // Get the student name from the server
+            return dataIn.readUTF();  // Return student name
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return null;  // Error case
+        }
+    }
+
+            
+
     public static String getCourseIdForTeacher(int teacherId) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
