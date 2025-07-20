@@ -57,17 +57,19 @@ public class TeacherDashboardController {
     private MenuButton teacherSettingsButton;
 
     private int teacherId;
-
+    public int teacherIdCopy;
     public int getTeacherId() {
         return teacherId;
     }
 
     public void initialize(int teacherId) {
         this.teacherId = teacherId;
+        this.teacherIdCopy = teacherId;
         loadCourseData();
     }
 
     private void loadCourseData() {
+        System.out.println(getTeacherId());
         String courseId = Client.getCourseIdForTeacher(getTeacherId());
         String courseName = Client.getCourseName(courseId);
         String teacherName = Client.getTeacherName(getTeacherId());

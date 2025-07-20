@@ -77,9 +77,9 @@ CREATE TABLE enrollment (
 
 -- Student applies for enrollment in a course
 INSERT INTO enrollment (student_id, course_id, status, email, grade)
-VALUES (1, 101, 'approved', 'student1@example.com', 'A'),
-       (2, 101, 'pending', 'student2@example.com', NULL),
-       (3, 108, 'approved', 'student3@example.com', 'B+');
+VALUES (1, 2, 'approved', 'student1@example.com', 'A'),
+       (2, 2, 'pending', 'student2@example.com', NULL),
+       (3, 2, 'approved', 'student3@example.com', 'B+');
 
 
 
