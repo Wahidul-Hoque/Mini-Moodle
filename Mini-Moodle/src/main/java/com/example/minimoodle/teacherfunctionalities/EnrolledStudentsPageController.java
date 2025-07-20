@@ -50,21 +50,27 @@ public class EnrolledStudentsPageController {
         this.teacherId = teacherId;
     }
 
+    private String currentCourseId; 
+
+    public void setCurrentCourseId(String currentCourseId) {
+        this.currentCourseId = currentCourseId;
+    }
+
 
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
 
     @FXML
-    public void initialize() {
-        // Initializing the columns to display student ID and name
+    public void initialize(int teacherId, String courseId) {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        // Fetch enrolled students (Placeholder for actual data fetching)
+        setTeacherId(teacherId);
+        setCurrentCourseId(courseId);
+
         fetchEnrolledStudents();
         studentTable.setItems(studentList);
         teacherBlockButton.setDisable(true);
 
-        // Set up event handler for when a row is clicked
         studentTable.setRowFactory(tv -> {
             TableRow<Student> row = new TableRow<>();
             row.setOnMouseClicked((MouseEvent event) -> {
@@ -77,17 +83,7 @@ public class EnrolledStudentsPageController {
         });
     }
 
-    private String currentCourseId;
-
-    public void setCurrentCourseId(String courseId) {
-        this.currentCourseId = courseId;
-    }
-
     private void fetchEnrolledStudents() {
-        // Temporary dummy data for demonstration
-        // studentList.add(new Student("S001", "Alice", "alice@gmail.com", "A"));
-        // studentList.add(new Student("S002", "Bob", "bob@example.com", "B+"));
-        // studentList.add(new Student("S003", "Charlie", "charlie@example.com", "C"));
 
         if (currentCourseId != null) {
             var students = Client.getEnrolledStudents(currentCourseId);
@@ -95,7 +91,6 @@ public class EnrolledStudentsPageController {
                 studentList.add(new Student(studentInfo));
             }
         }
-        // return students;
     }
 
     private void displayStudentDetails(Student student) {
@@ -127,7 +122,6 @@ public class EnrolledStudentsPageController {
 
     @FXML
     public void handleTeacherBlockStudent(ActionEvent event) {
-        // Handle blocking the selected student
         Student selectedStudent = studentTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
             teacherBlockStudent(selectedStudent);
@@ -135,8 +129,6 @@ public class EnrolledStudentsPageController {
     }
 
     private void teacherBlockStudent(Student student) {
-        // Placeholder logic for blocking a student
-        // Remove student from the list and database if necessary
         showAlert("Blocked Student", "Student " + student.getName() + " has been blocked.");
         studentList.remove(student);
         studentNameLabel.setText("Name: ");

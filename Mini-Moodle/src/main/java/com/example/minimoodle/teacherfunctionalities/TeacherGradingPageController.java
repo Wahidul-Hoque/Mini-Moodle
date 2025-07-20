@@ -1,9 +1,8 @@
 package com.example.minimoodle.teacherfunctionalities;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import com.example.minimoodle.TeacherDashboardController;
+import com.example.servicecodes.StudentInfo;
+import com.example.utils.Client;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,22 +39,36 @@ public class TeacherGradingPageController {
     private TableColumn<Student, Void> actionColumn;
     @FXML
     private Button goBackButton;
-    
+
     private int teacherId;
+    private String currentCourseId;
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
+        // System.out.println("Teacher ID set to: " + teacherId);
     }
 
+    public void setCurrentCourseId(String courseId) {
+        this.currentCourseId = new String(courseId);
+        // System.out.println("Current Course ID set to: " + courseId);
+    }
 
     private ObservableList<Student> studentData = FXCollections.observableArrayList();
     private static final String[] VALID_GRADES = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "D", "F"};
 
     @FXML
-    private void initialize() {
+    public void initialize(String courseId, int teacherId) {
+        System.out.println("initialize called with courseId: " + courseId + " and teacherId: " + teacherId);
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+
+        setCurrentCourseId(courseId);
+        setTeacherId(teacherId);
+
+        loadStudentData();
+        studentTable.setItems(studentData);
 
         actionColumn.setCellFactory(param -> new TableCell<>() {
             private final Button actionButton = new Button("Add Grade");
@@ -73,33 +86,18 @@ public class TeacherGradingPageController {
                 setGraphic(actionButton);
             }
         });
-
-        loadStudentData();
-        studentTable.setItems(studentData);
     }
 
     private void loadStudentData() {
-        // Placeholder for SQL data retrieval
-        try (Connection conn = getDatabaseConnection()) {
-            String query = "SELECT id, name, grade FROM students WHERE course_id = ?"; // Example query
-            // TODO: Complete the SQL connection and query execution
-            // Execute query and populate studentData
-            // ResultSet rs = conn.prepareStatement(query).executeQuery();
-            // while (rs.next()) {
-            //     studentData.add(new Student(rs.getString("id"), rs.getString("name"), rs.getString("grade")));
-            // }
-        } catch (SQLException e) {
-            showAlert("Database Error", "Failed to load student data: " + e.getMessage());
+        if (currentCourseId != null) {
+            var students = Client.getEnrolledStudents(currentCourseId);
+            // sout(var);
+            System.out.println(students);
+            for (StudentInfo studentInfo : students) {
+                studentData.add(new Student(studentInfo));
+                System.out.println(studentInfo);
+            }
         }
-
-        // Temporary dummy data for demonstration
-        studentData.add(new Student("S001", "John Doe", "jd@java.com", null));
-        studentData.add(new Student("S002", "Jane Smith", "js@java.com", "B+"));
-    }
-
-    private Connection getDatabaseConnection() throws SQLException {
-        // Placeholder for SQL connection
-        return null; // TODO: Replace with actual database connection logic
     }
 
     private void showGradeDialog(Student student) {
@@ -176,7 +174,7 @@ public class TeacherGradingPageController {
             stage.setTitle("Teacher Dashboard");
 
             TeacherDashboardController controller = loader.getController();
-            controller.initialize(teacherId); 
+            controller.initialize(teacherId);
         } catch (java.io.IOException | NullPointerException e) {
             showAlert("Loading Error", "Failed to load the teacher dashboard: " + e.getMessage());
             e.printStackTrace();

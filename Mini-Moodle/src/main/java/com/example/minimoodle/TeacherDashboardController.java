@@ -74,11 +74,16 @@ public class TeacherDashboardController {
         loadCourseData();
     }
 
+    private String teacherCourseID;
+
+
     private void loadCourseData() {
         System.out.println(getTeacherId());
         String courseId = Client.getCourseIdForTeacher(getTeacherId());
         String courseName = Client.getCourseName(courseId);
         String teacherName = Client.getTeacherName(getTeacherId());
+
+        teacherCourseID = courseId;
 
         teacherIdLabel.setText("Welcome, teacher " + teacherName);
         courseIdLabel.setText("Course ID: " + courseId);
@@ -125,7 +130,7 @@ public class TeacherDashboardController {
             stage.setTitle("Teacher Applicants Page");
             
             ApplyingStudentsPageController controller = loader.getController();
-            controller.setTeacherId(teacherId); 
+            controller.initialize(teacherId, teacherCourseID);
 
         } catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -150,7 +155,8 @@ public class TeacherDashboardController {
             stage.setTitle("Enrolled Students");
             
             EnrolledStudentsPageController controller = loader.getController();
-            controller.setTeacherId(teacherId); 
+            controller.setTeacherId(teacherId);
+            controller.setCurrentCourseId(teacherCourseID);
 
         } catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -176,7 +182,7 @@ public class TeacherDashboardController {
             stage.setTitle("Teacher Grading Page");
             
             TeacherGradingPageController controller = loader.getController();
-            controller.setTeacherId(teacherId); 
+            controller.initialize(teacherCourseID, teacherId);
 
         } catch (java.io.IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

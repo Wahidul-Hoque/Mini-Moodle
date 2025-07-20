@@ -1,6 +1,9 @@
 package com.example.minimoodle.teacherfunctionalities;
 
 import com.example.minimoodle.TeacherDashboardController;
+import com.example.servicecodes.EnrollmentService;
+import com.example.servicecodes.StudentInfo;
+import com.example.utils.Client;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +47,7 @@ public class ApplyingStudentsPageController {
     @FXML
     private Label studentNameLabel;
 
-    private int teacherId;
+    private int  teacherId;
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
@@ -52,17 +55,20 @@ public class ApplyingStudentsPageController {
 
     private ObservableList<Student> requestList = FXCollections.observableArrayList();
 
-    private int courseId = 1; // Assuming a course ID for demonstration
+    private String courseId; 
 
-    public void setCurrentCourseId(int courseId) {
+    public void setCurrentCourseId(String courseId) {
         this.courseId = courseId;
     }
 
     @FXML
-    public void initialize() {
+    public void initialize(int teacherId, String courseId) {
         // Initializing the columns to display student ID and name
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        setTeacherId(teacherId);
+        setCurrentCourseId(courseId);
 
         // Fetching applying students (Placeholder for actual data fetching)
         fetchApplyingStudents();
@@ -87,15 +93,14 @@ public class ApplyingStudentsPageController {
     }
 
     private void fetchApplyingStudents() {
-        // Placeholder for fetching applying students from the database or service
-        // This should populate requestList with StudentInfo objects
-
-        // for now, dummy data
         requestList.add(new Student("1", "John Doe", "johndoe@example.com", null));
         requestList.add(new Student("2", "Jane Smith", "janesmith@example.com", null));
 
-        // TODO: complete data fecthing logic
-        // var students = 
+        System.out.println(courseId);        
+        var students = Client.getPendingStudents(courseId);
+        for(StudentInfo studentInfo : students) {
+            requestList.add(new Student(studentInfo));
+        }
     }
 
     @FXML
@@ -103,7 +108,7 @@ public class ApplyingStudentsPageController {
         Student selectedStudent = requestTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
             // Call the service to approve the enrollment
-            // EnrollmentService.approveEnrollment(Integer.parseInt(selectedStudent.getId()), courseId); // Assuming courseId is 1 for now
+            EnrollmentService.approveEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
             showAlert("Success", "Enrollment approved for " + selectedStudent.getName());
             requestList.remove(selectedStudent);
             studentNameLabel.setText("Name: ");
@@ -138,8 +143,7 @@ public class ApplyingStudentsPageController {
     void handleRejectRequest(ActionEvent event) {
         Student selectedStudent = requestTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
-            // Call the service to approve the enrollment
-            // EnrollmentService.rejectEnrollment(Integer.parseInt(selectedStudent.getId()), courseId); // Assuming courseId is 1 for now
+            EnrollmentService.rejectEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
             showAlert("Success", "Enrollment rejected for " + selectedStudent.getName());
             requestList.remove(selectedStudent);
             studentNameLabel.setText("Name: ");
