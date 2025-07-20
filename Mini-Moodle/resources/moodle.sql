@@ -94,7 +94,7 @@ CREATE TABLE enrollment (
 -- Student applies for enrollment in a course
 INSERT INTO enrollment (student_id, course_id, status, email, grade)
 VALUES (1, 2, 'approved', 'student1@example.com', 'A'),
-       (2, 2, 'pending', 'student2@example.com', NULL),
+       (2, 2, 'pending', 'student2@example.com', 'NOT_SET'),
         (3, 2, 'approved', 'student3@example.com', 'B+'),
         (4, 2, 'approved', 'student4@example.com', 'A+'),
        (5, 2, 'approved', 'student5@example.com', 'A-'),
@@ -105,14 +105,14 @@ VALUES (1, 2, 'approved', 'student1@example.com', 'A'),
        (10, 2, 'approved', 'student10@example.com', 'B-'),
        (11, 2, 'approved', 'student11@example.com', 'A-'),
        (12, 2, 'approved', 'student12@example.com', 'A'),
-       (13, 2, 'pending', 'student13@example.com', NULL),
-       (14, 2, 'pending', 'student14@example.com', NULL),
-       (15, 2, 'pending', 'student15@example.com', NULL),
-       (16, 2, 'pending', 'student16@example.com', NULL),
-       (17, 2, 'pending', 'student17@example.com', NULL),
-       (18, 2, 'pending', 'student18@example.com', NULL),
-       (19, 2, 'pending', 'student19@example.com', NULL),
-       (20, 2, 'pending', 'student20@example.com', NULL);
+       (13, 2, 'pending', 'student13@example.com', 'NOT_SET'),
+       (14, 2, 'pending', 'student14@example.com', 'NOT_SET'),
+       (15, 2, 'pending', 'student15@example.com', 'NOT_SET'),
+       (16, 2, 'pending', 'student16@example.com', 'NOT_SET'),
+       (17, 2, 'pending', 'student17@example.com', 'NOT_SET'),
+       (18, 2, 'pending', 'student18@example.com', 'NOT_SET'),
+       (19, 2, 'pending', 'student19@example.com', 'NOT_SET'),
+       (20, 2, 'pending', 'student20@example.com', 'NOT_SET');
 
 
 
