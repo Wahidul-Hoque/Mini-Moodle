@@ -1,9 +1,20 @@
 package com.example.utils;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-import java.util.*;
-import com.example.servicecodes.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
+
+import com.example.servicecodes.AdminLoginService;
+import com.example.servicecodes.CourseInfo;
+import com.example.servicecodes.CourseService;
+import com.example.servicecodes.StudentInfo;
+import com.example.servicecodes.StudentLoginService;
+import com.example.servicecodes.TeacherLoginService;
+import com.example.servicecodes.studentService;
 
 public class Server {
     private static final int PORT = 12345;

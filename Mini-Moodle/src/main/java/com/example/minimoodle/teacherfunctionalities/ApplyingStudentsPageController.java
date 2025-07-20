@@ -70,7 +70,6 @@ public class ApplyingStudentsPageController {
         setTeacherId(teacherId);
         setCurrentCourseId(courseId);
 
-        // Fetching applying students (Placeholder for actual data fetching)
         fetchApplyingStudents();
         requestTable.setItems(requestList);
         approveButton.setDisable(true);
