@@ -4,11 +4,15 @@ import static com.example.servicecodes.StudentRegisterService.registerStudent;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * Controller for the student registration page. Handles user input, validation,
@@ -122,6 +126,22 @@ public class StudentRegisterController {
         studentRegisterReenterPasswordVisibleBox.setManaged(showPassword);
     }
 
+    @FXML
+    private void handleStudentRegisterCancel() {
+        try {
+            // Load the login page (use absolute resource path)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/student-login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) studentRegisterButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Student Login");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to load login page.");
+            alert.showAndWait();
+        }
+    }
+
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -129,5 +149,7 @@ public class StudentRegisterController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 
 }
