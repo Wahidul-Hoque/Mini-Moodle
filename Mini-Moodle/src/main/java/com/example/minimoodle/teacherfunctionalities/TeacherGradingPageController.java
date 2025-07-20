@@ -3,6 +3,8 @@ package com.example.minimoodle.teacherfunctionalities;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.example.minimoodle.TeacherDashboardController;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,6 +40,13 @@ public class TeacherGradingPageController {
     private TableColumn<Student, Void> actionColumn;
     @FXML
     private Button goBackButton;
+    
+    private int teacherId;
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }
+
 
     private ObservableList<Student> studentData = FXCollections.observableArrayList();
     private static final String[] VALID_GRADES = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "D", "F"};
@@ -165,6 +174,9 @@ public class TeacherGradingPageController {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Dashboard");
+
+            TeacherDashboardController controller = loader.getController();
+            controller.initialize(teacherId); 
         } catch (java.io.IOException | NullPointerException e) {
             showAlert("Loading Error", "Failed to load the teacher dashboard: " + e.getMessage());
             e.printStackTrace();

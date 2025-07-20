@@ -1,5 +1,7 @@
 package com.example.minimoodle.teacherfunctionalities;
 
+import com.example.minimoodle.TeacherDashboardController;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,6 +43,12 @@ public class ApplyingStudentsPageController {
 
     @FXML
     private Label studentNameLabel;
+
+    private int teacherId;
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }
 
     private ObservableList<Student> requestList = FXCollections.observableArrayList();
 
@@ -117,6 +125,9 @@ public class ApplyingStudentsPageController {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Dashboard");
+
+            TeacherDashboardController controller = loader.getController();
+            controller.initialize(teacherId); 
         } catch (java.io.IOException | NullPointerException e) {
             showAlert("Loading Error", "Failed to load the teacher dashboard: " + e.getMessage());
             e.printStackTrace();

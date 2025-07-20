@@ -1,6 +1,6 @@
 package com.example.minimoodle.teacherfunctionalities;
 
-// import CourseService.StudentInfo;
+import com.example.minimoodle.TeacherDashboardController;
 import com.example.servicecodes.StudentInfo;
 import com.example.utils.Client;
 
@@ -44,6 +44,13 @@ public class EnrolledStudentsPageController {
     @FXML
     private Button goBackButton;
 
+    private int teacherId;
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }
+
+
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
 
     @FXML
@@ -78,14 +85,15 @@ public class EnrolledStudentsPageController {
 
     private void fetchEnrolledStudents() {
         // Temporary dummy data for demonstration
-        studentList.add(new Student("S001", "Alice", "alice@gmail.com", "A"));
-        studentList.add(new Student("S002", "Bob", "bob@example.com", "B+"));
-        studentList.add(new Student("S003", "Charlie", "charlie@example.com", "C"));
+        // studentList.add(new Student("S001", "Alice", "alice@gmail.com", "A"));
+        // studentList.add(new Student("S002", "Bob", "bob@example.com", "B+"));
+        // studentList.add(new Student("S003", "Charlie", "charlie@example.com", "C"));
 
-        var students = Client.getEnrolledStudents(currentCourseId);
-
-        for (StudentInfo studentInfo : students) {
-            studentList.add(new Student(studentInfo));
+        if (currentCourseId != null) {
+            var students = Client.getEnrolledStudents(currentCourseId);
+            for (StudentInfo studentInfo : students) {
+                studentList.add(new Student(studentInfo));
+            }
         }
         // return students;
     }
@@ -108,6 +116,9 @@ public class EnrolledStudentsPageController {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Dashboard");
+
+            TeacherDashboardController controller = loader.getController();
+            controller.initialize(teacherId); 
         } catch (java.io.IOException | NullPointerException e) {
             showAlert("Loading Error", "Failed to load the teacher dashboard: " + e.getMessage());
             e.printStackTrace();
