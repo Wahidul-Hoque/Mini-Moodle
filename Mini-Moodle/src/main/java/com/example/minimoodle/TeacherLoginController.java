@@ -28,6 +28,8 @@ public class TeacherLoginController {
 
     @FXML
     private Button teacherLoginButton;
+    @FXML
+    private Button teacherLoginBackButton;
 
     private boolean showPassword = false;
 
@@ -61,6 +63,7 @@ public class TeacherLoginController {
             teacherLoginPasswordVisibleBox.setVisible(true);
             teacherLoginPasswordVisibleBox.setManaged(true);
             teacherLoginPasswordBox.setVisible(false);
+        teacherLoginBackButton.setOnAction(event -> handleTeacherLoginBack());
             teacherLoginPasswordBox.setManaged(false);
         } else {
             teacherLoginPasswordBox.setText(teacherLoginPasswordVisibleBox.getText());
@@ -72,6 +75,21 @@ public class TeacherLoginController {
 
         
     }
+    
+    @FXML
+    private void handleTeacherLoginBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("welcome-page.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) teacherLoginBackButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Welcome Page");
+        } catch (java.io.IOException | NullPointerException e) {
+            showAlert("Navigation Error", "Failed to load the welcome page: " + e.getMessage(), Alert.AlertType.ERROR);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     // When the login button is clicked, we retrieve the entered ID and password
@@ -81,6 +99,7 @@ public class TeacherLoginController {
         enteredPassword = showPassword ? teacherLoginPasswordVisibleBox.getText() : teacherLoginPasswordBox.getText();
 
         // For demonstration purposes, we print the ID and password to the console
+    
         System.out.println("Entered ID: " + enteredId);
         System.out.println("Entered Password: " + enteredPassword);
 

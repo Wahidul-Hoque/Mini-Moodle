@@ -20,6 +20,9 @@ public class AdminLoginController {
     private Button adminLoginButton;
 
     @FXML
+    private Button adminLoginBackButton;
+
+    @FXML
     private TextField adminLoginIdBox;
 
     @FXML
@@ -48,6 +51,21 @@ public class AdminLoginController {
             adminLoginPasswordBox.setManaged(true);
             adminLoginPasswordVisibleBox.setVisible(false);
             adminLoginPasswordVisibleBox.setManaged(false);
+        }
+    }
+
+    @FXML
+    private void handleAdminLoginBack(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("welcome-page.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) adminLoginBackButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Welcome Page");
+        } catch (java.io.IOException | NullPointerException e) {
+            showAlert("Navigation Error", "Failed to load the welcome page: " + e.getMessage(), Alert.AlertType.ERROR);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

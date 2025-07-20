@@ -57,10 +57,11 @@ public class TeacherDashboardController {
     private MenuButton teacherSettingsButton;
 
     private int teacherId;
+
     public int getTeacherId() {
         return teacherId;
     }
-    // This method will be called after the teacher logs in
+
     public void initialize(int teacherId) {
         this.teacherId = teacherId;
         loadCourseData();
@@ -69,9 +70,8 @@ public class TeacherDashboardController {
     private void loadCourseData() {
         String courseId = Client.getCourseIdForTeacher(getTeacherId());
         String courseName = Client.getCourseName(courseId);
-        String teacherName= Client.getTeacherName(getTeacherId());
+        String teacherName = Client.getTeacherName(getTeacherId());
 
-        // TODO: get teacher name, not teacher ID. This is displaying teacher ID instead of name
         teacherIdLabel.setText("Welcome, teacher " + teacherName);
         courseIdLabel.setText("Course ID: " + courseId);
         courseNameLabel.setText("Course Name: " + courseName);
@@ -80,7 +80,6 @@ public class TeacherDashboardController {
 
     @FXML
     void handleTeacherDashboardRefresh(ActionEvent event) {
-        // TODO: refresh the teacher dashboard
         loadCourseData();
     }
 

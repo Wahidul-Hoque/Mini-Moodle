@@ -39,6 +39,13 @@
                </style>
             </Label>
 
+            <!-- Back Button -->
+            <Button fx:id="adminLoginBackButton" mnemonicParsing="false" onAction="#handleAdminLoginBack" text="Back" prefWidth="80.0" style="-fx-background-color: #EEEEEE; -fx-text-fill: #4CAF50; -fx-font-weight: bold; -fx-border-radius: 15; -fx-padding: 5px 10px; -fx-cursor: hand;">
+               <font>
+                  <Font name="Trebuchet MS" size="14.0" />
+               </font>
+            </Button>
+
             <!-- Form Container -->
             <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="500.0" spacing="20.0">
                <children>

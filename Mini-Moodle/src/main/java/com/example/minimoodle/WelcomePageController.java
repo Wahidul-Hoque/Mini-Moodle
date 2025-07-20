@@ -23,7 +23,10 @@ public class WelcomePageController {
     private RadioButton welcomePageAdminRadioButton;
 
     @FXML
-    private RadioButton welcomePageUserRadioButton;
+    private RadioButton welcomePageTeacherRadioButton;
+
+    @FXML
+    private RadioButton welcomePageStudentRadioButton;
 
     @FXML
     private Button welcomePageContinueButton;
@@ -51,18 +54,16 @@ public class WelcomePageController {
         String role = selectedRole.getText();
         String fxmlFile;
         if (role.equals("Admin")) {
-            fxmlFile = "admin-login.fxml"; 
-        }else {
+            fxmlFile = "admin-login.fxml";
+        } else if (role.equals("Teacher")) {
             fxmlFile = "teacher-login.fxml";
+        } else if (role.equals("Student")) {
+            fxmlFile = "student-login.fxml";
+        } else {
+            fxmlFile = "welcome-page.fxml";
         }
 
-        //
-        // we then try to load the selected login page
-        //
         try {
-
-            // loads the corresponding fxml file
-            // using FXMLLoader class
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
 

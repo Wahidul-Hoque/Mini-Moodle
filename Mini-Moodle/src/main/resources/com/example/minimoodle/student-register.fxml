@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.studentRegisterController">
+   <children>
+      <VBox alignment="CENTER" spacing="25.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <!-- Title -->
+            <Label text="Student Registration" textAlignment="CENTER">
+               <font>
+                  <Font name="Trebuchet MS" size="36.0" />
+               </font>
+               <style>
+                  -fx-text-fill: linear-gradient(to right, #FF6F61, #FFD54F);
+               </style>
+            </Label>
+
+            <!-- Subtitle -->
+            <Label text="Fill in your details to register" textAlignment="CENTER">
+               <font>
+                  <Font name="Trebuchet MS" size="18.0" />
+               </font>
+               <style>
+                  -fx-text-fill: #4F4F4F;
+               </style>
+            </Label>
+
+            <!-- Registration Form -->
+            <VBox alignment="TOP_CENTER" spacing="15.0" prefWidth="400.0">
+               <children>
+                  <!-- Name Field -->
+                  <TextField fx:id="studentRegisterNameBox" promptText="Full Name" prefHeight="40.0" prefWidth="350.0">
+                     <style>
+                        -fx-background-color: #F9F9F9;
+                        -fx-border-radius: 5;
+                        -fx-border-color: #B0B0B0;
+                        -fx-padding: 5px;
+                        -fx-font-size: 14px;
+                     </style>
+                  </TextField>
+
+                  <!-- Email Field -->
+                  <TextField fx:id="studentRegisterEmailBox" promptText="Email" prefHeight="40.0" prefWidth="350.0">
+                     <style>
+                        -fx-background-color: #F9F9F9;
+                        -fx-border-radius: 5;
+                        -fx-border-color: #B0B0B0;
+                        -fx-padding: 5px;
+                        -fx-font-size: 14px;
+                     </style>
+                  </TextField>
+
+                  <!-- Student ID Field -->
+                  <TextField fx:id="studentRegisterIdBox" promptText="Student ID" prefHeight="40.0" prefWidth="350.0">
+                     <style>
+                        -fx-background-color: #F9F9F9;
+                        -fx-border-radius: 5;
+                        -fx-border-color: #B0B0B0;
+                        -fx-padding: 5px;
+                        -fx-font-size: 14px;
+                     </style>
+                  </TextField>
+
+                  <!-- Password Field Container -->
+                  <AnchorPane prefHeight="40.0" prefWidth="350.0">
+                     <children>
+                        <!-- Password Field (hidden) -->
+                        <PasswordField fx:id="studentRegisterPasswordBox" layoutX="0.0" layoutY="0.0" promptText="Password" prefHeight="40.0" prefWidth="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <style>
+                              -fx-background-color: #F9F9F9;
+                              -fx-border-radius: 5;
+                              -fx-border-color: #B0B0B0;
+                              -fx-padding: 5px;
+                              -fx-font-size: 14px;
+                           </style>
+                        </PasswordField>
+                        <!-- Password Field (visible) -->
+                        <TextField fx:id="studentRegisterPasswordVisibleBox" layoutX="0.0" layoutY="0.0" promptText="Password" prefHeight="40.0" prefWidth="350.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <style>
+                              -fx-background-color: #F9F9F9;
+                              -fx-border-radius: 5;
+                              -fx-border-color: #B0B0B0;
+                              -fx-padding: 5px;
+                              -fx-font-size: 14px;
+                           </style>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+
+                  <!-- Re-enter Password Field Container -->
+                  <AnchorPane prefHeight="40.0" prefWidth="350.0">
+                     <children>
+                        <!-- Re-enter Password Field (hidden) -->
+                        <PasswordField fx:id="studentRegisterReenterPasswordBox" layoutX="0.0" layoutY="0.0" promptText="Re-enter Password" prefHeight="40.0" prefWidth="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <style>
+                              -fx-background-color: #F9F9F9;
+                              -fx-border-radius: 5;
+                              -fx-border-color: #B0B0B0;
+                              -fx-padding: 5px;
+                              -fx-font-size: 14px;
+                           </style>
+                        </PasswordField>
+                        <!-- Re-enter Password Field (visible) -->
+                        <TextField fx:id="studentRegisterReenterPasswordVisibleBox" layoutX="0.0" layoutY="0.0" promptText="Re-enter Password" prefHeight="40.0" prefWidth="350.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <style>
+                              -fx-background-color: #F9F9F9;
+                              -fx-border-radius: 5;
+                              -fx-border-color: #B0B0B0;
+                              -fx-padding: 5px;
+                              -fx-font-size: 14px;
+                           </style>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+
+                  <!-- Show Password Checkbox -->
+                  <CheckBox fx:id="studentRegisterPasswordCheckBox" mnemonicParsing="false" onAction="#toggleStudentRegisterPasswordVisibility" text="Show Password" textAlignment="JUSTIFY" style="-fx-text-fill: #4F4F4F;"/>
+
+                  <!-- Register Button -->
+                  <Button fx:id="studentRegisterButton" mnemonicParsing="false" onAction="#handleStudentRegisterButton" text="Register" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right, #FF6F61, #FFD54F); -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 25; -fx-padding: 10px 20px; -fx-cursor: hand;">
+                     <font>
+                        <Font name="Trebuchet MS" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

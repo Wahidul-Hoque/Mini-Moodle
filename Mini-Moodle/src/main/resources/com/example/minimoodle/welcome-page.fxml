@@ -67,6 +67,20 @@
                </style>
             </RadioButton>
             
+            <!-- Student Radio Button -->
+            <RadioButton fx:id="welcomePageStudentRadioButton" mnemonicParsing="false" text="Student" toggleGroup="$roleGroup">
+               <font>
+                  <Font name="Trebuchet MS" size="16.0" />
+               </font>
+               <style>
+                  -fx-text-fill: #5C5C5C;
+                  -fx-background-color: #F8F8F8;
+                  -fx-border-radius: 5;
+                  -fx-border-color: #BDBDBD;
+                  -fx-padding: 10px;
+               </style>
+            </RadioButton>
+            
             <!-- Continue Button -->
             <Button fx:id="welcomePageContinueButton" mnemonicParsing="false" onAction="#handleWelcomePageContinueButton" text="Continue to Login">
                <font>

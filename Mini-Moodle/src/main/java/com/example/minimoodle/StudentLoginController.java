@@ -8,15 +8,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class StudentLoginController {
+    @FXML
+    private Button studentLoginButton;
 
     @FXML
     private TextField studentLoginIdBox;
+
+    @FXML
+    private Button studentLoginBackButton;
 
     @FXML
     private PasswordField studentLoginPasswordBox;
@@ -25,11 +29,7 @@ public class StudentLoginController {
     private TextField studentLoginPasswordVisibleBox;
 
     @FXML
-    private CheckBox studentLoginPasswordCheckBox;
-
-    @FXML
-    private Button studentLoginButton;
-
+    
     private boolean showPassword = false;
 
     private String enteredId;
@@ -88,6 +88,21 @@ public class StudentLoginController {
 
         }
 
+    }
+    
+    @FXML
+    private void handleStudentLoginBack(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("welcome-page.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) studentLoginBackButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Welcome Page");
+        } catch (java.io.IOException | NullPointerException e) {
+            showAlert("Navigation Error", "Failed to load the welcome page: " + e.getMessage(), Alert.AlertType.ERROR);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     // Helper method to display an alert message
