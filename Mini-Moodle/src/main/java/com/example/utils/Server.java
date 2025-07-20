@@ -90,6 +90,17 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(student.getGrade());
                 }
             }
+            else if ("GET_PENDING_STUDENTS".equals(action)){
+                String courseId = dataIn.readUTF();
+                List<StudentInfo> students = CourseService.getPendingStudents(Integer.parseInt(courseId));
+                dataOut.writeInt(students.size());
+                for (StudentInfo student : students) {
+                    dataOut.writeInt(student.getId());
+                    dataOut.writeUTF(student.getName());
+                    dataOut.writeUTF(student.getEmail());
+                    dataOut.writeUTF(student.getGrade());
+                }
+            }
             else if("GET_STUDENT_NAME".equals(action)) {
                 int studentId = dataIn.readInt();
                 String studentName = CourseService.getStudentName(studentId);

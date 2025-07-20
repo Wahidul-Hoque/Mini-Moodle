@@ -184,6 +184,38 @@ public class Client {
         return students;
     }
 
+    public static List<StudentInfo> getPendingStudents(String courseId) {
+        List<StudentInfo> students = new ArrayList<>();
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            // Send the action type to get approved students
+            dataOut.writeUTF("GET_PENDING_STUDENTS");
+
+            // Send the courseId to the server
+            dataOut.writeUTF(courseId);
+
+            // Receive the number of approved students
+            int studentCount = dataIn.readInt();
+
+            // Receive each student's details
+            for (int i = 0; i < studentCount; i++) {
+                int studentId = dataIn.readInt();
+                String studentName = dataIn.readUTF();
+                String studentEmail = dataIn.readUTF();
+                String studentGrade = dataIn.readUTF();
+
+                students.add(new StudentInfo(studentId, studentName, studentEmail, studentGrade));
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+        }
+
+        return students;
+    }
+
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
     }

@@ -32,7 +32,7 @@ public class CourseService {
     }
 
     // Method to get the student name by studentId
-    // TODO: Check for errors : Wahid
+
     public static String getStudentName(int studentId) {
         String studentName = null;
         String sql = "SELECT name FROM student WHERE id = ?";
@@ -98,7 +98,7 @@ public class CourseService {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, courseId);  // Set the courseId parameter in the query
+            stmt.setInt(1, courseId);
             ResultSet rs = stmt.executeQuery();
 
             // Process the results
@@ -119,6 +119,37 @@ public class CourseService {
 
         return approvedStudents;
     }
+
+    public static List<StudentInfo> getPendingStudents(int courseId) {
+        List<StudentInfo> pendingStudents = new ArrayList<>();
+        String sql = "SELECT s.id, s.name, s.email, e.grade " +
+                "FROM student s " +
+                "INNER JOIN enrollment e ON s.id = e.student_id " +
+                "WHERE e.course_id = ? AND e.status = 'pending'";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, courseId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int studentId = rs.getInt("id");
+                String studentName = rs.getString("name");
+                String studentEmail = rs.getString("email");
+                String studentGrade = rs.getString("grade");
+
+                StudentInfo student = new StudentInfo(studentId, studentName, studentEmail, studentGrade);
+                pendingStudents.add(student);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getting pending students: " + e.getMessage());
+        }
+
+        return pendingStudents;
+    }
+
 
 
 
