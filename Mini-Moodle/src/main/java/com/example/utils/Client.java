@@ -39,7 +39,7 @@ public class Client {
         }
     }
 
-    public static int sendAdminLoginRequest(String username, String password) {
+    public static boolean sendAdminLoginRequest(String username, String password) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
@@ -51,10 +51,10 @@ public class Client {
             dataOut.writeUTF(username);
             dataOut.writeUTF(password);
 
-            return dataIn.readInt();  // Return the adminId (or -1 if invalid)
+            return dataIn.readBoolean();  // Return the adminId (or -1 if invalid)
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return -1;  // Error case
+            return false;  // Error case
         }
     }
 

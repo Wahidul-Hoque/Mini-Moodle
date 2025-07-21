@@ -2,6 +2,7 @@ package com.example.minimoodle;
 
 import com.example.servicecodes.AdminLoginService; // Importing the service class for teacher login validation
 
+import com.example.utils.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,7 +83,7 @@ public class AdminLoginController {
         System.out.println("Admin ID: " + enteredId);
         System.out.println("Admin Password: " + enteredPassword);
 
-        boolean isValidLogin = AdminLoginService.validateAdminLogin(enteredId, enteredPassword);
+        boolean isValidLogin = Client.sendAdminLoginRequest(enteredId, enteredPassword);
 
         if (isValidLogin) {
             showAlert("Login Successful", "Welcome, Admin " + enteredId, Alert.AlertType.INFORMATION);
