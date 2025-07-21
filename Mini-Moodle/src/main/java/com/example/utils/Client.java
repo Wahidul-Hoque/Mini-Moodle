@@ -76,18 +76,29 @@ public class Client {
         }
     }
 
+    public static boolean sendStudentRegistrationRequest(String username, String name, String password, String email) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+            dataOut.writeUTF("REGISTER_STUDENT");
+            dataOut.writeUTF(username);
+            dataOut.writeUTF(name);
+            dataOut.writeUTF(password);
+            dataOut.writeUTF(email);
+
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
+        }
+    }
+
     public static String getTeacherName(int teacherId) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
-
-            // Send the action (GET_COURSE_ID)
             dataOut.writeUTF("GET_TEACHER_NAME");
-
-            // Send teacher ID
             dataOut.writeInt(teacherId);
-
-            // Get the course ID from the server
             return dataIn.readUTF();  // Return course ID
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
@@ -100,13 +111,10 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            // Send the action (GET_STUDENT_NAME)
             dataOut.writeUTF("GET_STUDENT_NAME");
 
-            // Send student ID
             dataOut.writeInt(studentId);
 
-            // Get the student name from the server
             return dataIn.readUTF();  // Return student name
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
@@ -121,14 +129,11 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            // Send the action (GET_COURSE_ID)
             dataOut.writeUTF("GET_COURSE_ID");
 
-            // Send teacher ID
             dataOut.writeInt(teacherId);
 
-            // Get the course ID from the server
-            return dataIn.readUTF();  // Return course ID
+            return dataIn.readUTF();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
             return null;  // Error case
@@ -140,14 +145,10 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            // Send the action (GET_COURSE_NAME)
             dataOut.writeUTF("GET_COURSE_NAME");
 
-            // Send the course ID
             dataOut.writeUTF(courseId);
-
-            // Get the course name from the server
-            return dataIn.readUTF();  // Return course name
+            return dataIn.readUTF();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
             return null;  // Error case
@@ -160,16 +161,12 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            // Send the action type to get approved students
             dataOut.writeUTF("GET_APPROVED_STUDENTS");
 
-            // Send the courseId to the server
             dataOut.writeUTF(courseId);
 
-            // Receive the number of approved students
             int studentCount = dataIn.readInt();
 
-            // Receive each student's details
             for (int i = 0; i < studentCount; i++) {
                 int studentId = dataIn.readInt();
                 String studentName = dataIn.readUTF();
@@ -191,10 +188,8 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            // Send the action type to get approved students
             dataOut.writeUTF("GET_APPROVED_STUDENT_COUNT");
 
-            // Send the courseId to the server
             dataOut.writeUTF(courseId);
 
             // Receive the count of enrolled students
@@ -214,13 +209,10 @@ public class Client {
 
             System.out.println("chilam");
 
-            // Send the action type to get approved students
             dataOut.writeUTF("GET_PENDING_STUDENTS");
 
-            // Send the courseId to the server
             dataOut.writeUTF(courseId);
 
-            // Receive the number of approved students
             int studentCount = dataIn.readInt();
 
             // Receive each student's details

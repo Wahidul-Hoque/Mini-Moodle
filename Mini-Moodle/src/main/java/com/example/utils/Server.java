@@ -8,13 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import com.example.servicecodes.AdminLoginService;
-import com.example.servicecodes.CourseInfo;
-import com.example.servicecodes.CourseService;
-import com.example.servicecodes.StudentInfo;
-import com.example.servicecodes.StudentLoginService;
-import com.example.servicecodes.TeacherLoginService;
-import com.example.servicecodes.studentService;
+import com.example.servicecodes.*;
 
 public class Server {
     private static final int PORT = 12345;
@@ -47,45 +41,45 @@ class ClientHandler extends Thread {
                 DataInputStream dataIn = new DataInputStream(input);
                 DataOutputStream dataOut = new DataOutputStream(output)
         ) {
-            // Read request type (e.g., LOGIN)
             String action = dataIn.readUTF();
 
-            // Process different actions (e.g., login)
             if ("LOGIN".equals(action)) {
                 String username = dataIn.readUTF();
                 String password = dataIn.readUTF();
-
-                // Authenticate using the database
                 int teacherId = TeacherLoginService.validateTeacherLogin(username, password);
-
-                // Send response back to client (teacherId or -1 if invalid)
                 dataOut.writeInt(teacherId);
             }
-            else if ("ADMIN_LOGIN".equals(action)) {
+            else if("ADMIN_LOGIN".equals(action)){
                 String username = dataIn.readUTF();
                 String password = dataIn.readUTF();
-
                 boolean adminId = AdminLoginService.validateAdminLogin(username, password);
                 dataOut.writeBoolean(adminId);
             }
-            else if ("STUDENT_LOGIN".equals(action)) {
+            else if("STUDENT_LOGIN".equals(action)){
                 String username = dataIn.readUTF();
                 String password = dataIn.readUTF();
-
                 int studentId = StudentLoginService.validateStudentLogin(username, password);
                 dataOut.writeInt(studentId);
             }
-            else if( "GET_COURSE_ID".equals(action)) {
+            else if("REGISTER_STUDENT".equals(action)){
+                String username = dataIn.readUTF();
+                String name = dataIn.readUTF();
+                String password = dataIn.readUTF();
+                String email = dataIn.readUTF();
+                boolean registrationSuccessful = StudentRegisterService.registerStudent(username, name, password, email);
+                dataOut.writeBoolean(registrationSuccessful);
+            }
+            else if( "GET_COURSE_ID".equals(action)){
                 int teacherId = dataIn.readInt();
                 String courseId = CourseService.getCourseIdForTeacher(teacherId);
                 dataOut.writeUTF(courseId);
             }
-            else if( "GET_COURSE_NAME".equals(action)) {
+            else if( "GET_COURSE_NAME".equals(action)){
                 String courseId = dataIn.readUTF();
                 String courseName= CourseService.getCourseName(courseId);
                 dataOut.writeUTF(courseName);
             }
-            else if( "GET_TEACHER_NAME".equals(action)) {
+            else if( "GET_TEACHER_NAME".equals(action)){
                 int teacherId = dataIn.readInt();
                 String name = CourseService.getTeacherName(teacherId);
                 dataOut.writeUTF(name);

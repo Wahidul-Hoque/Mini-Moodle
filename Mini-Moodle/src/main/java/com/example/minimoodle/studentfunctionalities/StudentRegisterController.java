@@ -2,6 +2,8 @@ package com.example.minimoodle.studentfunctionalities;
 
 import static com.example.servicecodes.StudentRegisterService.registerStudent;
 
+import com.example.servicecodes.StudentRegisterService;
+import com.example.utils.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +69,31 @@ public class StudentRegisterController {
         // TODO: Implement field validation
         // TODO: Implement registration logic (call service/database)
         // TODO: Show feedback to user (success/error)
+        if (!areFieldsFilled()) {
+            showAlert("Registration Failed", "Please fill in all the fields.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (!isValidEmail(studentRegisterEmailBox.getText())) {
+            showAlert("Invalid Email", "Please enter a valid email address.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (!doPasswordsMatch()) {
+            showAlert("Password Mismatch", "The passwords do not match.", Alert.AlertType.ERROR);
+            return;
+        }
+        String name = studentRegisterNameBox.getText();
+        String email = studentRegisterEmailBox.getText();
+        String username = studentRegisterUsernameBox.getText();
+        String password = getPassword();
+        boolean registrationSuccessful = Client.sendStudentRegistrationRequest(username,name , password, email);
+        if (registrationSuccessful) {
+            showAlert("Registration Successful", "You have been registered successfully!", Alert.AlertType.INFORMATION);
+        }
+        else{
+            showAlert("Registration Failed", "An error occurred while registering. Please try again.", Alert.AlertType.ERROR);
+        }
     }
 
     private boolean areFieldsFilled() {
@@ -101,15 +128,6 @@ public class StudentRegisterController {
         }
     }
 
-    private boolean saveStudentToDatabase(String name, String email, String username, String password) {
-        if (registerStudent(name, email, username, password)) {
-            showAlert("Registration Successful", "You have been registered successfully!", Alert.AlertType.INFORMATION);
-            return true; // Registration successful
-        } else {
-            showAlert("Registration Failed", "An error occurred while registering. Please try again.", Alert.AlertType.ERROR);
-            return false; // Registration failed
-        }
-    }
 
     @FXML
     private void toggleStudentRegisterPasswordVisibility(ActionEvent Event) {
