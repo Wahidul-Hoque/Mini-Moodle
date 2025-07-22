@@ -79,6 +79,11 @@ class ClientHandler extends Thread {
                 String courseName= CourseService.getCourseName(courseId);
                 dataOut.writeUTF(courseName);
             }
+            else if( "GET_COURSE_DESCRIPTION".equals(action)){
+                String courseId = dataIn.readUTF();
+                String courseDescription= CourseService.getCourseDescription(courseId);
+                dataOut.writeUTF(courseDescription);
+            }
             else if( "GET_TEACHER_NAME".equals(action)){
                 int teacherId = dataIn.readInt();
                 String name = CourseService.getTeacherName(teacherId);

@@ -66,9 +66,7 @@ public class StudentRegisterController {
 
     @FXML
     private void handleStudentRegisterButton() {
-        // TODO: Implement field validation
-        // TODO: Implement registration logic (call service/database)
-        // TODO: Show feedback to user (success/error)
+
         if (!areFieldsFilled()) {
             showAlert("Registration Failed", "Please fill in all the fields.", Alert.AlertType.ERROR);
             return;

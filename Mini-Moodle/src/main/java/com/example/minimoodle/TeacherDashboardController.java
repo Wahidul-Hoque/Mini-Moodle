@@ -82,13 +82,14 @@ public class TeacherDashboardController {
         String courseId = Client.getCourseIdForTeacher(getTeacherId());
         String courseName = Client.getCourseName(courseId);
         String teacherName = Client.getTeacherName(getTeacherId());
+        String CourseDescription = Client.getCourseDescription(courseId);
         int studentCount = Client.getEnrolledStudentCount(courseId);
 
         teacherCourseID = courseId;
 
         teacherIdLabel.setText("Welcome, teacher " + teacherName);
-        courseIdLabel.setText("Course ID: " + courseId);
-        courseNameLabel.setText("Course Name: " + courseName);
+        courseIdLabel.setText("Course ID: " + courseName);
+        courseNameLabel.setText("Course Name: " + CourseDescription);
         enrolledStudentsLabel.setText("Enrolled Students: " + studentCount);
 
     }

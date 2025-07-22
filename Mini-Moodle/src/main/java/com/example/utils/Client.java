@@ -151,7 +151,22 @@ public class Client {
             return dataIn.readUTF();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return null;  // Error case
+            return null;
+        }
+    }
+
+    public static String getCourseDescription(String courseId) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("GET_COURSE_DESCRIPTION");
+
+            dataOut.writeUTF(courseId);
+            return dataIn.readUTF();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return null;
         }
     }
 

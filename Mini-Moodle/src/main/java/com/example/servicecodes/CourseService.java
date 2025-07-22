@@ -87,6 +87,22 @@ public class CourseService {
         return courseName;
     }
 
+    public static String getCourseDescription(String courseId){
+        String courseDescription = null;
+        String sql = "SELECT description FROM course WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, courseId);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                courseDescription = rs.getString("description");
+            }
+        }catch (SQLException e) {
+            System.out.println("Error in getting course description: " + e.getMessage());
+        }
+        return courseDescription;
+    }
+
     // (only approved students)
     public static List<StudentInfo> getEnrolledStudents(int courseId) {
         List<StudentInfo> approvedStudents = new ArrayList<>();
