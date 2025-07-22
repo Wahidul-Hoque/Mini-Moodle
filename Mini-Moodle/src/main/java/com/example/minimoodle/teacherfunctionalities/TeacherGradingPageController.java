@@ -126,7 +126,17 @@ public class TeacherGradingPageController {
             if (isValidGrade(grade)) {
                 student.setGrade(grade);
                 studentTable.refresh();
-                // TODO: Complete the SQL update logic to save the grade
+                int studentId=Integer.parseInt(student.getId());
+                int cId = Integer.parseInt(currentCourseId);
+                boolean settingGrade= Client.setStudentGrade(studentId,cId,grade);
+                System.out.println(settingGrade);
+                if (settingGrade) {
+                    showAlert("Grade saved","");
+                }
+                else{
+                    showAlert("Database Error", "Failed to save grade: ");
+                }
+                // TODO: database is correct. just fix the UI elert Kanon
                 // try (Connection conn = getDatabaseConnection()) {
                 //     String query = "UPDATE students SET grade = ? WHERE id = ?";
                 //     PreparedStatement stmt = conn.prepareStatement(query);

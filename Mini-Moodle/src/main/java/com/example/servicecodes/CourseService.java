@@ -103,6 +103,26 @@ public class CourseService {
         return courseDescription;
     }
 
+    public static boolean setStudentGrade(int studentId, int courseId, String grade) {
+        String sql = "UPDATE enrollment SET grade = ? WHERE student_id = ? AND course_id = ? AND status = 'approved'";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, grade);
+            stmt.setInt(2, studentId);
+            stmt.setInt(3, courseId);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error setting student grade: " + e.getMessage());
+            return false;
+        }
+    }
+
     // (only approved students)
     public static List<StudentInfo> getEnrolledStudents(int courseId) {
         List<StudentInfo> approvedStudents = new ArrayList<>();

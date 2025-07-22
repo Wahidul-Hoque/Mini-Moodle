@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.servicecodes.CourseInfo;
+import com.example.servicecodes.CourseService;
 import com.example.servicecodes.StudentInfo;
 
 public class Client {
@@ -155,6 +156,24 @@ public class Client {
         }
     }
 
+    public static boolean setStudentGrade(int studentId, int courseId, String grade) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+            dataOut.writeUTF("SET_STUDENT_GRADE");
+            dataOut.writeInt(studentId);
+            dataOut.writeInt(courseId);
+            dataOut.writeUTF(grade);
+            boolean answer = dataIn.readBoolean();
+            System.out.println("Received response from server: " + answer);
+            return answer;
+
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
+        }
+    }
+
     public static String getCourseDescription(String courseId) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
@@ -281,6 +300,7 @@ public class Client {
 
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
+        System.out.println(CourseService.setStudentGrade(7,2,"D"));
     }
 
 

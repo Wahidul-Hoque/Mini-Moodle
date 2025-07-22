@@ -84,6 +84,16 @@ class ClientHandler extends Thread {
                 String courseDescription= CourseService.getCourseDescription(courseId);
                 dataOut.writeUTF(courseDescription);
             }
+            else if("SET_STUDENT_GRADE".equals(action)){
+                System.out.println(action);
+                int studentId = dataIn.readInt();
+                int courseId = dataIn.readInt();
+                String grade = dataIn.readUTF();
+                boolean result = CourseService.setStudentGrade(studentId, courseId, grade);
+                System.out.println("Server received grade update request, result: " + result);
+                dataOut.writeBoolean(result);
+            }
+
             else if( "GET_TEACHER_NAME".equals(action)){
                 int teacherId = dataIn.readInt();
                 String name = CourseService.getTeacherName(teacherId);
