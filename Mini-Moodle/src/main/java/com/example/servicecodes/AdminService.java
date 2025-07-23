@@ -62,4 +62,50 @@ public class AdminService {
         return totalTeacher;
     }
 
+    public static List<CourseInfoAdmin> getAllCourses() {
+        List<CourseInfoAdmin> courses = new ArrayList<>();
+        String sql = "SELECT c.id, c.title, c.description, t.name FROM course c " +
+                "JOIN teacher t ON c.teacher_id = t.id";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int courseId = rs.getInt("id");
+                String courseTitle = rs.getString("title");
+                String courseDescription = rs.getString("description");
+                String teacherName = rs.getString("name");
+
+                CourseInfoAdmin courseInfo = new CourseInfoAdmin(courseId, courseTitle, courseDescription, teacherName);
+                courses.add(courseInfo);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getting courses: " + e.getMessage());
+        }
+
+        return courses;
+    }
+
+    public static List<StudentInfo> getAllStudents() {
+        List<StudentInfo> students = new ArrayList<>();
+        String sql = "SELECT id, name, email FROM student";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int studentId = rs.getInt("id");
+                String studentName = rs.getString("name");
+                String studentEmail = rs.getString("email");
+
+                StudentInfo student = new StudentInfo(studentId, studentName, studentEmail);
+                students.add(student);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in getting all students: " + e.getMessage());
+        }
+        return students;
+    }
+
 }

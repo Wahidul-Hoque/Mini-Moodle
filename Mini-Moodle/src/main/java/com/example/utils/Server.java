@@ -188,6 +188,27 @@ class ClientHandler extends Thread {
                 int count= AdminService.getTotalTeacherCount();
                 dataOut.writeInt(count);
             }
+            else if("GET_ALL_COURSES".equals(action)){
+                List<CourseInfoAdmin> allCourses = AdminService.getAllCourses();
+                dataOut.writeInt(allCourses.size());
+
+                for (CourseInfoAdmin course : allCourses) {
+                    dataOut.writeInt(course.getCourseId());
+                    dataOut.writeUTF(course.getCourseTitle());
+                    dataOut.writeUTF(course.getCourseDescription());
+                    dataOut.writeUTF(course.getTeacherName());
+                }
+            }
+            else if("GET_ALL_STUDENTS".equals(action)) {
+                List<StudentInfo> students = AdminService.getAllStudents();
+                dataOut.writeInt(students.size());
+
+                for (StudentInfo student : students) {
+                    dataOut.writeInt(student.getId());
+                    dataOut.writeUTF(student.getName());
+                    dataOut.writeUTF(student.getEmail());
+                }
+            }
 
         } catch (Exception  e) {
             System.err.println("Error handling client request: " + e.getMessage());

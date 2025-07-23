@@ -11,6 +11,12 @@ public class StudentInfo{
         this.email = email;
         this.grade = grade; // Default grade
     }
+    public StudentInfo(int id,String name,String email){
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.grade = "default"; // Default grade
+    }
     public int getId() {
         return id;
     }

@@ -7,36 +7,28 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.servicecodes.CourseInfo;
-import com.example.servicecodes.CourseService;
-import com.example.servicecodes.StudentInfo;
+import com.example.servicecodes.*;
 
 public class Client {
-    private static final String SERVER_ADDRESS = "127.0.0.1";  // Server address (localhost for now)
-    private static final int SERVER_PORT = 12345;  // Server port
+    private static final String SERVER_ADDRESS = "127.0.0.1";
+    private static final int SERVER_PORT = 12345;
 
-    // Method to send login request to server
     public static int sendLoginRequest(String username, String password) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            // Send the action (LOGIN)
             dataOut.writeUTF("LOGIN");
-
-            // Send the username and password
             dataOut.writeUTF(username);
             dataOut.writeUTF(password);
 
-            // Get the response (teacherId or -1)
             int loginResponse = dataIn.readInt();
             System.out.println("Login Response: " + loginResponse);
             return loginResponse;
 
-            // Return the teacherId (or -1 if invalid)
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return -1;  // Error case
+            return -1;
         }
     }
 
@@ -45,17 +37,14 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            // Send the action (ADMIN_LOGIN)
             dataOut.writeUTF("ADMIN_LOGIN");
-
-            // Send the username and password
             dataOut.writeUTF(username);
             dataOut.writeUTF(password);
 
-            return dataIn.readBoolean();  // Return the adminId (or -1 if invalid)
+            return dataIn.readBoolean();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return false;  // Error case
+            return false;
         }
     }
 
@@ -66,14 +55,13 @@ public class Client {
 
             dataOut.writeUTF("STUDENT_LOGIN");
 
-            // Send the username and password
             dataOut.writeUTF(username);
             dataOut.writeUTF(password);
 
-            return dataIn.readInt();  // Return the adminId (or -1 if invalid)
+            return dataIn.readInt();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return -1;  // Error case
+            return -1;
         }
     }
 
@@ -397,6 +385,52 @@ public class Client {
             System.err.println("Error communicating with server: " + e.getMessage());
             return -1;
         }
+    }
+
+    public static List<CourseInfoAdmin> getAllCourses() {
+        List<CourseInfoAdmin> courses = new ArrayList<>();
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("GET_ALL_COURSES");
+            int numberOfCourses = dataIn.readInt();
+
+            for (int i = 0; i < numberOfCourses; i++) {
+                int courseId = dataIn.readInt();
+                String courseTitle = dataIn.readUTF();
+                String courseDescription = dataIn.readUTF();
+                String teacherName = dataIn.readUTF();
+
+                CourseInfoAdmin course = new CourseInfoAdmin(courseId, courseTitle, courseDescription, teacherName);
+                courses.add(course);
+            }
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+        }
+        return courses;
+    }
+
+    public static List<StudentInfo> getAllStudents() {
+        List<StudentInfo> students = new ArrayList<>();
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("GET_ALL_STUDENTS");
+            int numberOfStudents = dataIn.readInt();
+
+            for (int i = 0; i < numberOfStudents; i++) {
+                int studentId = dataIn.readInt();
+                String studentName = dataIn.readUTF();
+                String studentEmail = dataIn.readUTF();
+                StudentInfo student = new StudentInfo(studentId, studentName, studentEmail);
+                students.add(student);
+            }
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+        }
+        return students;
     }
 
     public static void main(String[] args) {
