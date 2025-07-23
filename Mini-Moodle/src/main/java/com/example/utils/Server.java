@@ -98,6 +98,12 @@ class ClientHandler extends Thread {
                 String name = CourseService.getTeacherName(teacherId);
                 dataOut.writeUTF(name);
             }
+            else if("CHANGE_PASSWORD".equals(action)){
+                int teacherId = dataIn.readInt();
+                String newPassword = dataIn.readUTF();
+                boolean success = CourseService.changeTeacherPassword(teacherId, newPassword);
+                dataOut.writeBoolean(success);
+            }
             else if ("GET_APPROVED_STUDENTS".equals(action)){
                 String courseId = dataIn.readUTF();
                 List<StudentInfo> students = CourseService.getEnrolledStudents(Integer.parseInt(courseId));

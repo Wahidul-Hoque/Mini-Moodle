@@ -189,6 +189,22 @@ public class Client {
         }
     }
 
+    public static boolean changeTeacherPassword(int teacherId, String newPassword) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("CHANGE_PASSWORD");
+            dataOut.writeInt(teacherId);
+            dataOut.writeUTF(newPassword);
+
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false; 
+        }
+    }
+
     public static List<StudentInfo> getEnrolledStudents(String courseId) {
         List<StudentInfo> students = new ArrayList<>();
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);

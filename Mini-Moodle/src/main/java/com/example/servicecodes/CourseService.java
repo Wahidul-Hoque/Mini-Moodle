@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.utils.DatabaseConnection;
+import com.example.utils.*;
 
 public class CourseService {
 
@@ -119,6 +119,31 @@ public class CourseService {
             }
         } catch (SQLException e) {
             System.out.println("Error setting student grade: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean changeTeacherPassword(int teacherId, String newPassword) {
+        String hashedPassword = PasswordUtils.hashPassword(newPassword);
+        String sql = "UPDATE teacher SET password_hash = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, hashedPassword);
+            stmt.setInt(2, teacherId);
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Password successfully updated for teacher ID: " + teacherId);
+                return true;
+            } else {
+                System.out.println("Failed to update password. Check if the teacher ID is valid.");
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error changing teacher password: " + e.getMessage());
             return false;
         }
     }
