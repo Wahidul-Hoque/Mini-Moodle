@@ -196,17 +196,13 @@ public class Client {
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
             dataOut.writeUTF("GET_APPROVED_STUDENTS");
-
             dataOut.writeUTF(courseId);
-
             int studentCount = dataIn.readInt();
-
             for (int i = 0; i < studentCount; i++) {
                 int studentId = dataIn.readInt();
                 String studentName = dataIn.readUTF();
                 String studentEmail = dataIn.readUTF();
                 String studentGrade = dataIn.readUTF();
-
                 students.add(new StudentInfo(studentId, studentName, studentEmail, studentGrade));
             }
 
@@ -223,15 +219,12 @@ public class Client {
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
             dataOut.writeUTF("GET_APPROVED_STUDENT_COUNT");
-
             dataOut.writeUTF(courseId);
-
-            // Receive the count of enrolled students
             return dataIn.readInt();
 
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return -1;  // Error case
+            return -1;
         }
     }
 
@@ -241,15 +234,9 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            System.out.println("chilam");
-
             dataOut.writeUTF("GET_PENDING_STUDENTS");
-
             dataOut.writeUTF(courseId);
-
             int studentCount = dataIn.readInt();
-
-            // Receive each student's details
             for (int i = 0; i < studentCount; i++) {
                 int studentId = dataIn.readInt();
                 String studentName = dataIn.readUTF();
@@ -272,23 +259,18 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            // Send the action (GET_ENROLLED_COURSES)
             dataOut.writeUTF("GET_ENROLLED_COURSES");
-
-            // Send the student ID
             dataOut.writeInt(studentId);
 
-            // Get the number of courses
             int courseCount = dataIn.readInt();
-
-            // Read the course details (courseId, courseTitle, grade) from the server
             for (int i = 0; i < courseCount; i++) {
                 int courseId = dataIn.readInt();
                 String courseTitle = dataIn.readUTF();
+                String courseDescription = dataIn.readUTF();
                 String grade = dataIn.readUTF();
 
-                // Create a CourseInfo object for each course
-                enrolledCourses.add(new CourseInfo(courseId, courseTitle, grade));
+
+                enrolledCourses.add(new CourseInfo(courseId, courseTitle,courseDescription, grade));
             }
 
         } catch (IOException e) {

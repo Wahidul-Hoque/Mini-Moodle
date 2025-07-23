@@ -16,10 +16,9 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server started, waiting for clients...");
 
-            // Continuously accept client connections
             while (true) {
-                Socket clientSocket = serverSocket.accept();  // Accept client connection
-                new ClientHandler(clientSocket).start();  // Handle client in a new thread
+                Socket clientSocket = serverSocket.accept();
+                new ClientHandler(clientSocket).start();
             }
         } catch (IOException e) {
             System.err.println("Error starting server: " + e.getMessage());
@@ -138,6 +137,7 @@ class ClientHandler extends Thread {
                 for (CourseInfo course : Courses) {
                     dataOut.writeInt(course.getCourseId());
                     dataOut.writeUTF(course.getCourseTitle());
+                    dataOut.writeUTF(course.getCourseDescription());
                     dataOut.writeUTF(course.getGrade());
                 }
             }

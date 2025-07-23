@@ -3,12 +3,20 @@ package com.example.servicecodes;
 public class CourseInfo {
     private int courseId;
     private String courseTitle;
+    private String courseDescription;
     private String grade;
 
-    public CourseInfo(int courseId, String courseTitle, String grade) {
+    public CourseInfo(int courseId, String courseTitle,String courseDescription, String grade) {
         this.courseId = courseId;
         this.courseTitle = courseTitle;
+        this.courseDescription = courseDescription;
         this.grade = grade;
+    }
+    public CourseInfo(int courseId, String courseTitle,String courseDescription) {
+        this.courseId = courseId;
+        this.courseTitle = courseTitle;
+        this.courseDescription = courseDescription;
+        this.grade = "not set";
     }
 
     public int getCourseId() {
@@ -18,7 +26,9 @@ public class CourseInfo {
     public String getCourseTitle() {
         return courseTitle;
     }
-
+    public String getCourseDescription() {
+        return courseDescription;
+    }
     public String getGrade() {
         return grade;
     }
