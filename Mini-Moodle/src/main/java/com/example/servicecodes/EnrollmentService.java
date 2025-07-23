@@ -6,28 +6,32 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-// Import DatabaseConnection
 import com.example.utils.DatabaseConnection;
 
 public class EnrollmentService {
 
-    // Method for a student to request enrollment in a course
-    public static void requestEnrollment(int studentId, int courseId) {
-        String sql = "INSERT INTO enrollment (student_id, course_id, status) VALUES (?, ?, 'pending')";
-        
+    public static boolean requestEnrollment(int studentId, String courseTitle) {
+        String sql = "INSERT INTO enrollment (student_id, course_id, status) " +
+                "SELECT ?, id, 'pending' FROM course WHERE title = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            // Set the student ID and course ID
+
             stmt.setInt(1, studentId);
-            stmt.setInt(2, courseId);
-            
-            // Execute the query
-            stmt.executeUpdate();
-            System.out.println("Enrollment request sent successfully.");
-            
+            stmt.setString(2, courseTitle);
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Enrollment request submitted successfully for student ID: " + studentId + " in course: " + courseTitle);
+                return true;
+            } else {
+                System.out.println("Failed to submit enrollment request. Course might not exist.");
+                return false;
+            }
+
         } catch (SQLException e) {
-            System.out.println("Error in enrolling student: " + e.getMessage());
+            System.out.println("Error processing enrollment request: " + e.getMessage());
+            return false;
         }
     }
 

@@ -268,8 +268,6 @@ public class Client {
                 String courseTitle = dataIn.readUTF();
                 String courseDescription = dataIn.readUTF();
                 String grade = dataIn.readUTF();
-
-
                 enrolledCourses.add(new CourseInfo(courseId, courseTitle,courseDescription, grade));
             }
 
@@ -278,6 +276,47 @@ public class Client {
         }
 
         return enrolledCourses;
+    }
+
+    public static List<CourseInfo> getUnregisteredCoursesForStudent(int studentId) {
+        List<CourseInfo> unregCourses = new ArrayList<>();
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("GET_UNREGISTERED_COURSES");
+            dataOut.writeInt(studentId);
+
+            int courseCount = dataIn.readInt();
+            for (int i = 0; i < courseCount; i++) {
+                int courseId = dataIn.readInt();
+                String courseTitle = dataIn.readUTF();
+                String courseDescription = dataIn.readUTF();
+                String grade = dataIn.readUTF();
+                unregCourses.add(new CourseInfo(courseId, courseTitle,courseDescription, grade));
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+        }
+
+        return unregCourses;
+    }
+
+    public static boolean requestEnrollment(int studentId, String courseTitle) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("REQUEST_ENROLLMENT");
+
+            dataOut.writeInt(studentId);
+            dataOut.writeUTF(courseTitle);
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;  
+        }
     }
 
     public static void main(String[] args) {

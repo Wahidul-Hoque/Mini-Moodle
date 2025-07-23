@@ -39,5 +39,34 @@ public class studentService {
         return enrolledCourses;
     }
 
+    public static List<CourseInfo> getUnregisteredCoursesForStudent(int studentId) {
+        List<CourseInfo> unregisteredCourses = new ArrayList<>();
+        String sql = "SELECT c.id, c.title, c.description " +
+                "FROM course c " +
+                "WHERE c.id NOT IN ( " +
+                "    SELECT e.course_id " +
+                "    FROM enrollment e " +
+                "    WHERE e.student_id = ? )";
 
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int courseId = rs.getInt("id");
+                String courseTitle = rs.getString("title");
+                String courseDescription = rs.getString("description");
+
+                CourseInfo course = new CourseInfo(courseId, courseTitle, courseDescription);
+                unregisteredCourses.add(course);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getting unregistered courses for student: " + e.getMessage());
+        }
+
+        return unregisteredCourses;
+    }
 }

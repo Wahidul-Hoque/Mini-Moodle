@@ -141,6 +141,23 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(course.getGrade());
                 }
             }
+            else if("GET_UNREGISTERED_COURSES".equals(action)) {
+                int studentId = dataIn.readInt();
+                List<CourseInfo> Courses = studentService.getUnregisteredCoursesForStudent(studentId);
+                dataOut.writeInt(Courses.size());
+                for (CourseInfo course : Courses) {
+                    dataOut.writeInt(course.getCourseId());
+                    dataOut.writeUTF(course.getCourseTitle());
+                    dataOut.writeUTF(course.getCourseDescription());
+                    dataOut.writeUTF(course.getGrade());
+                }
+            }
+            else if("REQUEST_ENROLLMENT".equals(action)){
+                int studentId = dataIn.readInt();
+                String courseTitle = dataIn.readUTF();
+                boolean success = EnrollmentService.requestEnrollment(studentId, courseTitle);
+                dataOut.writeBoolean(success);
+            }
 
         } catch (Exception  e) {
             System.err.println("Error handling client request: " + e.getMessage());
