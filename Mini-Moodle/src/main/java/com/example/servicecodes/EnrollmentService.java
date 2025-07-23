@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import com.example.utils.DatabaseConnection;
 
 public class EnrollmentService {
-
+    //for student
     public static boolean requestEnrollment(int studentId, String courseTitle) {
         String sql = "INSERT INTO enrollment (student_id, course_id, status) " +
                 "SELECT ?, id, 'pending' FROM course WHERE title = ?";
@@ -34,44 +34,45 @@ public class EnrollmentService {
             return false;
         }
     }
-
-    // Method for teacher to approve a student's enrollment request
-    public static void approveEnrollment(int studentId, int courseId) {
-        String sql = "UPDATE enrollment SET status = 'approved' WHERE student_id = ? AND course_id = ?";
-        
+    //for teacher
+    public static boolean approveEnrollment(int studentId, int courseId) {
+        String sql = "UPDATE enrollment SET status = 'approved' WHERE student_id = ? AND course_id = ? AND status = 'pending'";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            // Set the student ID and course ID
             stmt.setInt(1, studentId);
             stmt.setInt(2, courseId);
-            
-            // Execute the update
-            stmt.executeUpdate();
-            System.out.println("Enrollment approved successfully.");
-            
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Enrollment successfully approved for student ID: " + studentId + " in course ID: " + courseId);
+                return true;
+            } else {
+                System.out.println("Failed to approve enrollment. Check if the student is enrolled and the status is pending.");
+                return false;
+            }
         } catch (SQLException e) {
-            System.out.println("Error in approving enrollment: " + e.getMessage());
+            System.out.println("Error approving enrollment: " + e.getMessage());
+            return false;
         }
     }
 
-    // Method for teacher to reject a student's enrollment request
-    public static void rejectEnrollment(int studentId, int courseId) {
-        String sql = "UPDATE enrollment SET status = 'rejected' WHERE student_id = ? AND course_id = ?";
-        
+    // Method for teacher
+    public static boolean rejectEnrollment(int studentId, int courseId) {
+        String sql = "UPDATE enrollment SET status = 'rejected' WHERE student_id = ? AND course_id = ? AND status = 'pending'";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            // Set the student ID and course ID
             stmt.setInt(1, studentId);
             stmt.setInt(2, courseId);
-            
-            // Execute the update
-            stmt.executeUpdate();
-            System.out.println("Enrollment rejected successfully.");
-            
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Enrollment successfully rejected for student ID: " + studentId + " in course ID: " + courseId);
+                return true;
+            } else {
+                System.out.println("Failed to reject enrollment. Check if the student is enrolled and the status is pending.");
+                return false;
+            }
         } catch (SQLException e) {
-            System.out.println("Error in rejecting enrollment: " + e.getMessage());
+            System.out.println("Error rejecting enrollment: " + e.getMessage());
+            return false;
         }
     }
 

@@ -158,6 +158,18 @@ class ClientHandler extends Thread {
                 boolean success = EnrollmentService.requestEnrollment(studentId, courseTitle);
                 dataOut.writeBoolean(success);
             }
+            else if("APPROVE_ENROLLMENT".equals(action)){
+                int studentId = dataIn.readInt();
+                int courseId = dataIn.readInt();
+                boolean success = EnrollmentService.approveEnrollment(studentId, courseId);
+                dataOut.writeBoolean(success);
+            }
+            else if("REJECT_ENROLLMENT".equals(action)){
+                int studentId = dataIn.readInt();
+                int courseId = dataIn.readInt();
+                boolean success = EnrollmentService.rejectEnrollment(studentId, courseId);
+                dataOut.writeBoolean(success);
+            }
 
         } catch (Exception  e) {
             System.err.println("Error handling client request: " + e.getMessage());

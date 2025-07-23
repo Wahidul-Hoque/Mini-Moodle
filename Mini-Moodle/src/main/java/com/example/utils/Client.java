@@ -315,7 +315,35 @@ public class Client {
             return dataIn.readBoolean();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return false;  
+            return false;
+        }
+    }
+
+    public static boolean approveEnrollment(int studentId, int courseId) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+            dataOut.writeUTF("APPROVE_ENROLLMENT");
+            dataOut.writeInt(studentId);
+            dataOut.writeInt(courseId);
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean rejectEnrollment(int studentId, int courseId) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+            dataOut.writeUTF("REJECT_ENROLLMENT");
+            dataOut.writeInt(studentId);
+            dataOut.writeInt(courseId);
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
         }
     }
 
