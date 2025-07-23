@@ -201,7 +201,7 @@ public class Client {
             return dataIn.readBoolean();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return false; 
+            return false;
         }
     }
 
@@ -363,9 +363,45 @@ public class Client {
         }
     }
 
+    public static int getTotalCourseCount() {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+            dataOut.writeUTF("GET_TOTAL_COURSES");
+            return dataIn.readInt();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    public static int getTotalStudentCount() {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+            dataOut.writeUTF("GET_TOTAL_STUDENTS");
+            return dataIn.readInt();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    public static int getTotalTeacherCount() {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+            dataOut.writeUTF("GET_TOTAL_TEACHERS");
+            return dataIn.readInt();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return -1;
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
-        System.out.println(CourseService.setStudentGrade(7,2,"D"));
+        //System.out.println(getTotalStudentCount());
     }
 
 

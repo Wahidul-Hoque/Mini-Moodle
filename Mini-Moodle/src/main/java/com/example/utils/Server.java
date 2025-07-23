@@ -176,6 +176,18 @@ class ClientHandler extends Thread {
                 boolean success = EnrollmentService.rejectEnrollment(studentId, courseId);
                 dataOut.writeBoolean(success);
             }
+            else if("GET_TOTAL_COURSES".equals(action)){
+                int count= AdminService.getTotalCourseCount();
+                dataOut.writeInt(count);
+            }
+            else if("GET_TOTAL_STUDENTS".equals(action)){
+                int count= AdminService.getTotalStudentCount()  ;
+                dataOut.writeInt(count);
+            }
+            else if("GET_TOTAL_TEACHERS".equals(action)){
+                int count= AdminService.getTotalTeacherCount();
+                dataOut.writeInt(count);
+            }
 
         } catch (Exception  e) {
             System.err.println("Error handling client request: " + e.getMessage());
