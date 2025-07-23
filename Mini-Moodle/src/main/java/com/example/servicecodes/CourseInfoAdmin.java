@@ -24,4 +24,8 @@ public class CourseInfoAdmin {
     public String getTeacherName() {
         return teacherName;
     }
+    @Override
+    public String toString() {
+        return "Course ID: " + courseId + ", Title: " + courseTitle + ", Description: " + courseDescription + ", Teacher: " + teacherName;
+    }
 }

@@ -209,7 +209,32 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(student.getEmail());
                 }
             }
+            else if ("GET_ALL_TEACHERS".equals(action)) {
+                List<TeacherInfo> teachers = AdminService.getAllTeachers();
+                dataOut.writeInt(teachers.size());
 
+                for (TeacherInfo teacher : teachers) {
+                    dataOut.writeInt(teacher.getTeacherId());
+                    dataOut.writeUTF(teacher.getName());
+                    dataOut.writeUTF(teacher.getEmail());
+                    dataOut.writeUTF(teacher.getCourse());
+                }
+            }
+            else if("ADD_TEACHER".equals(action)) {
+                String username = dataIn.readUTF();
+                String password = dataIn.readUTF();
+                String name = dataIn.readUTF();
+                String email = dataIn.readUTF();
+                boolean isAdded = AdminService.addTeacher(username, password, name, email);
+                dataOut.writeBoolean(isAdded);
+            }
+            else if ("ADD_COURSE".equals(action)) {
+                String title = dataIn.readUTF();
+                String description = dataIn.readUTF();
+                String teacherName = dataIn.readUTF();
+                boolean isAdded = AdminService.addCourse(title, description, teacherName);
+                dataOut.writeBoolean(isAdded);
+            }
         } catch (Exception  e) {
             System.err.println("Error handling client request: " + e.getMessage());
         }

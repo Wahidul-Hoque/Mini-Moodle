@@ -433,9 +433,73 @@ public class Client {
         return students;
     }
 
+    public static List<TeacherInfo> getAllTeachers() {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("GET_ALL_TEACHERS");
+
+            int teacherCount = dataIn.readInt();
+
+            List<TeacherInfo> teacherList = new ArrayList<>();
+
+            for (int i = 0; i < teacherCount; i++) {
+                int teacherId = dataIn.readInt();
+                String name = dataIn.readUTF();
+                String email = dataIn.readUTF();
+                String course = dataIn.readUTF();
+
+                TeacherInfo teacher = new TeacherInfo(teacherId, name, email, course);
+                teacherList.add(teacher);
+            }
+            return teacherList;
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+    public static boolean addTeacher(String username, String password, String name, String email) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("ADD_TEACHER");
+            dataOut.writeUTF(username);
+            dataOut.writeUTF(password);
+            dataOut.writeUTF(name);
+            dataOut.writeUTF(email);
+
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean addCourse(String title, String description, String teacherUsername) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("ADD_COURSE");
+            dataOut.writeUTF(title);
+            dataOut.writeUTF(description);
+            dataOut.writeUTF(teacherUsername);
+
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
+        }
+    }
+
+
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
-        //System.out.println(getTotalStudentCount());
+        //boolean a=addCourse("123_BNG","Bangla Literature","kanon");
     }
 
 
