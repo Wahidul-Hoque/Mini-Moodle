@@ -9,7 +9,7 @@ public class StudentInfo{
         this.id = id;
         this.name = name;
         this.email = email;
-        this.grade = grade; // Default grade
+        this.grade = grade;
     }
     public StudentInfo(int id,String name,String email){
         this.id = id;

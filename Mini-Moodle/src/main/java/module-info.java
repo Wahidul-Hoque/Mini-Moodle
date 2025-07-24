@@ -12,9 +12,11 @@ module com.example.minimoodle {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires javafx.base;
+    requires javafx.graphics;
 
-    opens com.example.minimoodle to javafx.fxml;
     exports com.example.minimoodle;
+    opens com.example.minimoodle to javafx.fxml;
     opens com.example.minimoodle.teacherfunctionalities to javafx.fxml;
     exports com.example.minimoodle.teacherfunctionalities;
     exports com.example.minimoodle.studentfunctionalities to javafx.fxml;

@@ -1,5 +1,9 @@
 package com.example.minimoodle;
 
+import com.example.minimoodle.adminfunctionalities.AdminViewCourses;
+import com.example.minimoodle.adminfunctionalities.AdminViewStudents;
+import com.example.utils.Client;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +24,16 @@ public class AdminDashboardController {
     @FXML private Label totalCoursesLabel;
     @FXML private Label totalStudentsLabel;
     @FXML private Label totalTeachersLabel;
+
+    private String currentAdminId;
+
+    public void setCurrentAdminId(String adminId) {
+        this.currentAdminId = adminId;
+    }
+
+    public String getCurrentAdminId() {
+        return currentAdminId;
+    }
 
     /**
      * Called when the admin clicks the logout button.
@@ -50,16 +64,47 @@ public class AdminDashboardController {
      */
     @FXML
     void handleManageCoursesButton(ActionEvent event) {
-        // TODO: redirect to course management page
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-dashboard-course-management.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) manageCoursesButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("All Courses");
+
+            AdminViewCourses adminViewCourses = loader.getController();
+            adminViewCourses.setCurrentAdminId(currentAdminId);
+        } catch (java.io.IOException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load the course management page: " + e.getMessage());
+            alert.showAndWait();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
-    /**
-     * Called when the admin clicks the manage students button.
-     * TODO: Implement navigation to student management page.
-     */
     @FXML
     void handleManageStudentsButton(ActionEvent event) {
-        // TODO: redirect to student management page
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-dashboard-student-management.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) manageStudentsButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Students' Details");
+
+            AdminViewStudents adminViewStudents = loader.getController();
+            adminViewStudents.setCurrentAdminId(currentAdminId);
+        } catch (java.io.IOException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load the student management page: " + e.getMessage());
+            alert.showAndWait();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -71,22 +116,19 @@ public class AdminDashboardController {
         // TODO: redirect to teacher management page
     }
 
-    /**
-     * Called when the admin clicks the refresh button.
-     * TODO: Reload admin dashboard data from the database.
-     */
     @FXML
     void handleAdminRefresh(ActionEvent event) {
-        // TODO: reload dashboard data (counts, etc.)
+        int teachersCount = Client.getTotalTeacherCount();
+        int studentsCount = Client.getTotalStudentCount();
+        int coursesCount = Client.getTotalCourseCount();
+
+        totalCoursesLabel.setText("Total courses: " + String.valueOf(coursesCount));
+        totalStudentsLabel.setText("Total students: " + String.valueOf(studentsCount));
+        totalTeachersLabel.setText("Total teachers: " + String.valueOf(teachersCount));
     }
 
-    /**
-     * Called when the dashboard is initialized.
-     * TODO: Load admin data from the database and update labels.
-     */
     @FXML
     void initialize() {
-        // TODO: implement load admin data from the database
-        // loadAdminData();
+        handleAdminRefresh(null);
     }
 }

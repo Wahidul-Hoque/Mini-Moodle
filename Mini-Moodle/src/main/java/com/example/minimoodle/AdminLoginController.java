@@ -1,8 +1,7 @@
 package com.example.minimoodle;
 
-import com.example.servicecodes.AdminLoginService; // Importing the service class for teacher login validation
+import com.example.utils.Client; // Importing the service class for teacher login validation
 
-import com.example.utils.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,6 +95,7 @@ public class AdminLoginController {
                 stage.setTitle("Dashboard - " + enteredId);
 
                 AdminDashboardController controller = loader.getController();
+                controller.setCurrentAdminId((enteredId));
 
             } catch (java.io.IOException | NullPointerException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
