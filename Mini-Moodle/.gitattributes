@@ -1,5 +1,0 @@
-# Treat FXML files as XML for GitHub language stats
-*.fxml linguist-language=XML
-
-# Treat IML files as plaintext to avoid them affecting language stats
-*.iml linguist-language=plaintext
