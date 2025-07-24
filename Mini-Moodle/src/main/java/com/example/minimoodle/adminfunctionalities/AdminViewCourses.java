@@ -68,7 +68,6 @@ public class AdminViewCourses {
 
     private void loadData() {
         var courseList = Client.getAllCourses();
-        System.out.println("Loaded courses: " + courseList);
         for(CourseInfoAdmin course : courseList) {
             this.courseList.add(course);
         }

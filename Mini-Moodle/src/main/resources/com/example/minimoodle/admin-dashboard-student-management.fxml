@@ -11,7 +11,7 @@
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
-    <Button fx:id="adminDashboardGoBackButton" text="Back" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" />
+    <Button fx:id="adminDashboardGoBackButton" onAction="#onGoBackClicked" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Back" />
     <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Student Info" />
     <TableView fx:id="adminDashboardStudentsTableView" prefHeight="250" prefWidth="550" style="-fx-background-color: #f4f4f9;">
         <columns>
@@ -22,5 +22,5 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
     </TableView>
-    <Button fx:id="adminDashboardViewStudentsButton" disable="true" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="View Details" />
+    <Button fx:id="adminDashboardViewStudentsButton" disable="true" onAction="#onViewDetailsClicked" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="View Details" />
 </VBox>
