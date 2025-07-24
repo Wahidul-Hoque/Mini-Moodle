@@ -531,7 +531,12 @@ public class Client {
 
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
-        //boolean a=changeStudentPassword(2,"2");
+        //boolean a=addTeacher("f","f","f","f");
+        List<TeacherInfo> teachers = getAllTeachers();
+        for (TeacherInfo teacher : teachers) {
+            System.out.println(teacher);
+
+        }
     }
 
 
