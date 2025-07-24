@@ -182,7 +182,39 @@ public class Client {
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
-            dataOut.writeUTF("CHANGE_PASSWORD");
+            dataOut.writeUTF("CHANGE_PASSWORD_TEACHER");
+            dataOut.writeInt(teacherId);
+            dataOut.writeUTF(newPassword);
+
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean changeAdminPassword(int teacherId, String newPassword) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("CHANGE_PASSWORD_ADMIN");
+            dataOut.writeInt(teacherId);
+            dataOut.writeUTF(newPassword);
+
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean changeStudentPassword(int teacherId, String newPassword) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("CHANGE_PASSWORD_STUDENT");
             dataOut.writeInt(teacherId);
             dataOut.writeUTF(newPassword);
 
@@ -499,7 +531,7 @@ public class Client {
 
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
-        //boolean a=addCourse("123_BNG","Bangla Literature","kanon");
+        //boolean a=changeStudentPassword(2,"2");
     }
 
 
