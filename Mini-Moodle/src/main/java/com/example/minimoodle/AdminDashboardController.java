@@ -2,6 +2,7 @@ package com.example.minimoodle;
 
 import com.example.minimoodle.adminfunctionalities.AdminViewCourses;
 import com.example.minimoodle.adminfunctionalities.AdminViewStudents;
+import com.example.minimoodle.adminfunctionalities.AdminViewTeachers;
 import com.example.utils.Client;
 
 import javafx.event.ActionEvent;
@@ -16,14 +17,22 @@ import javafx.stage.Stage;
 
 public class AdminDashboardController {
 
-    @FXML private Button adminLogoutButton;
-    @FXML private Button manageCoursesButton;
-    @FXML private Button manageStudentsButton;
-    @FXML private Button manageTeachersButton;
-    @FXML private Button adminRefreshButton;
-    @FXML private Label totalCoursesLabel;
-    @FXML private Label totalStudentsLabel;
-    @FXML private Label totalTeachersLabel;
+    @FXML
+    private Button adminLogoutButton;
+    @FXML
+    private Button manageCoursesButton;
+    @FXML
+    private Button manageStudentsButton;
+    @FXML
+    private Button manageTeachersButton;
+    @FXML
+    private Button adminRefreshButton;
+    @FXML
+    private Label totalCoursesLabel;
+    @FXML
+    private Label totalStudentsLabel;
+    @FXML
+    private Label totalTeachersLabel;
 
     private String currentAdminId;
 
@@ -35,10 +44,6 @@ public class AdminDashboardController {
         return currentAdminId;
     }
 
-    /**
-     * Called when the admin clicks the logout button.
-     * Navigates back to the welcome page.
-     */
     @FXML
     void handleAdminLogout(ActionEvent event) {
         try {
@@ -58,10 +63,6 @@ public class AdminDashboardController {
         }
     }
 
-    /**
-     * Called when the admin clicks the manage courses button.
-     * TODO: Implement navigation to course management page.
-     */
     @FXML
     void handleManageCoursesButton(ActionEvent event) {
         try {
@@ -87,7 +88,7 @@ public class AdminDashboardController {
 
     @FXML
     void handleManageStudentsButton(ActionEvent event) {
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-dashboard-student-management.fxml"));
             Parent root = loader.load();
@@ -109,13 +110,27 @@ public class AdminDashboardController {
         }
     }
 
-    /**
-     * Called when the admin clicks the manage teachers button.
-     * TODO: Implement navigation to teacher management page.
-     */
     @FXML
     void handleManageTeachersButton(ActionEvent event) {
-        // TODO: redirect to teacher management page
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-dashboard-teacher-management.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) manageTeachersButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Teachers' Details");
+
+            AdminViewTeachers adminViewTeachers = loader.getController();
+            adminViewTeachers.setCurrentAdminId(currentAdminId);
+            adminViewTeachers.initialize(currentAdminId);
+        } catch (java.io.IOException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load the teacher management page: " + e.getMessage());
+            alert.showAndWait();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
