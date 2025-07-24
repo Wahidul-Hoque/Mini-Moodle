@@ -73,6 +73,7 @@ public class AdminDashboardController {
 
             AdminViewCourses adminViewCourses = loader.getController();
             adminViewCourses.setCurrentAdminId(currentAdminId);
+            adminViewCourses.initialize(currentAdminId);
         } catch (java.io.IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Loading Error");
@@ -96,6 +97,7 @@ public class AdminDashboardController {
 
             AdminViewStudents adminViewStudents = loader.getController();
             adminViewStudents.setCurrentAdminId(currentAdminId);
+            adminViewStudents.initialize(currentAdminId);
         } catch (java.io.IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Loading Error");

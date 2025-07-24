@@ -126,6 +126,7 @@ public class AdminViewStudents {
         ObservableList<StudentTableRow> t = FXCollections.observableArrayList();
 
         var students = Client.getAllStudents();
+        System.out.println("Loaded students: " + students);
         for (StudentInfo student : students) {
             StudentTableRow row = new StudentTableRow(student.getId(), student.getName(), student.getEmail());
             t.add(row);

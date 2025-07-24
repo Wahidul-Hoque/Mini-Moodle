@@ -58,8 +58,8 @@ public class AdminViewCourses {
     public void initialize(String adminId) {
         // Set up table columns and load data
         adminDashboardCourseTitleColumn.setCellValueFactory(new PropertyValueFactory<>("courseTitle"));
-        adminDashboardCourseNameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
-        adminDashboardCourseTeacherColumn.setCellValueFactory(new PropertyValueFactory<>("courseTeacher"));
+        adminDashboardCourseNameColumn.setCellValueFactory(new PropertyValueFactory<>("courseDescription"));
+        adminDashboardCourseTeacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
 
         setCurrentAdminId(adminId);
 
@@ -68,6 +68,7 @@ public class AdminViewCourses {
 
     private void loadData() {
         var courseList = Client.getAllCourses();
+        System.out.println("Loaded courses: " + courseList);
         for(CourseInfoAdmin course : courseList) {
             this.courseList.add(course);
         }

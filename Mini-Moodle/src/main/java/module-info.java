@@ -23,4 +23,5 @@ module com.example.minimoodle {
     opens com.example.minimoodle.studentfunctionalities to javafx.fxml;
     exports com.example.minimoodle.adminfunctionalities to javafx.fxml;
     opens com.example.minimoodle.adminfunctionalities to javafx.fxml;
+    opens com.example.servicecodes to javafx.base;
 }
