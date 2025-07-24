@@ -7,20 +7,24 @@ import com.example.servicecodes.CourseInfo;
 import com.example.servicecodes.StudentInfo;
 import com.example.utils.Client;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AdminViewStudents {
@@ -33,7 +37,6 @@ public class AdminViewStudents {
 
     @FXML
     private TableColumn<StudentTableRow, String> adminDashboardStudentEmailColumn;
-
 
     @FXML
     private Button adminDashboardViewStudentsButton;
@@ -78,7 +81,7 @@ public class AdminViewStudents {
 
     @FXML
     public void initialize(String adminId) {
-        
+
         setCurrentAdminId(adminId);
 
         adminDashboardStudentNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -93,7 +96,7 @@ public class AdminViewStudents {
             adminDashboardViewStudentsButton.setDisable(newSel == null);
         });
     }
-    
+
     @FXML
     private void onGoBackClicked(ActionEvent event) {
         try {
@@ -135,8 +138,6 @@ public class AdminViewStudents {
     }
 
     private void showEnrolledCoursesDialog(StudentTableRow student) {
-
-        // Fetch enrolled courses for the selected student
         List<CourseInfo> courses = Client.getEnrolledCoursesForStudent(student.getId());
 
         if (courses == null || courses.isEmpty()) {
@@ -144,28 +145,40 @@ public class AdminViewStudents {
             return;
         }
 
-        // Prepare ListView with formatted rows: Course ID | Course Name | Grade
-        ListView<String> coursesList = new ListView<>();
-        coursesList.setPrefHeight(180);
+        TableView<CourseInfo> tableView = new TableView<>();
+        tableView.setPrefHeight(250);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        // Header row
-        String header = String.format("%-10s | %-30s | %-15s", "Course ID", "Course Name", "Obtained Grade");
-        coursesList.getItems().add(header);
-        coursesList.getItems().add("---------------------------------------------------------------");
+        TableColumn<CourseInfo, String> idCol = new TableColumn<>("Course Title");
+        idCol.setCellValueFactory(new PropertyValueFactory<>("courseTitle"));
 
-        for (CourseInfo course : courses) {
-            String grade = course.getGrade();
-            String gradeDisplay = (grade == null || grade.equalsIgnoreCase("default")) ? "" : grade;
-            String row = String.format("%-10d | %-30s | %-15s", course.getCourseId(), course.getCourseTitle(), gradeDisplay);
-            coursesList.getItems().add(row);
-        }
+        TableColumn<CourseInfo, String> nameCol = new TableColumn<>("Course Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("courseDescription"));
 
-        Alert dialog = new Alert(AlertType.INFORMATION);
+        TableColumn<CourseInfo, String> gradeCol = new TableColumn<>("Obtained Grade");
+        gradeCol.setCellValueFactory(data -> {
+            String grade = data.getValue().getGrade();
+            if (grade == null || grade.equalsIgnoreCase("default")) {
+                return new SimpleStringProperty("");
+            } else {
+                return new SimpleStringProperty(grade);
+            }
+        });
+
+        tableView.getColumns().addAll(idCol, nameCol, gradeCol);
+        tableView.getItems().addAll(courses);
+
+        VBox container = new VBox(tableView);
+        container.setPadding(new Insets(10));
+
+        Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle("Enrolled Courses");
         dialog.setHeaderText(student.getName() + " is enrolled in:");
-        dialog.getDialogPane().setContent(coursesList);
-        dialog.getButtonTypes().clear();
-        dialog.getButtonTypes().add(javafx.scene.control.ButtonType.OK);
+
+        dialog.getDialogPane().setContent(container);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialog.getDialogPane().setMinWidth(200);
+        dialog.getDialogPane().setMinHeight(300);
         dialog.showAndWait();
     }
 

@@ -131,21 +131,11 @@ public class TeacherGradingPageController {
                 boolean settingGrade= Client.setStudentGrade(studentId,cId,grade);
                 System.out.println(settingGrade);
                 if (settingGrade) {
-                    showAlert("Grade saved","");
+                    showAlert("","Grade saved successfully.");
                 }
                 else{
                     showAlert("Database Error", "Failed to save grade: ");
                 }
-                // TODO: database is correct. just fix the UI elert Kanon
-                // try (Connection conn = getDatabaseConnection()) {
-                //     String query = "UPDATE students SET grade = ? WHERE id = ?";
-                //     PreparedStatement stmt = conn.prepareStatement(query);
-                //     stmt.setString(1, grade);
-                //     stmt.setString(2, student.getId());
-                //     stmt.executeUpdate();
-                // } catch (SQLException e) {
-                //     showAlert("Database Error", "Failed to save grade: " + e.getMessage());
-                // }
             } else {
                 showAlert("Invalid Grade", "Please enter a valid letter grade (A, A-, B+, B, B-, C+, C, C-, D+, D, F).");
             }
@@ -165,7 +155,7 @@ public class TeacherGradingPageController {
     }
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

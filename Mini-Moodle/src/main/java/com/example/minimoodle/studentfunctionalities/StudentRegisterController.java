@@ -1,9 +1,7 @@
 package com.example.minimoodle.studentfunctionalities;
 
-import static com.example.servicecodes.StudentRegisterService.registerStudent;
-
-import com.example.servicecodes.StudentRegisterService;
 import com.example.utils.Client;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -92,6 +90,7 @@ public class StudentRegisterController {
         else{
             showAlert("Registration Failed", "An error occurred while registering. Please try again.", Alert.AlertType.ERROR);
         }
+        handleStudentRegisterCancel();
     }
 
     private boolean areFieldsFilled() {

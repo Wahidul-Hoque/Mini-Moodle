@@ -34,6 +34,16 @@ public class StudentLoginController {
     private String enteredId;
     private String enteredPassword;
 
+    private int studentId;
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
+
     @FXML
     private void initialize() {
         // Bind password fields for visibility toggle
@@ -62,7 +72,7 @@ public class StudentLoginController {
         enteredId = studentLoginIdBox.getText();
         enteredPassword = showPassword ? studentLoginPasswordVisibleBox.getText() : studentLoginPasswordBox.getText();
 
-        int studentId = Client.sendStudentLoginRequest(enteredId, enteredPassword);
+        studentId = Client.sendStudentLoginRequest(enteredId, enteredPassword);
         if (studentId > 0) {
             showAlert("Login Successful", "Welcome Student " + enteredId, Alert.AlertType.INFORMATION);
             try {
@@ -73,6 +83,9 @@ public class StudentLoginController {
                 Stage stage = (Stage) studentLoginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Dashboard - " + enteredId);
+
+                StudentDashboardController studentDashboardController = loader.getController();
+                studentDashboardController.setStudentId(studentId);
             } catch (java.io.IOException | NullPointerException e) {
                 showAlert("Loading Error", "Failed to load the login page: " + e.getMessage(), Alert.AlertType.ERROR);
                 System.out.println(e.getMessage());
