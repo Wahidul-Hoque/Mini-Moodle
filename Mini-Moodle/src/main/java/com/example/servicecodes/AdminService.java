@@ -112,11 +112,9 @@ public class AdminService {
         List<TeacherInfo> teacherList = new ArrayList<>();
         String sql = "SELECT t.id, t.name, t.email, c.title as course_title " +
                 "FROM teacher t " +
-                "INNER JOIN course c ON t.id = c.teacher_id";
-
+                "LEFT JOIN course c ON t.id = c.teacher_id";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -124,7 +122,9 @@ public class AdminService {
                 String teacherName = rs.getString("name");
                 String teacherEmail = rs.getString("email");
                 String courseTitle = rs.getString("course_title");
-
+                if (courseTitle == null) {
+                    courseTitle = "default";
+                }
                 TeacherInfo teacher = new TeacherInfo(teacherId, teacherName, teacherEmail, courseTitle);
                 teacherList.add(teacher);
             }
