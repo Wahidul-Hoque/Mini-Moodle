@@ -53,7 +53,7 @@ public class CourseService {
         }
         return studentName;
     }
-    public static TeacherInfo getTeacherProfile(int teacherId) {
+    public static TeacherInfo getTeacherDetails(int teacherId) {
         TeacherInfo teacherProfile = null;
         String sql = "SELECT t.id, t.name, t.email, t.username, c.title as course_title " +
                 "FROM teacher t " +

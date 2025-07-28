@@ -41,7 +41,7 @@ public class TeacherInfo {
 
     @Override
     public String toString() {
-        return "Teacher ID: " + teacherId + ", Name: " + name + ", Email: " + email + ", Course: " + course;
+        return "Teacher ID: " + teacherId + ", Name: " + name + ", Email: " + email + ", Course: " + course+",  Username: " + username;
     }
 }
 

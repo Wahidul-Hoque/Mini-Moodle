@@ -269,7 +269,7 @@ public class Client {
         }
     }
 
-    public static TeacherInfo getTeacherProfile(int teacherId) {
+    public static TeacherInfo getTeacherDetails(int teacherId) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
@@ -582,11 +582,7 @@ public class Client {
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
         //boolean a=addTeacher("f","f","f","f");
-        List<TeacherInfo> teachers = getAllTeachers();
-        for (TeacherInfo teacher : teachers) {
-            System.out.println(teacher);
-
-        }
+        System.out.println(getTeacherDetails(1));
     }
 
 

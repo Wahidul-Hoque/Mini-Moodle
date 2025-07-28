@@ -57,7 +57,7 @@ public class studentService {
                 String studentName = rs.getString("student_name");
                 String studentEmail = rs.getString("student_email");
                 String studentUsername = rs.getString("student_username");
-                String grade = "notset";
+                String grade = "NOT_SET";
 
                 // Create the StudentDetails object and assign the values
                 studentDetails = new StudentInfo(studentId, studentName, studentEmail,grade, studentUsername);
