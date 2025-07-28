@@ -53,6 +53,35 @@ public class CourseService {
         }
         return studentName;
     }
+    public static TeacherInfo getTeacherProfile(int teacherId) {
+        TeacherInfo teacherProfile = null;
+        String sql = "SELECT t.id, t.name, t.email, t.username, c.title as course_title " +
+                "FROM teacher t " +
+                "INNER JOIN course c ON t.id = c.teacher_id " +
+                "WHERE t.id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, teacherId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String username = rs.getString("username");
+                String courseTitle = rs.getString("course_title");
+
+                teacherProfile = new TeacherInfo(teacherId, name, email, courseTitle,username);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in fetching teacher profile: " + e.getMessage());
+        }
+
+        return teacherProfile;
+    }
+
 
     // Method to get the course ID assigned to a teacher
     public static String getCourseIdForTeacher(int teacherId) {
