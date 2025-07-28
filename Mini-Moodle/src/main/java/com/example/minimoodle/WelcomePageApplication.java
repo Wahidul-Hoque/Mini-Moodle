@@ -6,12 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class WelcomePageApplication extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception
-    {
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("welcome-page.fxml"));
         Parent root = loader.load();
 
@@ -20,7 +18,6 @@ public class WelcomePageApplication extends Application {
         primaryStage.setTitle("Welcome - Mini Moodle");
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch();
