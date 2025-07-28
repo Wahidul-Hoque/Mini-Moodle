@@ -65,7 +65,7 @@ public class StudentViewGrades {
         }
 
         public String getGrade() {
-            return "default".equalsIgnoreCase(grade) ? "" : grade;
+            return "NOT_SET".equalsIgnoreCase(grade) ? "" : grade;
         }
     }
 

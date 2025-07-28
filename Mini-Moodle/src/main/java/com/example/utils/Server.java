@@ -155,13 +155,11 @@ class ClientHandler extends Thread {
                 }
             }
             else if("GET_STUDENT_NAME".equals(action)) {
-                System.out.println("Student name req");
                 int studentId = dataIn.readInt();
                 String studentName = CourseService.getStudentName(studentId);
                 dataOut.writeUTF(studentName);
             }
             else if("GET_ENROLLED_COURSES".equals(action)) {
-                System.out.println("Student course req");
                 int studentId = dataIn.readInt();
                 List<CourseInfo> Courses = studentService.getEnrolledCoursesForStudent(studentId);
                 dataOut.writeInt(Courses.size());
