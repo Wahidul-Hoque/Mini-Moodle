@@ -42,6 +42,6 @@ public class StudentInfo{
     public String getUsername() {return username;}
     @Override
     public String toString() {
-        return "ID: " + id + ", Name: " + name + ", Email: " + email + ", Grade: " + grade;
+        return "ID: " + id + ", Name: " + name + ", Email: " + email + ", Grade: " + grade+",  Username: " + username;
     }
 }

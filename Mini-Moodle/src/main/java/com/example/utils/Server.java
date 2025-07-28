@@ -81,7 +81,7 @@ class ClientHandler extends Thread {
             }
             else if ("GET_TEACHER_PROFILE".equals(action)) {
                 int teacherId = dataIn.readInt();
-                TeacherInfo profile = CourseService.getTeacherProfile(teacherId);
+                TeacherInfo profile = CourseService.getTeacherDetails(teacherId);
 
                 if (profile != null) {
                     dataOut.writeInt(profile.getTeacherId());

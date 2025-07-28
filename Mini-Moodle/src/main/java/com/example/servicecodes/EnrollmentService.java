@@ -12,7 +12,7 @@ public class EnrollmentService {
     //for student
     public static boolean requestEnrollment(int studentId, String courseTitle) {
         String sql = "INSERT INTO enrollment (student_id, course_id, status, email, grade) " +
-                "SELECT ?, c.id, 'pending', s.email, 'notset' " +
+                "SELECT ?, c.id, 'pending', s.email, 'NOT_SET' " +
                 "FROM student s " +
                 "INNER JOIN course c ON c.title = ? " +
                 "WHERE s.id = ?";
