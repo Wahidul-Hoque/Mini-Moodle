@@ -8,7 +8,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import com.example.servicecodes.*;
+import com.example.servicecodes.AdminLoginService;
+import com.example.servicecodes.AdminService;
+import com.example.servicecodes.CourseInfo;
+import com.example.servicecodes.CourseInfoAdmin;
+import com.example.servicecodes.CourseService;
+import com.example.servicecodes.EnrollmentService;
+import com.example.servicecodes.StudentInfo;
+import com.example.servicecodes.StudentLoginService;
+import com.example.servicecodes.StudentRegisterService;
+import com.example.servicecodes.TeacherInfo;
+import com.example.servicecodes.TeacherLoginService;
+import com.example.servicecodes.studentService;
 
 public class Server {
     private static final int PORT = 12345;
@@ -144,11 +155,13 @@ class ClientHandler extends Thread {
                 }
             }
             else if("GET_STUDENT_NAME".equals(action)) {
+                System.out.println("Student name req");
                 int studentId = dataIn.readInt();
                 String studentName = CourseService.getStudentName(studentId);
                 dataOut.writeUTF(studentName);
             }
             else if("GET_ENROLLED_COURSES".equals(action)) {
+                System.out.println("Student course req");
                 int studentId = dataIn.readInt();
                 List<CourseInfo> Courses = studentService.getEnrolledCoursesForStudent(studentId);
                 dataOut.writeInt(Courses.size());

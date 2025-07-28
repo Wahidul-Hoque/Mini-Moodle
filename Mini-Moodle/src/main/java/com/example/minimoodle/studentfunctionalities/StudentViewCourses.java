@@ -2,6 +2,7 @@ package com.example.minimoodle.studentfunctionalities;
 
 import java.util.List;
 
+import com.example.minimoodle.StudentDashboardController;
 import com.example.servicecodes.CourseInfo;
 import com.example.utils.Client;
 
@@ -104,6 +105,9 @@ public class StudentViewCourses {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Student Dashboard");
+
+            StudentDashboardController studentDashboardController = loader.getController();
+            studentDashboardController.setStudentId(studentId);
         } catch (Exception e) {
             showAlert("Loading Error", "Failed to load the student dashboard: " + e.getMessage());
             e.printStackTrace();
