@@ -8,18 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import com.example.servicecodes.AdminLoginService;
-import com.example.servicecodes.AdminService;
-import com.example.servicecodes.CourseInfo;
-import com.example.servicecodes.CourseInfoAdmin;
-import com.example.servicecodes.CourseService;
-import com.example.servicecodes.EnrollmentService;
-import com.example.servicecodes.StudentInfo;
-import com.example.servicecodes.StudentLoginService;
-import com.example.servicecodes.StudentRegisterService;
-import com.example.servicecodes.TeacherInfo;
-import com.example.servicecodes.TeacherLoginService;
-import com.example.servicecodes.studentService;
+import com.example.servicecodes.*;
+
 
 public class Server {
     private static final int PORT = 12345;
