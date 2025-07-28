@@ -64,7 +64,7 @@
             </RadioButton>
 
             <!-- Continue Button -->
-            <Button fx:id="welcomePageContinueButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleWelcomePageContinueButton" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #062F61; -fx-cursor: hand; -fx-background-radius: 20;" text="Continue to Login" textFill="#e1dbdb">
+            <Button fx:id="welcomePageContinueButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleWelcomePageContinueButton" prefHeight="40.0" prefWidth="160.0" stylesheets="@styles.css" text="Continue to Login" textFill="#e1dbdb">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

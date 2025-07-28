@@ -1,12 +1,99 @@
-/* styles.css */
 .radio-button:selected {
     -fx-background-color: #DBEAFE;
     -fx-border-color: #3B82F6;
 }
 
-.button:hover {
-    -fx-background-color: #2563EB;
+.welcome-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Trebuchet MS", sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.action-label {
+    -fx-text-fill:  #1e3a8a;
+    -fx-font-family: "Trebuchet MS", sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.teacher-text-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Trebuchet MS", sans-serif;
+    -fx-font-size: 12px;
+    /* -fx-font-weight: bold; */
+}
+
+.options-menu {
+    -fx-background-color: #c1d8ec;
+    -fx-text-fill: #062F61;
+    -fx-font-family: "Trebuchet MS", sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 8px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+.options-menu:hover {
+    -fx-background-color: #adcfee;
+    -fx-cursor: hand;
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
     -fx-transition: all 0.2s ease-in-out;
 }
+
+.logoutbutton {
+    -fx-background-color: #8d1515;
+    -fx-font-family: "Trebuchet MS", sans-serif;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.logoutbutton:hover {
+    -fx-background-color: #5c0f0f;
+    -fx-cursor: hand;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+
+.top-ribbon {
+    -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS", sans-serif;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color:  #105897;
+    -fx-font-family: "Trebuchet MS", sans-serif;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 25px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.dashboard-button {
+    -fx-background-color: #105897;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 25px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.button:hover {
+    -fx-background-color: #062F61;
+    -fx-cursor: hand;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-transition: all 0.2s ease-in-out;
+}
+

@@ -17,24 +17,21 @@
             <AnchorPane prefHeight="80.0" style="-fx-background-color: #0B3E6B;">
                <children>
                   <!-- Mini Moodle Label on the left -->
-                  <Label fx:id="miniMoodleLabel" layoutX="20.0" layoutY="25.0" style="-fx-text-fill: #E8F3FD; -fx-font-weight: bold;" text="Mini Moodle" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="25.0">
+                  <Label fx:id="miniMoodleLabel" layoutX="31.0" layoutY="21.0" styleClass="top-ribbon" stylesheets="@styles.css" text="Mini Moodle" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="21.0">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Label>
                   
                   <!-- Teacher name and logout on the right -->
-                  <HBox alignment="CENTER_RIGHT" layoutX="500.0" layoutY="20.0" spacing="15.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <HBox alignment="CENTER_RIGHT" layoutX="478.0" layoutY="17.0" spacing="15.0" AnchorPane.rightAnchor="14.799999999999955" AnchorPane.topAnchor="17.0">
                      <children>
-                        <Label fx:id="teacherNameRibbonLabel" style="-fx-text-fill: #E8F3FD; -fx-font-weight: bold;" text="Teacher Name">
+                        <Label fx:id="teacherNameRibbonLabel" alignment="TOP_RIGHT" prefHeight="15.0" prefWidth="204.0" styleClass="teacher-text-label" stylesheets="@styles.css" text="Teacher Name" textAlignment="RIGHT">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="teacherDashboardLogoutButton" mnemonicParsing="false" onAction="#handleTeacherLogout" style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 8 15; -fx-font-size: 14; -fx-cursor: hand;" text="Logout">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
+                        <Button fx:id="teacherDashboardLogoutButton" onAction="#handleTeacherLogout" styleClass="logoutbutton" stylesheets="@styles.css" text="Logout">
                         </Button>
                      </children>
                   </HBox>
@@ -45,29 +42,29 @@
             <HBox prefHeight="500.0" VBox.vgrow="ALWAYS">
                <children>
                   <!-- Left Panel - Welcome and Course Info -->
-                  <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="298.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom, #1e3a8a, #3b82f6); -fx-padding: 30;">
+                  <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="390.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,  #0B3E6B, #2585DB); -fx-padding: 30;">
                      <children>
                         <!-- Welcome Label -->
-                        <Label fx:id="teacherIdLabel" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Welcome, [Teacher]" textAlignment="CENTER">
+                        <Label fx:id="teacherIdLabel" prefHeight="40.0" prefWidth="280.0" style="-fx-text-fill: white; -fx-font-weight: bold;" styleClass="welcome-label" stylesheets="@styles.css" text="Welcome, [Teacher]" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
 
                         <!-- Course Info Section -->
-                        <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
+                        <VBox alignment="CENTER_LEFT" prefHeight="130.0" prefWidth="280.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
                            <children>
-                              <Label fx:id="courseNameLabel" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Course Name: [Course Name]" textAlignment="CENTER">
+                              <Label fx:id="courseNameLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Course Name: [Course Name]" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="courseIdLabel" style="-fx-text-fill: #E8F3FD;" text="Course ID: [Course ID]" textAlignment="CENTER">
+                              <Label fx:id="courseIdLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Course ID: [Course ID]" textAlignment="CENTER">
                                  <font>
                                     <Font name="System" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="enrolledStudentsLabel" style="-fx-text-fill: #E8F3FD;" text="Enrolled Students: [Count]" textAlignment="CENTER">
+                              <Label fx:id="enrolledStudentsLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Enrolled Students: [Count]" textAlignment="CENTER">
                                  <font>
                                     <Font name="System" size="14.0" />
                                  </font>
@@ -79,7 +76,7 @@
                         <VBox VBox.vgrow="ALWAYS" />
 
                         <!-- Options Menu at bottom left -->
-                        <MenuButton fx:id="teacherSettingsButton" mnemonicParsing="false" style="-fx-background-color: #6b7280; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand;" text="Options">
+                        <MenuButton fx:id="teacherSettingsButton" mnemonicParsing="false" styleClass="options-menu" stylesheets="@styles.css" text="Options">
                            <items>
                               <MenuItem fx:id="teacherChangePasswordButton" mnemonicParsing="false" onAction="#handleTeacherPasswordChange" text="Change Password" />
                            </items>
@@ -93,7 +90,7 @@
                   <!-- Right Panel - Action Buttons -->
                   <VBox alignment="CENTER" prefHeight="500.0" prefWidth="507.0" spacing="20.0" style="-fx-background-color: white; -fx-padding: 40;">
                      <children>
-                        <Label style="-fx-text-fill: #1e3a8a; -fx-font-weight: bold;" text="Teacher Actions" textAlignment="CENTER">
+                        <Label style="-fx-text-fill: #1e3a8a; -fx-font-weight: bold;" styleClass="action-label" stylesheets="@styles.css" text="Teacher Actions" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
@@ -102,26 +99,26 @@
                         <!-- Action Buttons -->
                         <VBox alignment="CENTER" spacing="15.0">
                            <children>
-                              <Button fx:id="teacherDashboardApplicantsButton" mnemonicParsing="false" onAction="#handleTeacherSeeApplyingStudents" prefWidth="250.0" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 15 25; -fx-font-size: 16; -fx-cursor: hand;" text="View Applicants">
+                              <Button fx:id="teacherDashboardApplicantsButton" mnemonicParsing="false" onAction="#handleTeacherSeeApplyingStudents" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="View Applicants">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Button>
 
-                              <Button fx:id="teacherDashboardEnrolledStudentsButton" mnemonicParsing="false" onAction="#handleTeacherViewEnrolledStudentsTable" prefWidth="250.0" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 15 25; -fx-font-size: 16; -fx-cursor: hand;" text="Enrolled Students">
+                              <Button fx:id="teacherDashboardEnrolledStudentsButton" mnemonicParsing="false" onAction="#handleTeacherViewEnrolledStudentsTable" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Enrolled Students">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Button>
 
-                              <Button fx:id="teacherDashboardGradingButton" mnemonicParsing="false" onAction="#handleTeacherGrading" prefWidth="250.0" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 15 25; -fx-font-size: 16; -fx-cursor: hand;" text="Student Grading">
+                              <Button fx:id="teacherDashboardGradingButton" mnemonicParsing="false" onAction="#handleTeacherGrading" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Student Grading">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Button>
 
                               <!-- Refresh Button -->
-                              <Button fx:id="teacherDashboardRefreshButton" mnemonicParsing="false" onAction="#handleTeacherRefresh" prefWidth="250.0" style="-fx-background-color: #34d399; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 15 25; -fx-font-size: 16; -fx-cursor: hand;" text="Refresh Dashboard">
+                              <Button fx:id="teacherDashboardRefreshButton" mnemonicParsing="false" onAction="#handleTeacherRefresh" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Sync Data">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
