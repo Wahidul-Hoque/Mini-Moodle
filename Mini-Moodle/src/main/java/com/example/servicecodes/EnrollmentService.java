@@ -11,13 +11,18 @@ import com.example.utils.DatabaseConnection;
 public class EnrollmentService {
     //for student
     public static boolean requestEnrollment(int studentId, String courseTitle) {
-        String sql = "INSERT INTO enrollment (student_id, course_id, status) " +
-                "SELECT ?, id, 'pending' FROM course WHERE title = ?";
+        String sql = "INSERT INTO enrollment (student_id, course_id, status, email, grade) " +
+                "SELECT ?, c.id, 'pending', s.email, 'notset' " +
+                "FROM student s " +
+                "INNER JOIN course c ON c.title = ? " +
+                "WHERE s.id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, studentId);
-            stmt.setString(2, courseTitle);
+            // Set the parameters for the query
+            stmt.setInt(1, studentId);  // student_id
+            stmt.setString(2, courseTitle);  // courseTitle
+            stmt.setInt(3, studentId);  // student_id again to ensure email is correctly linked to the student
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -25,7 +30,7 @@ public class EnrollmentService {
                 System.out.println("Enrollment request submitted successfully for student ID: " + studentId + " in course: " + courseTitle);
                 return true;
             } else {
-                System.out.println("Failed to submit enrollment request. Course might not exist.");
+                System.out.println("Failed to submit enrollment request. Course might not exist or student details are incorrect.");
                 return false;
             }
 
@@ -34,6 +39,7 @@ public class EnrollmentService {
             return false;
         }
     }
+
     //for teacher
     public static boolean approveEnrollment(int studentId, int courseId) {
         String sql = "UPDATE enrollment SET status = 'approved' WHERE student_id = ? AND course_id = ? AND status = 'pending'";
@@ -76,26 +82,5 @@ public class EnrollmentService {
         }
     }
 
-    // Method for teacher to view pending enrollment requests for a specific course
-    public static void viewPendingEnrollments(int courseId) {
-        String sql = "SELECT s.username, e.status FROM enrollment e " +
-                     "JOIN student s ON e.student_id = s.id " +
-                     "WHERE e.course_id = ? AND e.status = 'pending'";
-        
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            stmt.setInt(1, courseId);
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                String studentUsername = rs.getString("username");
-                String status = rs.getString("status");
-                System.out.println("Student: " + studentUsername + ", Status: " + status);
-            }
-            
-        } catch (SQLException e) {
-            System.out.println("Error in fetching pending enrollments: " + e.getMessage());
-        }
-    }
+
 }
