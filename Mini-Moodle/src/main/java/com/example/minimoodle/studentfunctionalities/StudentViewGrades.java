@@ -102,6 +102,7 @@ public class StudentViewGrades {
 
             StudentDashboardController studentDashboardController = loader.getController();
             studentDashboardController.setStudentId(studentId);
+            studentDashboardController.initialize(studentId);
         } catch (Exception e) {
             showAlert("Loading Error", "Failed to load the student dashboard: " + e.getMessage());
             e.printStackTrace();
