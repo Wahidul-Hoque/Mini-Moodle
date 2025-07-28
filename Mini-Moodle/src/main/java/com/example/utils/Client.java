@@ -7,7 +7,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.servicecodes.*;
+import com.example.servicecodes.CourseInfo;
+import com.example.servicecodes.CourseInfoAdmin;
+import com.example.servicecodes.StudentInfo;
+import com.example.servicecodes.TeacherInfo;
 
 public class Client {
     private static String SERVER_ADDRESS = "127.0.0.1";

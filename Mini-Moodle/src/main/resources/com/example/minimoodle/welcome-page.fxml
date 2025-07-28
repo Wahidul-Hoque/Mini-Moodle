@@ -69,7 +69,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #F3F4F6; -fx-text-fill: #062F61; -fx-background-radius: 16;" text="Connect to Server">
+            <Button fx:id="connectToServer" alignment="CENTER" mnemonicParsing="false" onAction="#handleConnectToServer" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #F3F4F6; -fx-text-fill: #062F61; -fx-background-radius: 16;" text="Connect to Server">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

@@ -15,7 +15,7 @@ public class WelcomePageApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("welcome-page.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 640, 400);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Welcome - Mini Moodle");
         primaryStage.show();
