@@ -79,7 +79,7 @@
                   </Button>
 
                   <!-- Register Button -->
-                  <Button fx:id="studentRegisterButton" mnemonicParsing="false" onAction="#handleStudentRegister" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #0F363D; -fx-text-fill: #EBD4A7; -fx-cursor: hand; -fx-background-radius: 16; -fx-font-weight: bold;" text="Create Account">
+                  <Button fx:id="studentRegisterButton" mnemonicParsing="false" onAction="#handleStudentRegister" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #F3F4F6; -fx-text-fill: #062F61; -fx-cursor: hand; -fx-background-radius: 16; -fx-font-weight: bold;" text="Create Account">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
