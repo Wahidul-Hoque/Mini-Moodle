@@ -188,6 +188,17 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(course.getGrade());
                 }
             }
+            else if("GET_PENDING_COURSES".equals(action)) {
+                int studentId = dataIn.readInt();
+                List<CourseInfo> Courses = studentService.getPendingCoursesForStudent(studentId);
+                dataOut.writeInt(Courses.size());
+                for (CourseInfo course : Courses) {
+                    dataOut.writeInt(course.getCourseId());
+                    dataOut.writeUTF(course.getCourseTitle());
+                    dataOut.writeUTF(course.getCourseDescription());
+                    dataOut.writeUTF(course.getGrade());
+                }
+            }
             else if("GET_UNREGISTERED_COURSES".equals(action)) {
                 int studentId = dataIn.readInt();
                 List<CourseInfo> Courses = studentService.getUnregisteredCoursesForStudent(studentId);

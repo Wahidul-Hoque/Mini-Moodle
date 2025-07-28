@@ -41,6 +41,36 @@ public class studentService {
         return enrolledCourses;
     }
 
+    public static List<CourseInfo> getPendingCoursesForStudent(int studentId) {
+        List<CourseInfo> pendingCourses = new ArrayList<>();
+        String sql = "SELECT c.id, c.title, c.description, e.grade " +
+                "FROM course c " +
+                "INNER JOIN enrollment e ON c.id = e.course_id " +
+                "WHERE e.student_id = ? AND e.status = 'approved'";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int courseId = rs.getInt("id");
+                String courseTitle = rs.getString("title");
+                String courseDescription = rs.getString("description");
+                String grade = rs.getString("grade");
+
+                CourseInfo course = new CourseInfo(courseId, courseTitle, courseDescription, grade);
+                pendingCourses.add(course);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getting enrolled courses for student: " + e.getMessage());
+        }
+
+        return pendingCourses;
+    }
+
     public static StudentInfo getStudentDetails(int studentId) {
         StudentInfo studentDetails = null;
         String sql = "SELECT s.id AS student_id, s.name AS student_name, s.email AS student_email, s.username AS student_username " +
