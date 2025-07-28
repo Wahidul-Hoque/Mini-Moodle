@@ -1,7 +1,6 @@
 package com.example.minimoodle.teacherfunctionalities;
 
 import com.example.minimoodle.TeacherDashboardController;
-import com.example.servicecodes.EnrollmentService;
 import com.example.servicecodes.StudentInfo;
 import com.example.utils.Client;
 
@@ -108,7 +107,7 @@ public class ApplyingStudentsPageController {
         Student selectedStudent = requestTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
             // Call the service to approve the enrollment
-            EnrollmentService.approveEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
+            Client.approveEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
             showAlert("Success", "Enrollment approved for " + selectedStudent.getName());
             requestList.remove(selectedStudent);
             studentNameLabel.setText("Name: ");
@@ -143,7 +142,7 @@ public class ApplyingStudentsPageController {
     void handleRejectRequest(ActionEvent event) {
         Student selectedStudent = requestTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
-            EnrollmentService.rejectEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
+            Client.rejectEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
             showAlert("Success", "Enrollment rejected for " + selectedStudent.getName());
             requestList.remove(selectedStudent);
             studentNameLabel.setText("Name: ");
