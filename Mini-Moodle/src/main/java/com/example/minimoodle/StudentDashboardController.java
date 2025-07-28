@@ -16,11 +16,21 @@ import javafx.stage.Stage;
 
 public class StudentDashboardController {
 
+
     @FXML
     private Label studentDashboardLabel;
 
     @FXML
     private Label enrolledCoursesLabel;
+
+    @FXML
+    private Label studentNameRibbonLabel;
+
+    @FXML
+    private Label studentIdLabel;
+
+    @FXML
+    private Label currentGradeLabel;
 
     @FXML
     private Button viewCoursesButton;
@@ -33,6 +43,15 @@ public class StudentDashboardController {
 
     @FXML
     private Button studentLogoutButton;
+
+    @FXML
+    private javafx.scene.control.MenuButton studentSettingsButton;
+
+    @FXML
+    private javafx.scene.control.MenuItem studentChangePasswordButton;
+
+    @FXML
+    private javafx.scene.control.MenuItem studentViewProfileButton;
 
     private int studentId;
     public void setStudentId(int studentId) {
@@ -48,12 +67,25 @@ public class StudentDashboardController {
     }
 
     private void loadStudentDashboardData() {
-        
-
         String studentName = Client.getStudentName(studentId);
         studentDashboardLabel.setText("Welcome, " + studentName);
-        
         enrolledCoursesLabel.setText("Enrolled Courses: " + Client.getEnrolledCoursesForStudent(studentId).size());
+        if (studentNameRibbonLabel != null) {
+            studentNameRibbonLabel.setText(studentName);
+        }
+        if (studentIdLabel != null) {
+            studentIdLabel.setText("Student ID: " + studentId);
+        }
+        if (currentGradeLabel != null) {
+            // Placeholder: Replace with actual grade retrieval logic
+            currentGradeLabel.setText("Current Grade: " + getCurrentGradeForStudent(studentId));
+        }
+    }
+
+    // Placeholder for grade retrieval
+    private String getCurrentGradeForStudent(int studentId) {
+        // TODO: Replace with actual logic
+        return "N/A";
     }
 
     @FXML
@@ -93,6 +125,84 @@ public class StudentDashboardController {
     @FXML
     private void handleStudentRefresh() {
         loadStudentDashboardData();
+    }
+
+    @FXML
+    private void handleStudentPasswordChange() {
+        javafx.scene.control.Dialog<javafx.scene.control.ButtonType> dialog = new javafx.scene.control.Dialog<>();
+        dialog.initOwner(studentSettingsButton.getScene().getWindow());
+        dialog.setTitle("Change Password");
+        dialog.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+        javafx.scene.control.PasswordField oldPasswordField = new javafx.scene.control.PasswordField();
+        javafx.scene.control.PasswordField newPasswordField = new javafx.scene.control.PasswordField();
+        javafx.scene.control.PasswordField confirmPasswordField = new javafx.scene.control.PasswordField();
+
+        oldPasswordField.setPromptText("Old Password");
+        newPasswordField.setPromptText("New Password");
+        confirmPasswordField.setPromptText("Confirm New Password");
+
+        javafx.scene.layout.VBox dialogContent = new javafx.scene.layout.VBox(10,
+                new javafx.scene.control.Label("Old Password:"), oldPasswordField,
+                new javafx.scene.control.Label("New Password:"), newPasswordField,
+                new javafx.scene.control.Label("Confirm New Password:"), confirmPasswordField);
+        dialogContent.setPadding(new javafx.geometry.Insets(20));
+        dialog.getDialogPane().setContent(dialogContent);
+
+        javafx.scene.control.ButtonType changeButtonType = new javafx.scene.control.ButtonType("Change", javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
+        javafx.scene.control.ButtonType cancelButtonType = new javafx.scene.control.ButtonType("Cancel", javafx.scene.control.ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(changeButtonType, cancelButtonType);
+
+        javafx.scene.control.Button changeButton = (javafx.scene.control.Button) dialog.getDialogPane().lookupButton(changeButtonType);
+        changeButton.setDefaultButton(true);
+        changeButton.setDisable(true);
+
+        newPasswordField.textProperty().addListener((obs, old, newVal)
+                -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(confirmPasswordField.getText())));
+        confirmPasswordField.textProperty().addListener((obs, old, newVal)
+                -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(newPasswordField.getText())));
+
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == changeButtonType) {
+                String oldPassword = oldPasswordField.getText();
+                String newPassword = newPasswordField.getText();
+                String confirmPassword = confirmPasswordField.getText();
+
+                // TODO: implement the password change logic
+                // flag boolean is a placeholder for the actual password change logic.
+                boolean flag = true;
+                flag = newPassword.equals(confirmPassword) && Client.changeStudentPassword(studentId, newPassword);
+                if (flag) {
+                    javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Password changed successfully.");
+                    alert.showAndWait();
+                } else {
+                    javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Failed to change password. Please check your old password.");
+                    alert.showAndWait();
+                }
+            }
+            return buttonType;
+        });
+
+        dialog.showAndWait();
+    }
+
+    @FXML
+    private void handleViewProfile() {
+        // TODO: Implement profile view logic
+        System.out.println("Student " + studentId + " requested to view profile.");
+        // Example: Show a dialog or navigate to a profile page
+        // Placeholder: Show a simple dialog
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle("Profile");
+        alert.setHeaderText("Student Profile");
+        alert.setContentText("Name: " + Client.getStudentName(studentId) + "\nID: " + studentId);
+        alert.showAndWait();
     }
 
     @FXML

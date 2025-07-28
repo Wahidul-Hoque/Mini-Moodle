@@ -79,6 +79,7 @@
                         <MenuButton fx:id="studentSettingsButton" mnemonicParsing="false" styleClass="options-menu" stylesheets="@styles.css" text="Options">
                            <items>
                               <MenuItem fx:id="studentChangePasswordButton" mnemonicParsing="false" onAction="#handleStudentPasswordChange" text="Change Password" />
+                             <MenuItem fx:id="studentViewProfileButton" mnemonicParsing="false" onAction="#handleViewProfile" text="View Profile" />
                            </items>
                            <font>
                               <Font size="14.0" />

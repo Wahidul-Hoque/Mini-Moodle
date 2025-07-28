@@ -33,11 +33,21 @@ public class AdminDashboardController {
     private Label totalStudentsLabel;
     @FXML
     private Label totalTeachersLabel;
+    @FXML
+    private Label adminNameRibbonLabel;
+    @FXML
+    private javafx.scene.control.MenuButton adminSettingsButton;
+    @FXML
+    private javafx.scene.control.MenuItem adminChangePasswordButton;
 
     private String currentAdminId;
 
     public void setCurrentAdminId(String adminId) {
         this.currentAdminId = adminId;
+        // Optionally update adminNameRibbonLabel if present
+        if (adminNameRibbonLabel != null) {
+            adminNameRibbonLabel.setText("Admin " + adminId);
+        }
     }
 
     public String getCurrentAdminId() {
@@ -139,13 +149,82 @@ public class AdminDashboardController {
         int studentsCount = Client.getTotalStudentCount();
         int coursesCount = Client.getTotalCourseCount();
 
-        totalCoursesLabel.setText("Total courses: " + String.valueOf(coursesCount));
-        totalStudentsLabel.setText("Total students: " + String.valueOf(studentsCount));
-        totalTeachersLabel.setText("Total teachers: " + String.valueOf(teachersCount));
+        totalCoursesLabel.setText("Total Courses: " + String.valueOf(coursesCount));
+        totalStudentsLabel.setText("Total Students: " + String.valueOf(studentsCount));
+        totalTeachersLabel.setText("Total Teachers: " + String.valueOf(teachersCount));
+        // Optionally update adminNameRibbonLabel if present
+        if (adminNameRibbonLabel != null && currentAdminId != null) {
+            adminNameRibbonLabel.setText("Admin " + currentAdminId);
+        }
     }
 
     @FXML
     void initialize() {
         handleAdminRefresh(null);
+    }
+
+    @FXML
+    void handleAdminChangePassword(ActionEvent event) {
+        javafx.scene.control.Dialog<javafx.scene.control.ButtonType> dialog = new javafx.scene.control.Dialog<>();
+        dialog.initOwner(adminSettingsButton.getScene().getWindow());
+        dialog.setTitle("Change Password");
+        dialog.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+        javafx.scene.control.PasswordField oldPasswordField = new javafx.scene.control.PasswordField();
+        javafx.scene.control.PasswordField newPasswordField = new javafx.scene.control.PasswordField();
+        javafx.scene.control.PasswordField confirmPasswordField = new javafx.scene.control.PasswordField();
+
+        oldPasswordField.setPromptText("Old Password");
+        newPasswordField.setPromptText("New Password");
+        confirmPasswordField.setPromptText("Confirm New Password");
+
+        javafx.scene.layout.VBox dialogContent = new javafx.scene.layout.VBox(10,
+                new javafx.scene.control.Label("Old Password:"), oldPasswordField,
+                new javafx.scene.control.Label("New Password:"), newPasswordField,
+                new javafx.scene.control.Label("Confirm New Password:"), confirmPasswordField);
+        dialogContent.setPadding(new javafx.geometry.Insets(20));
+        dialog.getDialogPane().setContent(dialogContent);
+
+        javafx.scene.control.ButtonType changeButtonType = new javafx.scene.control.ButtonType("Change", javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
+        javafx.scene.control.ButtonType cancelButtonType = new javafx.scene.control.ButtonType("Cancel", javafx.scene.control.ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(changeButtonType, cancelButtonType);
+
+        javafx.scene.control.Button changeButton = (javafx.scene.control.Button) dialog.getDialogPane().lookupButton(changeButtonType);
+        changeButton.setDefaultButton(true);
+        changeButton.setDisable(true);
+
+        newPasswordField.textProperty().addListener((obs, old, newVal)
+                -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(confirmPasswordField.getText())));
+        confirmPasswordField.textProperty().addListener((obs, old, newVal)
+                -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(newPasswordField.getText())));
+
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == changeButtonType) {
+                String oldPassword = oldPasswordField.getText();
+                String newPassword = newPasswordField.getText();
+                String confirmPassword = confirmPasswordField.getText();
+
+                // TODO: implement the password change logic
+                // flag boolean is a placeholder for the actual password change logic.
+                boolean flag = true;
+                // flag = newPassword.equals(confirmPassword) && Client.changeAdminPassword(adminId, newPassword);
+                if (flag) {
+                    javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Password changed successfully.");
+                    alert.showAndWait();
+                } else {
+                    javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Failed to change password. Please check your old password.");
+                    alert.showAndWait();
+                }
+            }
+            return buttonType;
+        });
+
+        dialog.showAndWait();
     }
 }

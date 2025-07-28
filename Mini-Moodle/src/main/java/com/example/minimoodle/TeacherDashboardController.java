@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 public class TeacherDashboardController {
 
     @FXML
+    private Label teacherNameRibbonLabel;
+    @FXML
     private Label courseIdLabel;
 
     @FXML
@@ -37,6 +39,9 @@ public class TeacherDashboardController {
 
     @FXML
     private MenuItem teacherChangePasswordButton;
+
+    @FXML
+    private MenuItem teacherViewProfileButton;
 
     @FXML
     private Button teacherDashboardApplicantsButton;
@@ -92,6 +97,21 @@ public class TeacherDashboardController {
         courseNameLabel.setText("Course Name: " + CourseDescription);
         enrolledStudentsLabel.setText("Enrolled Students: " + studentCount);
 
+        // Optionally update teacherNameRibbonLabel if present
+        if (teacherNameRibbonLabel != null) {
+            teacherNameRibbonLabel.setText(teacherName);
+        }
+    }
+
+    @FXML
+    void handleTeacherViewProfile(ActionEvent event) {
+        // Show a simple profile dialog as a placeholder
+        String teacherName = Client.getTeacherName(getTeacherId());
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle("Profile");
+        alert.setHeaderText("Teacher Profile");
+        alert.setContentText("Name: " + teacherName + "\nID: " + getTeacherId());
+        alert.showAndWait();
     }
 
     @FXML
@@ -256,9 +276,8 @@ public class TeacherDashboardController {
                 String newPassword = newPasswordField.getText();
                 String confirmPassword = confirmPasswordField.getText();
 
-                // TODO: implement the password change logic
-                // flag boolean is a placeholder for the actual password change logic.
                 boolean flag = true;
+                flag = newPassword.equals(confirmPassword) && Client.changeTeacherPassword(teacherId, newPassword);
                 if (flag) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
@@ -269,7 +288,7 @@ public class TeacherDashboardController {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText(null);
-                    alert.setContentText("Failed to change password. Please check your old password.");
+                    alert.setContentText("Failed to change password. Please check your old password or server connection.");
                     alert.showAndWait();
                 }
             }

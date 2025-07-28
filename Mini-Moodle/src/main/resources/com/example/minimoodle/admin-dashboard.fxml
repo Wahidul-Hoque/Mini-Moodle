@@ -2,80 +2,133 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="580.0" prefWidth="640.0" style="-fx-background-color: linear-gradient(to bottom right, #4CAF50, #81C784);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.AdminDashboardController">
+<AnchorPane prefHeight="580.0" prefWidth="800.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.AdminDashboardController">
    <children>
-      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+            <!-- Top Ribbon -->
+            <AnchorPane prefHeight="80.0" style="-fx-background-color: #0B3E6B;">
                <children>
-                  <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <!-- Mini Moodle Label on the left -->
+                  <Label fx:id="miniMoodleLabel" layoutX="31.0" layoutY="21.0" styleClass="top-ribbon" stylesheets="@styles.css" text="Mini Moodle" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="21.0">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Label>
+                  
+                  <!-- Admin name and logout on the right -->
+                  <HBox alignment="CENTER_RIGHT" layoutX="478.0" layoutY="17.0" spacing="15.0" AnchorPane.rightAnchor="14.799999999999955" AnchorPane.topAnchor="17.0">
+                     <children>
+                        <Label fx:id="adminNameRibbonLabel" alignment="TOP_RIGHT" prefHeight="15.0" prefWidth="204.0" styleClass="teacher-text-label" stylesheets="@styles.css" text="Admin" textAlignment="RIGHT">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="adminLogoutButton" onAction="#handleAdminLogout" styleClass="logoutbutton" stylesheets="@styles.css" text="Logout">
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+
+            <!-- Main Content Area with two partitions -->
+            <HBox prefHeight="500.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <!-- Left Panel - Welcome and Admin Info -->
+                  <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="390.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,  #0B3E6B, #2585DB); -fx-padding: 30;">
                      <children>
                         <!-- Welcome Label -->
-                        <Label fx:id="adminDashboardLabel" style="-fx-text-fill: #1e3a8a; -fx-font-weight: bold;" text="Welcome, Admin" textAlignment="CENTER">
+                        <Label fx:id="adminDashboardLabel" prefHeight="40.0" prefWidth="280.0" style="-fx-text-fill: white; -fx-font-weight: bold;" styleClass="welcome-label" stylesheets="@styles.css" text="Welcome, Admin" textAlignment="CENTER" wrapText="true">
                            <font>
-                              <Font name="System Bold" size="32.0" />
+                              <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
 
-                        <!-- System Overview -->
-                        <Label fx:id="totalTeachersLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Total Teachers: [Count]" textAlignment="CENTER">
+                        <!-- System Overview Section -->
+                        <VBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="280.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
+                           <children>
+                              <Label fx:id="totalTeachersLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Teachers: [Count]" textAlignment="CENTER" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalCoursesLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Courses: [Count]" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalStudentsLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Students: [Count]" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+
+                        <!-- Spacer to push Options button to bottom -->
+                        <VBox VBox.vgrow="ALWAYS" />
+
+                        <!-- Options Menu at bottom left -->
+                        <MenuButton fx:id="adminSettingsButton" mnemonicParsing="false" styleClass="options-menu" stylesheets="@styles.css" text="Options">
+                           <items>
+                              <MenuItem fx:id="adminChangePasswordButton" mnemonicParsing="false" onAction="#handleAdminChangePassword" text="Change Password" />
+                           </items>
                            <font>
-                              <Font name="System" size="18.0" />
+                              <Font size="14.0" />
+                           </font>
+                        </MenuButton>
+                     </children>
+                  </VBox>
+
+                  <!-- Right Panel - Action Buttons -->
+                  <VBox alignment="CENTER" prefHeight="500.0" prefWidth="507.0" spacing="20.0" style="-fx-background-color: white; -fx-padding: 40;">
+                     <children>
+                        <Label style="-fx-text-fill: #1e3a8a; -fx-font-weight: bold;" styleClass="action-label" stylesheets="@styles.css" text="Admin Actions" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalCoursesLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Total Courses: [Count]" textAlignment="CENTER">
-                           <font>
-                              <Font name="System" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="totalStudentsLabel" style="-fx-text-fill: #4b5563; font-size: 18px; text-align:center;" text="Total Students: [Count]" textAlignment="CENTER">
-                           <font>
-                              <Font name="System" size="18.0" />
-                           </font>
-                        </Label>
 
-                        <!-- Buttons Section -->
-                        <VBox alignment="CENTER" spacing="10.0">
-                           <Button fx:id="manageTeachersButton" mnemonicParsing="false" onAction="#handleManageTeachersButton" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Manage Teachers">
-                              <font>
-                                 <Font name="System" size="16.0" />
-                              </font>
-                           </Button>
+                        <!-- Action Buttons -->
+                        <VBox alignment="CENTER" spacing="15.0">
+                           <children>
+                              <Button fx:id="manageTeachersButton" mnemonicParsing="false" onAction="#handleManageTeachersButton" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Manage Teachers">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
 
-                           <Button fx:id="manageCoursesButton" mnemonicParsing="false" onAction="#handleManageCoursesButton" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Manage Courses">
-                              <font>
-                                 <Font name="System" size="16.0" />
-                              </font>
-                           </Button>
+                              <Button fx:id="manageCoursesButton" mnemonicParsing="false" onAction="#handleManageCoursesButton" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Manage Courses">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
 
-                           <Button fx:id="manageStudentsButton" mnemonicParsing="false" onAction="#handleManageStudentsButton" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Manage Students">
-                              <font>
-                                 <Font name="System" size="16.0" />
-                              </font>
-                           </Button>
+                              <Button fx:id="manageStudentsButton" mnemonicParsing="false" onAction="#handleManageStudentsButton" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Manage Students">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
 
-                           <!-- Refresh Button -->
-                           <Button fx:id="adminRefreshButton" mnemonicParsing="false" onAction="#handleAdminRefresh" style="-fx-background-color: #34d399; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Refresh">
-                              <font>
-                                 <Font name="System" size="16.0" />
-                              </font>
-                           </Button>
-
-                           <!-- Logout Button -->
-                           <Button fx:id="adminLogoutButton" mnemonicParsing="false" onAction="#handleAdminLogout" style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 25; -fx-font-size: 16; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 5);" text="Logout">
-                              <font>
-                                 <Font name="System" size="16.0" />
-                              </font>
-                           </Button>
+                              <!-- Refresh Button -->
+                              <Button fx:id="adminRefreshButton" mnemonicParsing="false" onAction="#handleAdminRefresh" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Refresh">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
                         </VBox>
                      </children>
                   </VBox>
                </children>
-            </AnchorPane>
+            </HBox>
          </children>
       </VBox>
    </children>

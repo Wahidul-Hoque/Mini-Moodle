@@ -41,24 +41,7 @@
     -fx-transition: all 0.2s ease-in-out;
 }
 
-.logoutbutton {
-    -fx-background-color: #8d1515;
-    -fx-font-family: "Trebuchet MS", sans-serif;
-    -fx-text-fill: white;
-    -fx-font-size: 10px;
-    -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-}
 
-.logoutbutton:hover {
-    -fx-background-color: #5c0f0f;
-    -fx-cursor: hand;
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-    -fx-transition: all 0.2s ease-in-out;
-}
 
 
 .top-ribbon {
@@ -91,6 +74,25 @@
 
 .button:hover {
     -fx-background-color: #062F61;
+    -fx-cursor: hand;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.logoutbutton {
+    -fx-background-color: #921c1c;
+    -fx-font-family: "Trebuchet MS", sans-serif;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.logoutbutton:hover {
+    -fx-background-color: #5c0f0f;
     -fx-cursor: hand;
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
