@@ -269,6 +269,51 @@ public class Client {
         }
     }
 
+    public static TeacherInfo getTeacherProfile(int teacherId) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("GET_TEACHER_PROFILE");
+            dataOut.writeInt(teacherId);
+
+            // Read the response from the server
+            int id = dataIn.readInt();
+            String name = dataIn.readUTF();
+            String email = dataIn.readUTF();
+            String username = dataIn.readUTF();
+            String courseTitle = dataIn.readUTF();
+
+            return new TeacherInfo(id, name, email, courseTitle,username);
+
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return null;
+        }
+    }
+    public static StudentInfo getStudentDetails(int studentId) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("GET_STUDENT_DETAILS");
+            dataOut.writeInt(studentId);
+
+            int id = dataIn.readInt();
+            String studentName = dataIn.readUTF();
+            String studentEmail = dataIn.readUTF();
+            String studentGrade = dataIn.readUTF();
+            String studentUsername = dataIn.readUTF();
+
+            return new StudentInfo(id, studentName, studentEmail,studentGrade, studentUsername);
+
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return null;
+        }
+    }
+
+
     public static List<StudentInfo> getPendingStudents(String courseId) {
         List<StudentInfo> students = new ArrayList<>();
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);

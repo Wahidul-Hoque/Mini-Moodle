@@ -79,6 +79,34 @@ class ClientHandler extends Thread {
                 String courseName= CourseService.getCourseName(courseId);
                 dataOut.writeUTF(courseName);
             }
+            else if ("GET_TEACHER_PROFILE".equals(action)) {
+                int teacherId = dataIn.readInt();
+                TeacherInfo profile = CourseService.getTeacherProfile(teacherId);
+
+                if (profile != null) {
+                    dataOut.writeInt(profile.getTeacherId());
+                    dataOut.writeUTF(profile.getName());
+                    dataOut.writeUTF(profile.getEmail());
+                    dataOut.writeUTF(profile.getUsername());
+                    dataOut.writeUTF(profile.getCourse());
+                } else {
+                    dataOut.writeUTF("Error: Teacher not found");
+                }
+            }
+            else if ("GET_STUDENT_DETAILS".equals(action)) {
+                int studentId = dataIn.readInt();
+                StudentInfo details = studentService.getStudentDetails(studentId);
+
+                if (details != null) {
+                    dataOut.writeInt(details.getId());
+                    dataOut.writeUTF(details.getName());
+                    dataOut.writeUTF(details.getEmail());
+                    dataOut.writeUTF(details.getGrade());
+                    dataOut.writeUTF(details.getUsername());
+                } else {
+                    dataOut.writeUTF("Error: Student not found");
+                }
+            }
             else if( "GET_COURSE_DESCRIPTION".equals(action)){
                 String courseId = dataIn.readUTF();
                 String courseDescription= CourseService.getCourseDescription(courseId);
