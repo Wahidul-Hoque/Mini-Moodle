@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -9,103 +8,81 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.paint.Color?>
 
-<AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.TeacherLoginController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.TeacherLoginController">
    <children>
-      <VBox alignment="CENTER" prefHeight="350.0" prefWidth="100.0" spacing="30.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <!-- Title -->
-            <Label text="Teacher Login" textAlignment="CENTER">
-               <font>
-                  <Font name="Trebuchet MS" size="40.0" />
-               </font>
-               <!-- <effect>
-                  <DropShadow offsetX="5.0" offsetY="5.0" radius="12.0" spread="0.7" color="#3A8DFF"/>
-               </effect> -->
-               <style>
-                  -fx-text-fill: linear-gradient(to right, #3A8DFF, #58A6FF);
-               </style>
-            </Label>
-
-            <!-- Subtitle -->
-            <Label text="Enter Teacher ID and Password" textAlignment="CENTER">
-               <font>
-                  <Font name="Trebuchet MS" size="20.0" />
-               </font>
-               <style>
-                  -fx-text-fill: #4F4F4F;
-               </style>
-            </Label>
-
-            <!-- Back Button -->
-            <Button fx:id="teacherLoginBackButton" mnemonicParsing="false" onAction="#handleTeacherLoginBack" text="Back" prefWidth="80.0" style="-fx-background-color: #EEEEEE; -fx-text-fill: #3A8DFF; -fx-font-weight: bold; -fx-border-radius: 15; -fx-padding: 5px 10px; -fx-cursor: hand;">
-               <font>
-                  <Font name="Trebuchet MS" size="14.0" />
-               </font>
-            </Button>
-
-            <!-- Form Container -->
-            <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="500.0" spacing="20.0">
+            <!-- Header Section -->
+            <AnchorPane prefHeight="150.0" prefWidth="800.0" style="-fx-background-color: #0B3E6B; -fx-border-radius: 20;">
                <children>
-                  <!-- Teacher ID Field -->
-                  <AnchorPane prefHeight="50.0" prefWidth="350.0">
+                  <VBox alignment="CENTER" prefHeight="73.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextField fx:id="teacherLoginIdBox" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="330.0" promptText="Teacher ID" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                           <style>
-                              -fx-background-color: #F9F9F9;
-                              -fx-border-radius: 5;
-                              -fx-border-color: #B0B0B0;
-                              -fx-padding: 5px;
-                              -fx-font-size: 14px;
-                           </style>
+                        <!-- Main Title -->
+                        <Label alignment="CENTER" prefHeight="47.0" prefWidth="386.0" text="Teacher Portal" textFill="#E8F3FD">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+
+            <!-- Login Form Container -->
+            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="800.0" spacing="15.0" style="-fx-padding: 40 60 40 60;">
+               <children>
+                  <!-- Teacher ID Field Container -->
+                  <VBox alignment="CENTER" spacing="2.0">
+                     <children>
+                        <Label style="-fx-text-fill: #1F2A44; -fx-font-weight: bold;" text="Teacher ID">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="teacherLoginIdBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your teacher ID" style="-fx-background-color: #FFFFFF; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;">
                         </TextField>
                      </children>
-                  </AnchorPane>
+                  </VBox>
 
-                  <!-- Password Field -->
-                  <AnchorPane prefHeight="50.0" prefWidth="350.0">
+                  <!-- Password Field Container -->
+                  <VBox alignment="CENTER" spacing="2.0">
                      <children>
-                        <PasswordField fx:id="teacherLoginPasswordBox" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="330.0" promptText="Password" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                           <style>
-                              -fx-background-color: #F9F9F9;
-                              -fx-border-radius: 5;
-                              -fx-border-color: #B0B0B0;
-                              -fx-padding: 5px;
-                              -fx-font-size: 14px;
-                           </style>
-                        </PasswordField>
-                        <TextField fx:id="teacherLoginPasswordVisibleBox" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="330.0" promptText="Password" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                           <style>
-                              -fx-background-color: #F9F9F9;
-                              -fx-border-radius: 5;
-                              -fx-border-color: #B0B0B0;
-                              -fx-padding: 5px;
-                              -fx-font-size: 14px;
-                           </style>
-                        </TextField>
+                        <Label style="-fx-text-fill: #1F2A44; -fx-font-weight: bold;" text="Password">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane prefHeight="45.0" prefWidth="350.0">
+                           <children>
+                              <PasswordField fx:id="teacherLoginPasswordBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your password" style="-fx-background-color: #FFFFFF; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              </PasswordField>
+                              <TextField fx:id="teacherLoginPasswordVisibleBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your password" style="-fx-background-color: #FFFFFF; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              </TextField>
+                           </children>
+                        </AnchorPane>
                      </children>
-                  </AnchorPane>
+                  </VBox>
 
-
-                  <!-- Password Visibility Toggle -->
-                  <CheckBox fx:id="teacherLoginPasswordCheckBox" mnemonicParsing="false" onAction="#toggleTeacherLoginPasswordVisibility" text="Show Password" textAlignment="JUSTIFY" style="-fx-text-fill: #4F4F4F;"/>
+                  <!-- Show Password Checkbox -->
+                  <CheckBox fx:id="teacherLoginPasswordCheckBox" mnemonicParsing="false" onAction="#toggleTeacherLoginPasswordVisibility" style="-fx-text-fill: #1F2A44;" text="Show Password">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </CheckBox>
 
                   <!-- Login Button -->
-                  <Button fx:id="teacherLoginButton" mnemonicParsing="false" onAction="#processTeacherLogin" prefHeight="40.0" prefWidth="200.0" text="Login" textAlignment="CENTER">
+                  <Button fx:id="teacherLoginButton" mnemonicParsing="false" onAction="#processTeacherLogin" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #062F61; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-background-radius: 20; -fx-font-weight: bold;" text="Login to Teacher Portal">
                      <font>
-                        <Font name="Trebuchet MS" size="18.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
-                     <style>
-                        -fx-background-color: linear-gradient(to right, #3A8DFF, #58A6FF);
-                        -fx-text-fill: white;
-                        -fx-font-weight: bold;
-                        -fx-border-radius: 25;
-                        -fx-padding: 10px 20px;
-                        -fx-effect: dropshadow(gaussian, #333333, 10, 0.5, 0, 2);
-                        -fx-cursor: hand;
-                     </style>
+                  </Button>
+
+                  <!-- Back Button -->
+                  <Button fx:id="teacherLoginBackButton" mnemonicParsing="false" onAction="#handleTeacherLoginBack" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-text-fill: #062F61; -fx-border-color: #062F61; -fx-border-radius: 15; -fx-background-radius: 15; -fx-cursor: hand;" text="Back">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
                   </Button>
                </children>
             </VBox>

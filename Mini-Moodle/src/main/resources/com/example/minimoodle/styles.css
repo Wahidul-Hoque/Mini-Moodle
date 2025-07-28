@@ -1,0 +1,12 @@
+/* styles.css */
+.radio-button:selected {
+    -fx-background-color: #DBEAFE;
+    -fx-border-color: #3B82F6;
+}
+
+.button:hover {
+    -fx-background-color: #2563EB;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-transition: all 0.2s ease-in-out;
+}
