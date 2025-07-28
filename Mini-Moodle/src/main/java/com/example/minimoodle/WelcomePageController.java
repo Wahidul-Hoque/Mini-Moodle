@@ -1,6 +1,6 @@
 package com.example.minimoodle;
 
-import java.awt.event.ActionEvent;
+import com.example.utils.Client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,7 +88,7 @@ public class WelcomePageController {
     }
 
     @FXML
-    private void handleConnectToServer(ActionEvent event) {
+    public void handleConnectToServer() {
         // Create a custom dialog for IP input
         javafx.scene.control.Dialog<String> dialog = new javafx.scene.control.Dialog<>();
         dialog.setTitle("Connect to Server");
@@ -120,17 +120,18 @@ public class WelcomePageController {
             if (dialogButton == connectButtonType) {
                 return ipField.getText();
             }
-            return null;
+            return "127.0.0.1";
         });
 
         java.util.Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(ip -> {
             // Here you can handle the IP address (e.g., attempt to connect)
+            new Client(ip);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Connection Attempt");
             alert.setHeaderText(null);
-            alert.setContentText("Attempting to connect to server at: " + ip);
+            alert.setContentText("Connected to to server at: " + ip);
             alert.showAndWait();
         });
     }
