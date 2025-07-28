@@ -10,9 +10,11 @@ import java.util.List;
 import com.example.servicecodes.*;
 
 public class Client {
-    private static final String SERVER_ADDRESS = "127.0.0.1";
+    private static String SERVER_ADDRESS = "127.0.0.1";
     private static final int SERVER_PORT = 12345;
-
+    public Client(String serverAddress) {
+        this.SERVER_ADDRESS = serverAddress;
+    }
     public static int sendLoginRequest(String username, String password) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());
