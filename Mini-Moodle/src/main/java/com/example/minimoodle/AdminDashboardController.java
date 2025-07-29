@@ -46,7 +46,7 @@ public class AdminDashboardController {
         this.currentAdminId = adminId;
         // Optionally update adminNameRibbonLabel if present
         if (adminNameRibbonLabel != null) {
-            adminNameRibbonLabel.setText("Admin " + adminId);
+            adminNameRibbonLabel.setText("Administrator");
         }
     }
 
