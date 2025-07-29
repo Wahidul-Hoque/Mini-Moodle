@@ -336,7 +336,7 @@ public class TeacherDashboardController {
         dialog.setResultConverter(buttonType -> {
             if (buttonType == sendButtonType) {
                 String message = notificationTextArea.getText();
-                boolean success = Client.sendNotification(teacherId, message);
+                boolean success = Client.sendNotification(Integer.parseInt(teacherCourseID), message);
                 if (success) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
