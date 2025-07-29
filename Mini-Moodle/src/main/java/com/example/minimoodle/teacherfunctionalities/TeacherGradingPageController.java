@@ -38,6 +38,9 @@ public class TeacherGradingPageController {
     @FXML
     private Button goBackButton;
 
+    @FXML
+    private Label teacherNameRibbonLabel;
+
     private int teacherId;
     private String currentCourseId;
 
@@ -64,6 +67,12 @@ public class TeacherGradingPageController {
         setCurrentCourseId(courseId);
         setTeacherId(teacherId);
 
+        // Set teacher name in the ribbon
+        String teacherName = Client.getTeacherName(teacherId);
+        if (teacherNameRibbonLabel != null) {
+            teacherNameRibbonLabel.setText(teacherName);
+        }
+
         loadStudentData();
         studentTable.setItems(studentData);
 
@@ -85,6 +94,10 @@ public class TeacherGradingPageController {
                 } else {
                     actionButton.setText("Update Grade");
                 }
+                // Apply the dashboard button styling
+                actionButton.getStyleClass().clear();
+                actionButton.getStyleClass().add("dashboard-button");
+                actionButton.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
                 actionButton.setOnAction(event -> showGradeDialog(student));
                 setGraphic(actionButton);
             }

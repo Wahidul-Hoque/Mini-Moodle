@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -39,6 +40,9 @@ public class ApplyingStudentsPageController {
     @FXML
     private TableView<Student> requestTable;
 
+    @FXML
+    private Label teacherNameRibbonLabel;
+
     private int  teacherId;
 
     public void setTeacherId(int teacherId) {
@@ -61,6 +65,12 @@ public class ApplyingStudentsPageController {
 
         setTeacherId(teacherId);
         setCurrentCourseId(courseId);
+
+        // Set teacher name in the ribbon
+        String teacherName = Client.getTeacherName(teacherId);
+        if (teacherNameRibbonLabel != null) {
+            teacherNameRibbonLabel.setText(teacherName);
+        }
 
         fetchApplyingStudents();
         requestTable.setItems(requestList);

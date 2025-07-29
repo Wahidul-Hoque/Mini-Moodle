@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -32,6 +33,9 @@ public class StudentViewCourses {
     private TableColumn<CourseRow, Void> actionColumn;
     @FXML
     private Button goBackButton;
+
+    @FXML
+    private Label studentNameRibbonLabel;
 
     // Dummy data class for table rows
     public static class CourseRow {
@@ -70,6 +74,12 @@ public class StudentViewCourses {
 
         this.studentId = studentId;
 
+        // Set student name in the ribbon
+        String studentName = Client.getStudentName(studentId);
+        if (studentNameRibbonLabel != null) {
+            studentNameRibbonLabel.setText(studentName);
+        }
+
         List<CourseInfo> courses = Client.getUnregisteredCoursesForStudent(studentId);
         for (CourseInfo course : courses) {
             courseData.add(new CourseRow(String.valueOf(course.getCourseTitle()), course.getCourseDescription()));
@@ -87,6 +97,10 @@ public class StudentViewCourses {
                     setGraphic(null);
                     return;
                 }
+                // Apply the dashboard button styling
+                enrollButton.getStyleClass().clear();
+                enrollButton.getStyleClass().add("dashboard-button");
+                enrollButton.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
                 enrollButton.setOnAction(event -> {
                     CourseRow course = getTableView().getItems().get(getIndex());
                     Client.requestEnrollment(studentId, course.getId());

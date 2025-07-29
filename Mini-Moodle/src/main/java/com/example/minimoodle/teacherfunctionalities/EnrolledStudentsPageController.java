@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,6 +32,9 @@ public class EnrolledStudentsPageController {
 
     @FXML
     private Button goBackButton;
+
+    @FXML
+    private Label teacherNameRibbonLabel;
 
     private int teacherId;
 
@@ -54,6 +58,12 @@ public class EnrolledStudentsPageController {
 
         setTeacherId(teacherId);
         setCurrentCourseId(courseId);
+
+        // Set teacher name in the ribbon
+        String teacherName = Client.getTeacherName(teacherId);
+        if (teacherNameRibbonLabel != null) {
+            teacherNameRibbonLabel.setText(teacherName);
+        }
 
         fetchEnrolledStudents();
         studentTable.setItems(studentList);

@@ -5,22 +5,67 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" spacing="10" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.studentfunctionalities.StudentViewGrades">
-    <padding>
-        <Insets bottom="10" left="10" right="10" top="10" />
-    </padding>
-    <Button fx:id="goBackButton" onAction="#handleGoBack" text="Go Back" />
-    <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="My Grades" />
-    <TableView fx:id="gradesTable">
-        <columns>
-            <TableColumn fx:id="courseIdColumn" prefWidth="100" text="Course ID" />
-            <TableColumn fx:id="courseNameColumn" prefWidth="200" text="Course Name" />
-            <TableColumn fx:id="gradeColumn" prefWidth="100" text="Grade" />
-        </columns>
-        <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-        </columnResizePolicy>
-    </TableView>
-</VBox>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.minimoodle.studentfunctionalities.StudentViewGrades">
+   <children>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <!-- Top Ribbon -->
+            <AnchorPane prefHeight="80.0" style="-fx-background-color: #0B3E6B;">
+               <children>
+                  <!-- Mini Moodle Label on the left -->
+                  <Label fx:id="miniMoodleLabel" layoutX="31.0" layoutY="21.0" styleClass="top-ribbon" stylesheets="@styles.css" text="Mini Moodle" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="21.0">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Label>
+                  
+                  <!-- Student name and back button on the right -->
+                  <HBox alignment="CENTER_RIGHT" layoutX="478.0" layoutY="17.0" spacing="15.0" AnchorPane.rightAnchor="14.8" AnchorPane.topAnchor="17.0">
+                     <children>
+                        <Label fx:id="studentNameRibbonLabel" alignment="TOP_RIGHT" prefHeight="15.0" prefWidth="204.0" styleClass="teacher-text-label" stylesheets="@styles.css" text="Student Name" textAlignment="RIGHT">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="goBackButton" onAction="#handleGoBack" styleClass="dashboard-button" stylesheets="@styles.css" text="Go Back">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+
+            <!-- Main Content Area -->
+            <VBox alignment="TOP_CENTER" spacing="30.0" style="-fx-background-color: white; -fx-padding: 40;" VBox.vgrow="ALWAYS">
+               <children>
+                  <!-- Title Label -->
+                  <Label style="-fx-text-fill: #1e3a8a; -fx-font-weight: bold;" styleClass="action-label" stylesheets="@styles.css" text="My Grades" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+
+                  <!-- Grades Table -->
+                  <TableView fx:id="gradesTable" style="-fx-background-color: #f4f4f9;" VBox.vgrow="ALWAYS">
+                      <columns>
+                          <TableColumn fx:id="courseIdColumn" prefWidth="100" text="Course ID" />
+                          <TableColumn fx:id="courseNameColumn" prefWidth="200" text="Course Name" />
+                          <TableColumn fx:id="gradeColumn" prefWidth="100" text="Grade" />
+                      </columns>
+                      <columnResizePolicy>
+                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                      </columnResizePolicy>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

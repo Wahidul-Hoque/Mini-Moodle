@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,6 +21,9 @@ public class StudentViewPendingCourses {
 
     @FXML
     private Button goBackButton;
+
+    @FXML
+    private Label studentNameRibbonLabel;
 
     @FXML
     private TableView<CourseInfo> courseTable;
@@ -38,6 +42,13 @@ public class StudentViewPendingCourses {
 
     public void initialize(int studentId) {
         this.studentId = studentId;
+        
+        // Set student name in the ribbon
+        String studentName = Client.getStudentName(studentId);
+        if (studentNameRibbonLabel != null) {
+            studentNameRibbonLabel.setText(studentName);
+        }
+        
         setupTable();
         loadAppliedCourses();
     }

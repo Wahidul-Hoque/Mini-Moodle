@@ -14,7 +14,7 @@
       <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <!-- Header Section -->
-            <AnchorPane prefHeight="71.0" prefWidth="800.0" style="-fx-background-color: #0B3E6B; -fx-border-radius: 20;">
+            <AnchorPane prefHeight="90.0" prefWidth="800.0" style="-fx-background-color: #0B3E6B; -fx-border-radius: 20;">
                <children>
                   <VBox alignment="CENTER" prefHeight="48.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -30,7 +30,7 @@
             </AnchorPane>
 
             <!-- Registration Form Container -->
-            <VBox alignment="CENTER" prefHeight="450.0" prefWidth="800.0" spacing="10.0" style="-fx-padding: 40 60 40 60;">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="554.0" prefWidth="800.0" spacing="10.0" style="-fx-padding: 40 60 40 60;">
                <children>
                   <!-- Name Field Container -->
                   <VBox alignment="CENTER" spacing="2.0">

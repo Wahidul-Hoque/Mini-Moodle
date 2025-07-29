@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -33,6 +34,9 @@ public class StudentViewGrades {
     private TableColumn<GradeRow, String> gradeColumn;
     @FXML
     private Button goBackButton;
+
+    @FXML
+    private Label studentNameRibbonLabel;
 
     private int studentId;
 
@@ -78,6 +82,12 @@ public class StudentViewGrades {
         gradeColumn.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getGrade()));
 
         this.studentId = studentId;
+
+        // Set student name in the ribbon
+        String studentName = Client.getStudentName(studentId);
+        if (studentNameRibbonLabel != null) {
+            studentNameRibbonLabel.setText(studentName);
+        }
 
         loadGrades();
 

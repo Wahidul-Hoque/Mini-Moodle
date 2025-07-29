@@ -92,7 +92,7 @@ public class TeacherDashboardController {
 
         teacherCourseID = courseId;
 
-        teacherIdLabel.setText("Welcome, teacher " + teacherName);
+        teacherIdLabel.setText("Welcome, " + teacherName);
         courseIdLabel.setText("Course ID: " + courseName);
         courseNameLabel.setText("Course Name: " + CourseDescription);
         enrolledStudentsLabel.setText("Enrolled Students: " + studentCount);

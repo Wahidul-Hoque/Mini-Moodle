@@ -14,17 +14,17 @@
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <!-- Top Ribbon -->
-            <AnchorPane prefHeight="80.0" style="-fx-background-color: #0B3E6B;">
+            <AnchorPane prefHeight="90.0" prefWidth="800.0" style="-fx-background-color: #0B3E6B;">
                <children>
                   <!-- Mini Moodle Label on the left -->
-                  <Label fx:id="miniMoodleLabel" layoutX="31.0" layoutY="21.0" styleClass="top-ribbon" stylesheets="@styles.css" text="Mini Moodle" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="21.0">
+                  <Label fx:id="miniMoodleLabel" layoutX="26.0" layoutY="26.0" styleClass="top-ribbon" stylesheets="@styles.css" text="Mini Moodle" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Label>
                   
                   <!-- Student name and logout on the right -->
-                  <HBox alignment="CENTER_RIGHT" layoutX="478.0" layoutY="17.0" spacing="15.0" AnchorPane.rightAnchor="14.799999999999955" AnchorPane.topAnchor="17.0">
+                  <HBox alignment="CENTER_RIGHT" layoutX="494.0" layoutY="28.0" spacing="15.0" AnchorPane.rightAnchor="14.799999999999955" AnchorPane.topAnchor="28.0">
                      <children>
                         <Label fx:id="studentNameRibbonLabel" alignment="TOP_RIGHT" prefHeight="15.0" prefWidth="204.0" styleClass="teacher-text-label" stylesheets="@styles.css" text="Student Name" textAlignment="RIGHT">
                            <font>
@@ -42,7 +42,7 @@
             <HBox prefHeight="500.0" VBox.vgrow="ALWAYS">
                <children>
                   <!-- Left Panel - Welcome and Student Info -->
-                  <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="390.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,  #0B3E6B, #2585DB); -fx-padding: 30;">
+                  <VBox alignment="TOP_CENTER" prefHeight="510.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,  #0B3E6B, #2585DB); -fx-padding: 30;">
                      <children>
                         <!-- Welcome Label -->
                         <Label fx:id="studentDashboardLabel" prefHeight="40.0" prefWidth="280.0" style="-fx-text-fill: white; -fx-font-weight: bold;" styleClass="welcome-label" stylesheets="@styles.css" text="Welcome, Student" textAlignment="CENTER" wrapText="true">
