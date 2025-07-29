@@ -256,6 +256,28 @@ public class CourseService {
         return pendingStudents;
     }
 
+    public static boolean sendNotification(int courseId, String message) {
+        String sql = "INSERT INTO notifications (course_id, message) VALUES (?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, courseId);
+            stmt.setString(2, message);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Notification sent successfully to course ID: " + courseId);
+                return true;
+            } else {
+                System.out.println("Failed to send notification. Something went wrong.");
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error sending notification: " + e.getMessage());
+            return false;
+        }
+    }
 
 
 

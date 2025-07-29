@@ -291,6 +291,21 @@ public class Client {
             return null;
         }
     }
+
+    public static boolean sendNotification(int courseId, String message) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+            dataOut.writeUTF("SEND_NOTIFICATION");
+            dataOut.writeInt(courseId);
+            dataOut.writeUTF(message);
+            return dataIn.readBoolean();
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return false;
+        }
+    }
+
     public static StudentInfo getStudentDetails(int studentId) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              DataInputStream dataIn = new DataInputStream(socket.getInputStream());

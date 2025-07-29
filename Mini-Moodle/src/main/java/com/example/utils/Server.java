@@ -228,6 +228,12 @@ class ClientHandler extends Thread {
                 boolean success = EnrollmentService.rejectEnrollment(studentId, courseId);
                 dataOut.writeBoolean(success);
             }
+            else if ("SEND_NOTIFICATION".equals(action)) {
+                int courseId = dataIn.readInt();
+                String message = dataIn.readUTF();
+                boolean success = CourseService.sendNotification(courseId, message);
+                dataOut.writeBoolean(success);
+            }
             else if("GET_TOTAL_COURSES".equals(action)){
                 int count= AdminService.getTotalCourseCount();
                 dataOut.writeInt(count);

@@ -116,7 +116,13 @@ VALUES (1, 2, 'approved', 'student1@example.com', 'A'),
 
 
 
-
+CREATE TABLE notifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,      -- Unique ID for each notification
+    course_id INTEGER,                         -- Foreign Key referencing the course table
+    message TEXT NOT NULL,                     -- The notification message
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, -- Timestamp of when the notification was sent
+    FOREIGN KEY (course_id) REFERENCES course(id) -- Link to the course table
+);
 
 
 
