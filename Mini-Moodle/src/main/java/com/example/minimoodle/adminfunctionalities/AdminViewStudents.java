@@ -88,7 +88,6 @@ public class AdminViewStudents {
 
         setCurrentAdminId(adminId);
 
-        // Set admin name in the ribbon
         if (adminNameRibbonLabel != null) {
             adminNameRibbonLabel.setText("Admin");
         }
@@ -155,39 +154,73 @@ public class AdminViewStudents {
         }
 
         TableView<CourseInfo> tableView = new TableView<>();
-        tableView.setPrefHeight(250);
+        tableView.setPrefHeight(400);
+        tableView.setPrefWidth(650);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<CourseInfo, String> idCol = new TableColumn<>("Course Title");
         idCol.setCellValueFactory(new PropertyValueFactory<>("courseTitle"));
+        idCol.setPrefWidth(200);
 
         TableColumn<CourseInfo, String> nameCol = new TableColumn<>("Course Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("courseDescription"));
+        nameCol.setPrefWidth(300);
 
         TableColumn<CourseInfo, String> gradeCol = new TableColumn<>("Obtained Grade");
         gradeCol.setCellValueFactory(data -> {
             String grade = data.getValue().getGrade();
-            if (grade == null || grade.equalsIgnoreCase("default")) {
+            if (grade == null || grade.equalsIgnoreCase("default") || grade.equalsIgnoreCase("NOT_SET")) {
                 return new SimpleStringProperty("");
             } else {
                 return new SimpleStringProperty(grade);
             }
         });
+        gradeCol.setPrefWidth(150);
 
-        tableView.getColumns().addAll(idCol, nameCol, gradeCol);
+        tableView.getColumns().add(idCol);
+        tableView.getColumns().add(nameCol);
+        tableView.getColumns().add(gradeCol);
         tableView.getItems().addAll(courses);
 
-        VBox container = new VBox(tableView);
-        container.setPadding(new Insets(10));
+        // Add styling to the table
+        tableView.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
+        tableView.setStyle("-fx-background-color: #f4f4f9; -fx-border-color: #d1d5db; -fx-border-radius: 8;");
+
+        Label headerLabel = new Label("Student Course Information");
+        headerLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1e3a8a; -fx-padding: 10 0 15 0;");
+
+        Label studentInfoLabel = new Label("Student: " + student.getName() + " (" + student.getEmail() + ")");
+        studentInfoLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #4b5563; -fx-padding: 0 0 15 0;");
+
+        VBox container = new VBox(15);
+        container.getChildren().addAll(headerLabel, studentInfoLabel, tableView);
+        container.setPadding(new Insets(20));
+        container.setStyle("-fx-background-color: white; -fx-border-radius: 10;");
 
         Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("Enrolled Courses");
-        dialog.setHeaderText(student.getName() + " is enrolled in:");
+        dialog.setTitle("Student Course Details");
+        dialog.setHeaderText(null);
 
         dialog.getDialogPane().setContent(container);
+        
+        // Create custom close button with grades-button style
+        Button closeButton = new Button("Close");
+        closeButton.getStyleClass().add("grades-button");
+        closeButton.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
+        closeButton.setOnAction(_ -> dialog.close());
+        
+        dialog.getDialogPane().getButtonTypes().clear();
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-        dialog.getDialogPane().setMinWidth(200);
-        dialog.getDialogPane().setMinHeight(300);
+        
+        // Apply the custom button styling
+        dialog.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("grades-button");
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
+        
+        // Set dialog size
+        dialog.getDialogPane().setPrefSize(700, 500);
+        dialog.getDialogPane().setMinSize(650, 450);
+        dialog.setResizable(true);
+        
         dialog.showAndWait();
     }
 
