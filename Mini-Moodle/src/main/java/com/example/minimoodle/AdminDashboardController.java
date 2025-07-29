@@ -205,7 +205,7 @@ public class AdminDashboardController {
                 String confirmPassword = confirmPasswordField.getText();
 
                 boolean flag = true;
-                flag = newPassword.equals(confirmPassword) && Client.changeAdminPassword(Integer.parseInt(currentAdminId), newPassword);
+                flag = newPassword.equals(confirmPassword) && Client.changeAdminPassword(1, newPassword);
                 if (flag) {
                     javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");

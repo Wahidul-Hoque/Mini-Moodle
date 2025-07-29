@@ -156,12 +156,13 @@ public class studentService {
                 "FROM notifications n " +
                 "JOIN course c ON n.course_id = c.id " +
                 "JOIN enrollment e ON e.course_id = c.id " +
-                "WHERE e.student_id = ?";
+                "WHERE e.student_id = ? " +
+                "AND e.status = 'approved'";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, studentId);
+            stmt.setInt(1, studentId);  // Set the studentId to filter notifications for a specific student
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -171,12 +172,11 @@ public class studentService {
 
                 notifications.add(new Notification(courseName, message, timestamp));
             }
-
         } catch (SQLException e) {
             System.out.println("Error in getting notifications for student: " + e.getMessage());
         }
-
         return notifications;
     }
+
 
 }

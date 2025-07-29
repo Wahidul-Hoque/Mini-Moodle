@@ -669,9 +669,9 @@ public class Client {
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
         boolean a=addTeacher("f","f","f","f");
-        sendNotification(2,"this is a testing message laskjfaslkjflk;asjfklasf" + "\n" + "oasijfo;asdjfoidjsfgoi;fm;lskf\nljf;lkjf;ldjfs");
-        System.out.println(getTeacherUsername(4));
-        System.out.println(getNotifications(2));
+        //sendNotification(2,"this is a testing message laskjfaslkjflk;asjfklasf" + "\n" + "oasijfo;asdjfoidjsfgoi;fm;lskf\nljf;lkjf;ldjfs");
+        //System.out.println(getTeacherUsername(4));
+        System.out.println(getNotifications(1));
     }
 
 
