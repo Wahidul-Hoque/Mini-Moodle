@@ -84,7 +84,7 @@ public class StudentViewNotifications {
                         setGraphic(null);
                     } else {
                         text.setText(item);
-                        text.wrappingWidthProperty().bind(getTableColumn().widthProperty().subtract(35));
+                        text.wrappingWidthProperty().bind(getTableColumn().widthProperty().subtract(25));
                         text.setStyle("-fx-fill: black; -fx-font-size: 12px;");
                         setGraphic(text);
                     }
