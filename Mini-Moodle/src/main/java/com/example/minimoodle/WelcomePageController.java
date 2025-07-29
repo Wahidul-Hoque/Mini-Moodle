@@ -127,12 +127,33 @@ public class WelcomePageController {
 
         result.ifPresent(ip -> {
             // Here you can handle the IP address (e.g., attempt to connect)
-            new Client(ip);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Connection Attempt");
-            alert.setHeaderText(null);
-            alert.setContentText("Connected to to server at: " + ip);
-            alert.showAndWait();
+            new Thread(() -> {
+                boolean reachable = false;
+                try (java.net.Socket testSocket = new java.net.Socket()) {
+                    testSocket.connect(new java.net.InetSocketAddress(ip, 12345), 2000); // 2s timeout
+                    reachable = true;
+                } catch (Exception e) {
+                    reachable = false;
+                }
+                final boolean finalReachable = reachable;
+                javafx.application.Platform.runLater(() -> {
+                    if (finalReachable) {
+                        // Set server address for your Client
+                        new Client(ip);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Connection Success");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Connected to server at: " + ip);
+                        alert.showAndWait();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Connection Failed");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Could not connect to server at: " + ip);
+                        alert.showAndWait();
+                    }
+                });
+            }).start();
         });
     }
 }
