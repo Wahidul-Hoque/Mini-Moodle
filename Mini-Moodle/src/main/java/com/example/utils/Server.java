@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.example.servicecodes.*;
 
-
 public class Server {
     private static final int PORT = 12345;
     public static void main(String[] args) {
@@ -188,6 +187,17 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(course.getGrade());
                 }
             }
+            else if("GET_PENDING_COURSES".equals(action)) {
+                int studentId = dataIn.readInt();
+                List<CourseInfo> Courses = studentService.getPendingCoursesForStudent(studentId);
+                dataOut.writeInt(Courses.size());
+                for (CourseInfo course : Courses) {
+                    dataOut.writeInt(course.getCourseId());
+                    dataOut.writeUTF(course.getCourseTitle());
+                    dataOut.writeUTF(course.getCourseDescription());
+                    dataOut.writeUTF(course.getGrade());
+                }
+            }
             else if("GET_UNREGISTERED_COURSES".equals(action)) {
                 int studentId = dataIn.readInt();
                 List<CourseInfo> Courses = studentService.getUnregisteredCoursesForStudent(studentId);
@@ -216,6 +226,22 @@ class ClientHandler extends Thread {
                 int courseId = dataIn.readInt();
                 boolean success = EnrollmentService.rejectEnrollment(studentId, courseId);
                 dataOut.writeBoolean(success);
+            }
+            else if ("SEND_NOTIFICATION".equals(action)) {
+                int courseId = dataIn.readInt();
+                String message = dataIn.readUTF();
+                boolean success = CourseService.sendNotification(courseId, message);
+                dataOut.writeBoolean(success);
+            }
+            else if ("GET_NOTIFICATIONS".equals(action)) {
+                int studentId = dataIn.readInt();
+                List<Notification> notifications = studentService.getNotifications(studentId);
+                dataOut.writeInt(notifications.size());
+                for (Notification notification : notifications) {
+                    dataOut.writeUTF(notification.getCourseName());
+                    dataOut.writeUTF(notification.getMessage());
+                    dataOut.writeUTF(notification.getTimestamp());
+                }
             }
             else if("GET_TOTAL_COURSES".equals(action)){
                 int count= AdminService.getTotalCourseCount();

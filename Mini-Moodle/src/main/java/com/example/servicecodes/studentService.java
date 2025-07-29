@@ -41,35 +41,58 @@ public class studentService {
         return enrolledCourses;
     }
 
-    public static StudentInfo getStudentDetails(int studentId) {
-        StudentInfo studentDetails = null;
-        String sql = "SELECT s.id AS student_id, s.name AS student_name, s.email AS student_email, s.username AS student_username " +
-                "FROM student s " +
-                "WHERE s.id = ?";
+    public static List<CourseInfo> getPendingCoursesForStudent(int studentId) {
+        List<CourseInfo> pendingCourses = new ArrayList<>();
+        String sql = "SELECT c.id, c.title, c.description, e.grade " +
+                "FROM course c " +
+                "INNER JOIN enrollment e ON c.id = e.course_id " +
+                "WHERE e.student_id = ? AND e.status = 'approved'";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, studentId);  // Set the studentId parameter
+            stmt.setInt(1, studentId);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                String studentName = rs.getString("student_name");
-                String studentEmail = rs.getString("student_email");
-                String studentUsername = rs.getString("student_username");
-                String grade = "NOT_SET";
+            while (rs.next()) {
+                int courseId = rs.getInt("id");
+                String courseTitle = rs.getString("title");
+                String courseDescription = rs.getString("description");
+                String grade = rs.getString("grade");
 
-                // Create the StudentDetails object and assign the values
-                studentDetails = new StudentInfo(studentId, studentName, studentEmail,grade, studentUsername);
+                CourseInfo course = new CourseInfo(courseId, courseTitle, courseDescription, grade);
+                pendingCourses.add(course);
             }
 
         } catch (SQLException e) {
-            System.out.println("Error fetching student details: " + e.getMessage());
+            System.out.println("Error in getting enrolled courses for student: " + e.getMessage());
         }
 
-        return studentDetails;
+        return pendingCourses;
     }
 
+    public static StudentInfo getStudentDetails(int studentId) {
+        StudentInfo studentDetails = null;
+        String sql = "SELECT s.id, s.name, s.email, s.username " + "FROM student s " + "WHERE s.id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String studentName = rs.getString("name");
+                String studentEmail = rs.getString("email");
+                String studentUsername = rs.getString("username");
+                String grade = "NOT_SET";
+                studentDetails = new StudentInfo(studentId, studentName, studentEmail,grade, studentUsername);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching student details: " + e.getMessage());
+        }
+        return studentDetails;
+    }
 
     public static List<CourseInfo> getUnregisteredCoursesForStudent(int studentId) {
         List<CourseInfo> unregisteredCourses = new ArrayList<>();
@@ -126,4 +149,34 @@ public class studentService {
             return false;
         }
     }
+
+    public static List<Notification> getNotifications(int studentId) {
+        List<Notification> notifications = new ArrayList<>();
+        String sql = "SELECT c.title, n.message, n.timestamp " +
+                "FROM notifications n " +
+                "JOIN course c ON n.course_id = c.id " +
+                "JOIN enrollment e ON e.course_id = c.id " +
+                "WHERE e.student_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String courseName = rs.getString("title");
+                String message = rs.getString("message");
+                String timestamp = rs.getString("timestamp");
+
+                notifications.add(new Notification(courseName, message, timestamp));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getting notifications for student: " + e.getMessage());
+        }
+
+        return notifications;
+    }
+
 }

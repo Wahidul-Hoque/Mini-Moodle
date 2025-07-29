@@ -55,7 +55,7 @@ public class CourseService {
     }
     public static TeacherInfo getTeacherDetails(int teacherId) {
         TeacherInfo teacherProfile = null;
-        String sql = "SELECT t.id, t.name, t.email, t.username, c.title as course_title " +
+        String sql = "SELECT t.id, t.name, t.email, t.username, c.title " +
                 "FROM teacher t " +
                 "INNER JOIN course c ON t.id = c.teacher_id " +
                 "WHERE t.id = ?";
@@ -70,7 +70,7 @@ public class CourseService {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String username = rs.getString("username");
-                String courseTitle = rs.getString("course_title");
+                String courseTitle = rs.getString("title");
 
                 teacherProfile = new TeacherInfo(teacherId, name, email, courseTitle,username);
             }
@@ -256,6 +256,28 @@ public class CourseService {
         return pendingStudents;
     }
 
+    public static boolean sendNotification(int courseId, String message) {
+        String sql = "INSERT INTO notifications (course_id, message) VALUES (?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, courseId);
+            stmt.setString(2, message);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Notification sent successfully to course ID: " + courseId);
+                return true;
+            } else {
+                System.out.println("Failed to send notification. Something went wrong.");
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error sending notification: " + e.getMessage());
+            return false;
+        }
+    }
 
 
 
