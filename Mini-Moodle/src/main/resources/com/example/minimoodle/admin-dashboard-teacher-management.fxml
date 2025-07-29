@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -15,17 +14,17 @@
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <!-- Top Ribbon -->
-            <AnchorPane prefHeight="80.0" style="-fx-background-color: #0B3E6B;">
+            <AnchorPane prefHeight="90.0" prefWidth="800.0" style="-fx-background-color: #0B3E6B;">
                <children>
                   <!-- Mini Moodle Label on the left -->
-                  <Label fx:id="miniMoodleLabel" layoutX="31.0" layoutY="21.0" styleClass="top-ribbon" stylesheets="@styles.css" text="Mini Moodle" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="21.0">
+                  <Label fx:id="miniMoodleLabel" layoutX="26.0" layoutY="26.0" styleClass="top-ribbon" stylesheets="@styles.css" text="Mini Moodle" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="26.0">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Label>
                   
                   <!-- Admin name and back button on the right -->
-                  <HBox alignment="CENTER_RIGHT" layoutX="478.0" layoutY="17.0" spacing="15.0" AnchorPane.rightAnchor="14.8" AnchorPane.topAnchor="17.0">
+                  <HBox alignment="CENTER_RIGHT" layoutX="486.0" layoutY="22.0" spacing="15.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="22.0">
                      <children>
                         <Label fx:id="adminNameRibbonLabel" alignment="TOP_RIGHT" prefHeight="15.0" prefWidth="204.0" styleClass="teacher-text-label" stylesheets="@styles.css" text="Admin" textAlignment="RIGHT">
                            <font>
@@ -43,7 +42,7 @@
             </AnchorPane>
 
             <!-- Main Content Area -->
-            <VBox alignment="TOP_CENTER" spacing="30.0" style="-fx-background-color: white; -fx-padding: 40;" VBox.vgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="503.0" prefWidth="800.0" spacing="30.0" style="-fx-background-color: white; -fx-padding: 40;" VBox.vgrow="ALWAYS">
                <children>
                   <!-- Title Label -->
                   <Label style="-fx-text-fill: #1e3a8a; -fx-font-weight: bold;" styleClass="action-label" stylesheets="@styles.css" text="Teacher Management" textAlignment="CENTER">
