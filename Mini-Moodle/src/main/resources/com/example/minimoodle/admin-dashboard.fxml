@@ -90,11 +90,6 @@
                   <!-- Right Panel - Action Buttons -->
                   <VBox alignment="CENTER" prefHeight="500.0" prefWidth="507.0" spacing="20.0" style="-fx-background-color: white; -fx-padding: 40;">
                      <children>
-                        <Label style="-fx-text-fill: #1e3a8a; -fx-font-weight: bold;" styleClass="action-label" stylesheets="@styles.css" text="Admin Actions" textAlignment="CENTER">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Label>
 
                         <!-- Action Buttons -->
                         <VBox alignment="CENTER" spacing="15.0">
