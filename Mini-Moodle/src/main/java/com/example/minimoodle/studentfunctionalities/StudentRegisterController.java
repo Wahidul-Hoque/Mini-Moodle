@@ -86,11 +86,11 @@ public class StudentRegisterController {
         boolean registrationSuccessful = Client.sendStudentRegistrationRequest(username,name , password, email);
         if (registrationSuccessful) {
             showAlert("Registration Successful", "You have been registered successfully!", Alert.AlertType.INFORMATION);
+            handleStudentRegisterCancel();
         }
         else{
             showAlert("Registration Failed", "An error occurred while registering. Please try again.", Alert.AlertType.ERROR);
         }
-        handleStudentRegisterCancel();
     }
 
     private boolean areFieldsFilled() {

@@ -71,7 +71,7 @@ public class StudentDashboardController {
         studentDashboardLabel.setText("Welcome, " + studentName);
         enrolledCoursesLabel.setText("Enrolled Courses: " + Client.getEnrolledCoursesForStudent(studentId).size());
         if (studentNameRibbonLabel != null) {
-            studentNameRibbonLabel.setText(studentName);
+            studentNameRibbonLabel.setText(Client.getStudentUsername(studentId));
         }
         if (studentIdLabel != null) {
             studentIdLabel.setText("Student ID: " + studentId);

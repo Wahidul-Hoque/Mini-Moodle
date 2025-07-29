@@ -154,7 +154,7 @@ public class AdminDashboardController {
         totalTeachersLabel.setText("Total Teachers: " + String.valueOf(teachersCount));
         
         if (adminNameRibbonLabel != null && currentAdminId != null) {
-            adminNameRibbonLabel.setText("Admin " + currentAdminId);
+            adminNameRibbonLabel.setText("Administrator");
         }
     }
 

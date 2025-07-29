@@ -99,7 +99,7 @@ public class TeacherDashboardController {
 
         // Optionally update teacherNameRibbonLabel if present
         if (teacherNameRibbonLabel != null) {
-            teacherNameRibbonLabel.setText(teacherName);
+            teacherNameRibbonLabel.setText(Client.getTeacherUsername(getTeacherId()));
         }
     }
 

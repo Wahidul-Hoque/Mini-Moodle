@@ -45,7 +45,7 @@
                   <VBox alignment="TOP_CENTER" prefHeight="510.0" prefWidth="340.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,  #0B3E6B, #2585DB); -fx-padding: 30;">
                      <children>
                         <!-- Welcome Label -->
-                        <Label fx:id="studentDashboardLabel" prefHeight="40.0" prefWidth="280.0" style="-fx-text-fill: white; -fx-font-weight: bold;" styleClass="welcome-label" stylesheets="@styles.css" text="Welcome, Student" textAlignment="CENTER" wrapText="true">
+                        <Label fx:id="studentDashboardLabel" alignment="TOP_LEFT" prefWidth="255.0" style="-fx-text-fill: white; -fx-font-weight: bold;" styleClass="welcome-label" stylesheets="@styles.css" text="Welcome, Student " wrapText="true">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>
