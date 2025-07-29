@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -52,6 +53,9 @@ public class StudentDashboardController {
 
     @FXML
     private javafx.scene.control.MenuItem studentViewProfileButton;
+
+    @FXML
+    private Button notificationsButton;
 
     private int studentId;
     public void setStudentId(int studentId) {
@@ -230,6 +234,33 @@ public class StudentDashboardController {
             stage.setScene(new Scene(root));
             stage.setTitle("Welcome - Mini Moodle");
         } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+    @FXML
+    private void handleViewNotifications() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("student-dashboard-view-notifications.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) notificationsButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Notifications");
+
+            com.example.minimoodle.studentfunctionalities.StudentViewNotifications controller = loader.getController();
+            controller.setStudentId(studentId);
+            controller.initialize(studentId);
+
+        } catch (java.io.IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to load notifications: " + e.getMessage());
+            alert.showAndWait();
+
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }

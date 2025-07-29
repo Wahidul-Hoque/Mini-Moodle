@@ -64,7 +64,11 @@ public class TeacherDashboardController {
     @FXML
     private MenuButton teacherSettingsButton;
 
+    @FXML
+    private Button notificationsButton;
+
     private int teacherId;
+
     public int getTeacherId() {
         return teacherId;
     }
@@ -80,7 +84,6 @@ public class TeacherDashboardController {
     }
 
     private String teacherCourseID;
-
 
     private void loadCourseData() {
         System.out.println(getTeacherId());
@@ -150,7 +153,7 @@ public class TeacherDashboardController {
             Stage stage = (Stage) teacherDashboardApplicantsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Applicants Page");
-            
+
             ApplyingStudentsPageController controller = loader.getController();
             controller.initialize(teacherId, teacherCourseID);
 
@@ -175,7 +178,7 @@ public class TeacherDashboardController {
             Stage stage = (Stage) teacherDashboardEnrolledStudentsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Enrolled Students");
-            
+
             EnrolledStudentsPageController controller = loader.getController();
             controller.initialize(teacherId, teacherCourseID);
 
@@ -201,7 +204,7 @@ public class TeacherDashboardController {
             Stage stage = (Stage) teacherDashboardGradingButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Grading Page");
-            
+
             TeacherGradingPageController controller = loader.getController();
             controller.initialize(teacherCourseID, teacherId);
 
@@ -288,5 +291,6 @@ public class TeacherDashboardController {
 
         dialog.showAndWait();
     }
+
 
 }

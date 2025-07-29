@@ -7,7 +7,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.servicecodes.*;
+import com.example.servicecodes.CourseInfo;
+import com.example.servicecodes.CourseInfoAdmin;
+import com.example.servicecodes.Notification;
+import com.example.servicecodes.StudentInfo;
+import com.example.servicecodes.TeacherInfo;
 
 public class Client {
     private static String SERVER_ADDRESS = "127.0.0.1";
@@ -664,9 +668,10 @@ public class Client {
 
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
-        //boolean a=addTeacher("f","f","f","f");
-        //sendNotification(2,"this is a testing message");
+        boolean a=addTeacher("f","f","f","f");
+        sendNotification(2,"this is a testing message laskjfaslkjflk;asjfklasf" + "\n" + "oasijfo;asdjfoidjsfgoi;fm;lskf\nljf;lkjf;ldjfs");
         System.out.println(getTeacherUsername(4));
+        System.out.println(getNotifications(2));
     }
 
 
