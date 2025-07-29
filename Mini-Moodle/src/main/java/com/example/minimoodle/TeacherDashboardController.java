@@ -105,12 +105,11 @@ public class TeacherDashboardController {
 
     @FXML
     void handleTeacherViewProfile(ActionEvent event) {
-        // Show a simple profile dialog as a placeholder
         String teacherName = Client.getTeacherName(getTeacherId());
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        alert.setTitle("Profile");
+        alert.setTitle("Teacher Profile");
         alert.setHeaderText("Teacher Profile");
-        alert.setContentText("Name: " + teacherName + "\nID: " + getTeacherId());
+        alert.setContentText("Name: " + teacherName + "\nTeacher Username: " + Client.getTeacherUsername(getTeacherId()) + "\nEmail: " + Client.getTeacherEmail(getTeacherId()));
         alert.showAndWait();
     }
 

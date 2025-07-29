@@ -208,14 +208,15 @@ public class StudentDashboardController {
 
     @FXML
     private void handleViewProfile() {
-        // TODO: Implement profile view logic
+        
         System.out.println("Student " + studentId + " requested to view profile.");
-        // Example: Show a dialog or navigate to a profile page
-        // Placeholder: Show a simple dialog
+        
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
         alert.setTitle("Profile");
         alert.setHeaderText("Student Profile");
-        alert.setContentText("Name: " + Client.getStudentName(studentId) + "\nID: " + studentId);
+        alert.setContentText("Name: " + Client.getStudentName(studentId) + "\n");
+        alert.setContentText(alert.getContentText() + "Student username: " + Client.getStudentUsername(studentId) + "\n");
+        alert.setContentText(alert.getContentText() + "Student Email: " + Client.getStudentEmail(studentId) + "\n");
         alert.showAndWait();
     }
 
