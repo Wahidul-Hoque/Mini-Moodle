@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -42,6 +43,9 @@ public class AdminViewCourses {
     @FXML
     private Button adminDashboardAddCourseButton;
 
+    @FXML
+    private Label adminNameRibbonLabel;
+
     private ObservableList<CourseInfoAdmin> courseList = FXCollections.observableArrayList();
 
     private String currentAdminId;
@@ -62,6 +66,11 @@ public class AdminViewCourses {
         adminDashboardCourseTeacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
 
         setCurrentAdminId(adminId);
+
+        // Set admin name in the ribbon
+        if (adminNameRibbonLabel != null) {
+            adminNameRibbonLabel.setText("Admin");
+        }
 
         loadData();
     }

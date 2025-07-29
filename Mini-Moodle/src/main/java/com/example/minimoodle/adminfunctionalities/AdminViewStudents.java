@@ -21,6 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -43,6 +44,9 @@ public class AdminViewStudents {
 
     @FXML
     private Button adminDashboardGoBackButton;
+
+    @FXML
+    private Label adminNameRibbonLabel;
 
     private String currentAdminId;
 
@@ -83,6 +87,11 @@ public class AdminViewStudents {
     public void initialize(String adminId) {
 
         setCurrentAdminId(adminId);
+
+        // Set admin name in the ribbon
+        if (adminNameRibbonLabel != null) {
+            adminNameRibbonLabel.setText("Admin");
+        }
 
         adminDashboardStudentNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         adminDashboardStudentEmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
