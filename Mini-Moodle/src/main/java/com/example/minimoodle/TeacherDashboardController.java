@@ -65,7 +65,7 @@ public class TeacherDashboardController {
     private MenuButton teacherSettingsButton;
 
     @FXML
-    private Button notificationsButton;
+    private Button teacherSendNotificationButton;
 
     private int teacherId;
 
@@ -290,6 +290,72 @@ public class TeacherDashboardController {
         });
 
         dialog.showAndWait();
+    }
+
+    @FXML
+    void handleTeacherSendNotification(ActionEvent event) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(teacherSendNotificationButton.getScene().getWindow());
+        dialog.setTitle("Send Notification");
+
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        
+        dialog.setWidth(450);
+        dialog.setHeight(300);
+        dialog.setResizable(true);
+
+        javafx.scene.control.TextArea notificationTextArea = new javafx.scene.control.TextArea();
+        notificationTextArea.setPromptText("Enter your notification message here...\nPress Enter for new lines.");
+        notificationTextArea.setWrapText(true);
+        notificationTextArea.setPrefHeight(180);
+        notificationTextArea.setPrefWidth(380);
+        
+        // Enable newline characters and prevent tab traversal
+        notificationTextArea.setStyle("-fx-focus-traversable: false;");
+
+        Label instructionLabel = new Label("Compose your notification message:");
+        instructionLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+
+        VBox dialogContent = new VBox(15, instructionLabel, notificationTextArea);
+        dialogContent.setPadding(new Insets(20));
+
+        dialog.getDialogPane().setContent(dialogContent);
+
+        ButtonType sendButtonType = new ButtonType("Send", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        dialog.getDialogPane().getButtonTypes().addAll(sendButtonType, cancelButtonType);
+
+        Button sendButton = (Button) dialog.getDialogPane().lookupButton(sendButtonType);
+        sendButton.setDefaultButton(true);
+        sendButton.setDisable(true);
+
+        notificationTextArea.textProperty().addListener((_, _, newVal)
+                -> sendButton.setDisable(newVal.isEmpty()));
+
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == sendButtonType) {
+                String message = notificationTextArea.getText();
+                boolean success = Client.sendNotification(teacherId, message);
+                if (success) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Notification sent successfully.");
+                    alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Failed to send notification. Please check your server connection.");
+                    alert.showAndWait();
+                }
+            }
+            return buttonType;
+        });
+
+        dialog.showAndWait();
+    
     }
 
 

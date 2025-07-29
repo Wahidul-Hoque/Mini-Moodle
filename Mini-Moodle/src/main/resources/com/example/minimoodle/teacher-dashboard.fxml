@@ -117,6 +117,11 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Button>
+                              <Button fx:id="teacherSendNotificationButton" layoutX="87.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleTeacherSendNotification" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Send a Notification">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
 
                               <!-- Refresh Button -->
                               <Button fx:id="teacherDashboardRefreshButton" mnemonicParsing="false" onAction="#handleTeacherRefresh" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Sync Data">
