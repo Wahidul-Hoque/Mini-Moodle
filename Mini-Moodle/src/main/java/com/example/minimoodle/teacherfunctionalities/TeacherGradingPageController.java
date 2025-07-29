@@ -80,7 +80,7 @@ public class TeacherGradingPageController {
                 Student student = getTableView().getItems().get(getIndex());
                 String grade = student.getGrade();
                 // Show empty string if grade is "NOT_SET" or null
-                if (grade == null || "NOT_SET".equals(grade)) {
+                if (grade == null || "NOT_SET".equals(grade) || "".equals(grade)) {
                     actionButton.setText("Add Grade");
                 } else {
                     actionButton.setText("Update Grade");

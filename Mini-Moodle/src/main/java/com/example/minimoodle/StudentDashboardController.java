@@ -125,18 +125,18 @@ public class StudentDashboardController {
     @FXML
     private void handleViewRequestedCoursesButton() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("student-dashboard-view-courses.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("student-dashboard-view-applied-courses.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) viewCoursesButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("View Requested Courses - Student " + Client.getStudentName(studentId));
+            stage.setTitle("View Applied Courses - Student " + Client.getStudentName(studentId));
 
             // Initialize the controller
-            StudentViewCourses controller = loader.getController();
+            com.example.minimoodle.studentfunctionalities.StudentViewPendingCourses controller = loader.getController();
             controller.setStudentId(studentId);
             controller.initialize(studentId);
         } catch (IOException e) {
-            System.out.println("Error loading requested courses view: " + e.getMessage());
+            System.out.println("Error loading applied courses view: " + e.getMessage());
         }
     }
 

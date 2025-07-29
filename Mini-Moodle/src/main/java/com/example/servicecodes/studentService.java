@@ -46,7 +46,7 @@ public class studentService {
         String sql = "SELECT c.id, c.title, c.description, e.grade " +
                 "FROM course c " +
                 "INNER JOIN enrollment e ON c.id = e.course_id " +
-                "WHERE e.student_id = ? AND e.status = 'approved'";
+                "WHERE e.student_id = ? AND e.status = 'pending'";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

@@ -59,16 +59,6 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="studentIdLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Student ID: [Student ID]" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="currentGradeLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Current Grade: [Grade]" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System" size="14.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </VBox>
 
