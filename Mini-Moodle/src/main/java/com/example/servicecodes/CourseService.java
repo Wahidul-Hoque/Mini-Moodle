@@ -55,7 +55,7 @@ public class CourseService {
     }
     public static TeacherInfo getTeacherDetails(int teacherId) {
         TeacherInfo teacherProfile = null;
-        String sql = "SELECT t.id, t.name, t.email, t.username, c.title as course_title " +
+        String sql = "SELECT t.id, t.name, t.email, t.username, c.title " +
                 "FROM teacher t " +
                 "INNER JOIN course c ON t.id = c.teacher_id " +
                 "WHERE t.id = ?";
@@ -70,7 +70,7 @@ public class CourseService {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String username = rs.getString("username");
-                String courseTitle = rs.getString("course_title");
+                String courseTitle = rs.getString("title");
 
                 teacherProfile = new TeacherInfo(teacherId, name, email, courseTitle,username);
             }

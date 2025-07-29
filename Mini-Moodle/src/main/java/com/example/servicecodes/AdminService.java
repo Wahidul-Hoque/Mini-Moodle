@@ -110,7 +110,7 @@ public class AdminService {
 
     public static List<TeacherInfo> getAllTeachers() {
         List<TeacherInfo> teacherList = new ArrayList<>();
-        String sql = "SELECT t.id, t.name, t.email, c.title as course_title " +
+        String sql = "SELECT t.id, t.name, t.email, c.title " +
                 "FROM teacher t " +
                 "LEFT JOIN course c ON t.id = c.teacher_id";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -121,7 +121,7 @@ public class AdminService {
                 int teacherId = rs.getInt("id");
                 String teacherName = rs.getString("name");
                 String teacherEmail = rs.getString("email");
-                String courseTitle = rs.getString("course_title");
+                String courseTitle = rs.getString("title");
                 if (courseTitle == null) {
                     courseTitle = "default";
                 }
