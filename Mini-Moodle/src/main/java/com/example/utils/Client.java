@@ -7,10 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.servicecodes.CourseInfo;
-import com.example.servicecodes.CourseInfoAdmin;
-import com.example.servicecodes.StudentInfo;
-import com.example.servicecodes.TeacherInfo;
+import com.example.servicecodes.*;
 
 public class Client {
     private static String SERVER_ADDRESS = "127.0.0.1";
@@ -618,11 +615,36 @@ public class Client {
         }
     }
 
+    public static List<Notification> getNotifications(int studentId) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             DataInputStream dataIn = new DataInputStream(socket.getInputStream());
+             DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
+
+            dataOut.writeUTF("GET_NOTIFICATIONS");
+            dataOut.writeInt(studentId);
+            int notificationCount = dataIn.readInt();
+            List<Notification> notifications = new ArrayList<>();
+
+            for (int i = 0; i < notificationCount; i++) {
+                String courseName = dataIn.readUTF();
+                String message = dataIn.readUTF();
+                String timestamp = dataIn.readUTF();
+                notifications.add(new Notification(courseName, message, timestamp));
+            }
+            return notifications;
+        } catch (IOException e) {
+            System.err.println("Error communicating with server: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+
 
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
         //boolean a=addTeacher("f","f","f","f");
-        System.out.println(getStudentDetails(1));
+        //sendNotification(2,"this is a testing message");
+        System.out.println(getNotifications(1));
     }
 
 

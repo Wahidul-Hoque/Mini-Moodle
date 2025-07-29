@@ -149,4 +149,34 @@ public class studentService {
             return false;
         }
     }
+
+    public static List<Notification> getNotifications(int studentId) {
+        List<Notification> notifications = new ArrayList<>();
+        String sql = "SELECT c.title, n.message, n.timestamp " +
+                "FROM notifications n " +
+                "JOIN course c ON n.course_id = c.id " +
+                "JOIN enrollment e ON e.course_id = c.id " +
+                "WHERE e.student_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String courseName = rs.getString("title");
+                String message = rs.getString("message");
+                String timestamp = rs.getString("timestamp");
+
+                notifications.add(new Notification(courseName, message, timestamp));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getting notifications for student: " + e.getMessage());
+        }
+
+        return notifications;
+    }
+
 }

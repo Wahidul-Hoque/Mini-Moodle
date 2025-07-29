@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.example.servicecodes.*;
 
-
 public class Server {
     private static final int PORT = 12345;
     public static void main(String[] args) {
@@ -233,6 +232,16 @@ class ClientHandler extends Thread {
                 String message = dataIn.readUTF();
                 boolean success = CourseService.sendNotification(courseId, message);
                 dataOut.writeBoolean(success);
+            }
+            else if ("GET_NOTIFICATIONS".equals(action)) {
+                int studentId = dataIn.readInt();
+                List<Notification> notifications = studentService.getNotifications(studentId);
+                dataOut.writeInt(notifications.size());
+                for (Notification notification : notifications) {
+                    dataOut.writeUTF(notification.getCourseName());
+                    dataOut.writeUTF(notification.getMessage());
+                    dataOut.writeUTF(notification.getTimestamp());
+                }
             }
             else if("GET_TOTAL_COURSES".equals(action)){
                 int count= AdminService.getTotalCourseCount();
