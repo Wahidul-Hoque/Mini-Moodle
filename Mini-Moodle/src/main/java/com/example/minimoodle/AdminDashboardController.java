@@ -152,7 +152,7 @@ public class AdminDashboardController {
         totalCoursesLabel.setText("Total Courses: " + String.valueOf(coursesCount));
         totalStudentsLabel.setText("Total Students: " + String.valueOf(studentsCount));
         totalTeachersLabel.setText("Total Teachers: " + String.valueOf(teachersCount));
-        // Optionally update adminNameRibbonLabel if present
+        
         if (adminNameRibbonLabel != null && currentAdminId != null) {
             adminNameRibbonLabel.setText("Admin " + currentAdminId);
         }
@@ -204,10 +204,8 @@ public class AdminDashboardController {
                 String newPassword = newPasswordField.getText();
                 String confirmPassword = confirmPasswordField.getText();
 
-                // TODO: implement the password change logic
-                // flag boolean is a placeholder for the actual password change logic.
                 boolean flag = true;
-                // flag = newPassword.equals(confirmPassword) && Client.changeAdminPassword(adminId, newPassword);
+                flag = newPassword.equals(confirmPassword) && Client.changeAdminPassword(Integer.parseInt(currentAdminId), newPassword);
                 if (flag) {
                     javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");

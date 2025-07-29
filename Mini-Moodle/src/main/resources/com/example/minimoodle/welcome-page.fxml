@@ -29,18 +29,7 @@
             </AnchorPane>
 
             <!-- Admin Radio Button -->
-            <RadioButton fx:id="welcomePageAdminRadioButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" style="-fx-text-fill: #1F2A44; -fx-padding: 10 20 10 20; -fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #D1D5DB; -fx-border-radius: 8;" text="Admin" toggleGroup="$roleGroup">
-               <!-- <font>
-                  <Font name="System" size="14.0" />
-               </font>
-               <style>
-                  -fx-text-fill: #1F2A44;
-                  -fx-padding: 10 20 10 20;
-                  -fx-background-color: #FFFFFF;
-                  -fx-background-radius: 8;
-                  -fx-border-color: #D1D5DB;
-                  -fx-border-radius: 8;
-               </style> -->
+            <RadioButton fx:id="welcomePageAdminRadioButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" style="-fx-text-fill: #1F2A44; -fx-padding: 10 20 10 20; -fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #D1D5DB; -fx-border-radius: 8;" styleClass="welcome-radio-button" text="Admin" toggleGroup="$roleGroup">
                <toggleGroup>
                   <ToggleGroup fx:id="roleGroup" />
                </toggleGroup>
@@ -50,26 +39,26 @@
             </RadioButton>
 
             <!-- Teacher Radio Button -->
-            <RadioButton fx:id="welcomePageTeacherRadioButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" selected="true" style="-fx-text-fill: #1F2A44; -fx-padding: 10 20 10 20; -fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #D1D5DB; -fx-border-radius: 8;" text="Teacher" toggleGroup="$roleGroup">
+            <RadioButton fx:id="welcomePageTeacherRadioButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" selected="true" style="-fx-text-fill: #1F2A44; -fx-padding: 10 20 10 20; -fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #D1D5DB; -fx-border-radius: 8;" styleClass="welcome-radio-button" text="Teacher" toggleGroup="$roleGroup">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
 
             <!-- Student Radio Button -->
-            <RadioButton fx:id="welcomePageStudentRadioButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" style="-fx-text-fill: #1F2A44; -fx-padding: 10 20 10 20; -fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #D1D5DB; -fx-border-radius: 8;" text="Student" toggleGroup="$roleGroup">
+            <RadioButton fx:id="welcomePageStudentRadioButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" style="-fx-text-fill: #1F2A44; -fx-padding: 10 20 10 20; -fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #D1D5DB; -fx-border-radius: 8;" styleClass="welcome-radio-button" text="Student" toggleGroup="$roleGroup">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
 
             <!-- Continue Button -->
-            <Button fx:id="welcomePageContinueButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleWelcomePageContinueButton" prefHeight="40.0" prefWidth="160.0" stylesheets="@styles.css" text="Continue to Login" textFill="#e1dbdb">
+            <Button fx:id="welcomePageContinueButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleWelcomePageContinueButton" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #062F61; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-background-radius: 20; -fx-font-weight: bold;" styleClass="welcome-continue-button" text="Continue to Login">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="connectToServer" alignment="CENTER" mnemonicParsing="false" onAction="#handleConnectToServer" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #F3F4F6; -fx-text-fill: #062F61; -fx-background-radius: 16;" text="Connect to Server">
+            <Button fx:id="connectToServer" alignment="CENTER" mnemonicParsing="false" onAction="#handleConnectToServer" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #F3F4F6; -fx-text-fill: #062F61; -fx-background-radius: 16;" styleClass="welcome-server-button" text="Connect to Server">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

@@ -229,9 +229,6 @@ public class TeacherDashboardController {
         dialog.initOwner(teacherSettingsButton.getScene().getWindow());
         dialog.setTitle("Change Password");
 
-        // change the modality
-        // this feature allows the dialog to block input to other windows
-        // until the dialog is closed
         dialog.initModality(Modality.APPLICATION_MODAL);
 
         PasswordField oldPasswordField = new PasswordField();
@@ -242,19 +239,15 @@ public class TeacherDashboardController {
         newPasswordField.setPromptText("New Password");
         confirmPasswordField.setPromptText("Confirm New Password");
 
-        // Set the button types
         VBox dialogContent = new VBox(10,
                 new Label("Old Password:"), oldPasswordField,
                 new Label("New Password:"), newPasswordField,
                 new Label("Confirm New Password:"), confirmPasswordField);
 
-        // set padding
         dialogContent.setPadding(new Insets(20));
 
-        // Add the buttons to the dialog
         dialog.getDialogPane().setContent(dialogContent);
 
-        // add cancel and set buttons
         ButtonType changeButtonType = new ButtonType("Change", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
@@ -264,7 +257,6 @@ public class TeacherDashboardController {
         changeButton.setDefaultButton(true);
         changeButton.setDisable(true);
 
-        // now we set the logiu for the change button siabled/enabled
         newPasswordField.textProperty().addListener((obs, old, newVal)
                 -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(confirmPasswordField.getText())));
         confirmPasswordField.textProperty().addListener((obs, old, newVal)

@@ -168,8 +168,6 @@ public class StudentDashboardController {
                 String newPassword = newPasswordField.getText();
                 String confirmPassword = confirmPasswordField.getText();
 
-                // TODO: implement the password change logic
-                // flag boolean is a placeholder for the actual password change logic.
                 boolean flag = true;
                 flag = newPassword.equals(confirmPassword) && Client.changeStudentPassword(studentId, newPassword);
                 if (flag) {

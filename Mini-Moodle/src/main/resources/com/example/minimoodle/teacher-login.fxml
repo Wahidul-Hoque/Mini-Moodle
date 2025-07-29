@@ -40,7 +40,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="teacherLoginIdBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your teacher ID" style="-fx-background-color: #FFFFFF; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;">
+                        <TextField fx:id="teacherLoginIdBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your teacher ID" styleClass="register-text-field" stylesheets="@styles.css">
                         </TextField>
                      </children>
                   </VBox>
@@ -55,9 +55,9 @@
                         </Label>
                         <AnchorPane prefHeight="45.0" prefWidth="350.0">
                            <children>
-                              <PasswordField fx:id="teacherLoginPasswordBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your password" style="-fx-background-color: #FFFFFF; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <PasswordField fx:id="teacherLoginPasswordBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your password" styleClass="register-password-field" stylesheets="@styles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                               </PasswordField>
-                              <TextField fx:id="teacherLoginPasswordVisibleBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your password" style="-fx-background-color: #FFFFFF; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <TextField fx:id="teacherLoginPasswordVisibleBox" prefHeight="45.0" prefWidth="350.0" promptText="Enter your password" styleClass="register-text-field" stylesheets="@styles.css" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                               </TextField>
                            </children>
                         </AnchorPane>
@@ -65,21 +65,21 @@
                   </VBox>
 
                   <!-- Show Password Checkbox -->
-                  <CheckBox fx:id="teacherLoginPasswordCheckBox" mnemonicParsing="false" onAction="#toggleTeacherLoginPasswordVisibility" style="-fx-text-fill: #1F2A44;" text="Show Password">
+                  <CheckBox fx:id="teacherLoginPasswordCheckBox" mnemonicParsing="false" onAction="#toggleTeacherLoginPasswordVisibility" styleClass="register-checkbox" stylesheets="@styles.css" text="Show Password">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </CheckBox>
 
                   <!-- Login Button -->
-                  <Button fx:id="teacherLoginButton" mnemonicParsing="false" onAction="#processTeacherLogin" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #062F61; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-background-radius: 20; -fx-font-weight: bold;" text="Login to Teacher Portal">
+                  <Button fx:id="teacherLoginButton" mnemonicParsing="false" onAction="#processTeacherLogin" prefHeight="45.0" prefWidth="200.0" styleClass="login-primary-button" stylesheets="@styles.css" text="Login to Teacher Portal">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
 
                   <!-- Back Button -->
-                  <Button fx:id="teacherLoginBackButton" mnemonicParsing="false" onAction="#handleTeacherLoginBack" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-text-fill: #062F61; -fx-border-color: #062F61; -fx-border-radius: 15; -fx-background-radius: 15; -fx-cursor: hand;" text="Back">
+                  <Button fx:id="teacherLoginBackButton" mnemonicParsing="false" onAction="#handleTeacherLoginBack" prefHeight="35.0" prefWidth="150.0" styleClass="register-cancel-button" stylesheets="@styles.css" text="Back">
                      <font>
                         <Font size="12.0" />
                      </font>
