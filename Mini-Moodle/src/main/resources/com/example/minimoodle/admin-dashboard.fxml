@@ -113,7 +113,7 @@
                               </Button>
 
                               <!-- Refresh Button -->
-                              <Button fx:id="adminRefreshButton" mnemonicParsing="false" onAction="#handleAdminRefresh" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Refresh">
+                              <Button fx:id="adminRefreshButton" mnemonicParsing="false" onAction="#handleAdminRefresh" prefWidth="250.0" styleClass="dashboard-button" stylesheets="@styles.css" text="Sync Data">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
