@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -29,22 +28,16 @@ public class ApplyingStudentsPageController {
     private Button goBackButton;
 
     @FXML
-    private TableColumn<Student, String> idColumn;
+    private TableColumn<Student, String> nameColumn;
 
     @FXML
-    private TableColumn<Student, String> nameColumn;
+    private TableColumn<Student, String> emailColumn;
 
     @FXML
     private Button rejectButton;
 
     @FXML
     private TableView<Student> requestTable;
-
-    @FXML
-    private Label studentEmailLabel;
-
-    @FXML
-    private Label studentNameLabel;
 
     private int  teacherId;
 
@@ -62,9 +55,9 @@ public class ApplyingStudentsPageController {
 
     @FXML
     public void initialize(int teacherId, String courseId) {
-        // Initializing the columns to display student ID and name
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        // Initializing the columns to display student name and email
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         setTeacherId(teacherId);
         setCurrentCourseId(courseId);
@@ -79,9 +72,6 @@ public class ApplyingStudentsPageController {
             TableRow<Student> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty()) {
-                    Student student = row.getItem();
-                    studentNameLabel.setText("Name: " + student.getName());
-                    studentEmailLabel.setText("Email: " + student.getEmail());
                     approveButton.setDisable(false);
                     rejectButton.setDisable(false);
                 }
@@ -110,8 +100,6 @@ public class ApplyingStudentsPageController {
             Client.approveEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
             showAlert("Success", "Enrollment approved for " + selectedStudent.getName());
             requestList.remove(selectedStudent);
-            studentNameLabel.setText("Name: ");
-            studentEmailLabel.setText("Email: ");
             approveButton.setDisable(true);
             rejectButton.setDisable(true);
         } else {
@@ -145,14 +133,11 @@ public class ApplyingStudentsPageController {
             Client.rejectEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
             showAlert("Success", "Enrollment rejected for " + selectedStudent.getName());
             requestList.remove(selectedStudent);
-            studentNameLabel.setText("Name: ");
-            studentEmailLabel.setText("Email: ");
             approveButton.setDisable(true);
             rejectButton.setDisable(true);
         } else {
-            showAlert("Error", "Please select a student to approve.");
+            showAlert("Error", "Please select a student to reject.");
         }
-
     }
 
     private void showAlert(String title, String message) {

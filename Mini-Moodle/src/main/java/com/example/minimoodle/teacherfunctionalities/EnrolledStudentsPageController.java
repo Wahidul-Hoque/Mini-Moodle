@@ -13,12 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class EnrolledStudentsPageController {
@@ -27,19 +24,10 @@ public class EnrolledStudentsPageController {
     private TableView<Student> studentTable;
 
     @FXML
-    private TableColumn<Student, String> idColumn;
-
-    @FXML
     private TableColumn<Student, String> nameColumn;
 
     @FXML
-    private Label studentNameLabel;
-
-    @FXML
-    private Label studentEmailLabel;
-
-    @FXML
-    private Button teacherBlockButton;
+    private TableColumn<Student, String> emailColumn;
 
     @FXML
     private Button goBackButton;
@@ -61,26 +49,14 @@ public class EnrolledStudentsPageController {
 
     @FXML
     public void initialize(int teacherId, String courseId) {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         setTeacherId(teacherId);
         setCurrentCourseId(courseId);
 
         fetchEnrolledStudents();
         studentTable.setItems(studentList);
-        teacherBlockButton.setDisable(true);
-
-        studentTable.setRowFactory(tv -> {
-            TableRow<Student> row = new TableRow<>();
-            row.setOnMouseClicked((MouseEvent event) -> {
-                if (!row.isEmpty()) {
-                    Student student = row.getItem();
-                    displayStudentDetails(student);
-                }
-            });
-            return row;
-        });
     }
 
     private void fetchEnrolledStudents() {
@@ -91,13 +67,6 @@ public class EnrolledStudentsPageController {
                 studentList.add(new Student(studentInfo));
             }
         }
-    }
-
-    private void displayStudentDetails(Student student) {
-        // Display student name and email
-        studentNameLabel.setText("Name: " + student.getName());
-        studentEmailLabel.setText("Email: " + student.getEmail());
-        teacherBlockButton.setDisable(false); 
     }
 
     @FXML
@@ -117,24 +86,6 @@ public class EnrolledStudentsPageController {
             showAlert("Loading Error", "Failed to load the teacher dashboard: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    public void handleTeacherBlockStudent(ActionEvent event) {
-        Student selectedStudent = studentTable.getSelectionModel().getSelectedItem();
-        if (selectedStudent != null) {
-            teacherBlockStudent(selectedStudent);
-        }
-    }
-
-    private void teacherBlockStudent(Student student) {
-        showAlert("Blocked Student", "Student " + student.getName() + " has been blocked.");
-        studentList.remove(student);
-        studentNameLabel.setText("Name: ");
-        studentEmailLabel.setText("Email: ");
-        teacherBlockButton.setDisable(true);
-
-        // TODO: Update the database to reflect the blocking action
     }
 
     private void showAlert(String title, String message) {

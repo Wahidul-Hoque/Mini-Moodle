@@ -30,8 +30,6 @@ public class TeacherGradingPageController {
     @FXML
     private TableView<Student> studentTable;
     @FXML
-    private TableColumn<Student, String> idColumn;
-    @FXML
     private TableColumn<Student, String> nameColumn;
     @FXML
     private TableColumn<Student, String> gradeColumn;
@@ -60,7 +58,6 @@ public class TeacherGradingPageController {
     public void initialize(String courseId, int teacherId) {
         System.out.println("initialize called with courseId: " + courseId + " and teacherId: " + teacherId);
 
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
 
@@ -81,7 +78,13 @@ public class TeacherGradingPageController {
                     return;
                 }
                 Student student = getTableView().getItems().get(getIndex());
-                actionButton.setText(student.getGrade() == null ? "Add Grade" : "Update Grade");
+                String grade = student.getGrade();
+                // Show empty string if grade is "NOT_SET" or null
+                if (grade == null || "NOT_SET".equals(grade)) {
+                    actionButton.setText("Add Grade");
+                } else {
+                    actionButton.setText("Update Grade");
+                }
                 actionButton.setOnAction(event -> showGradeDialog(student));
                 setGraphic(actionButton);
             }
@@ -91,10 +94,14 @@ public class TeacherGradingPageController {
     private void loadStudentData() {
         if (currentCourseId != null) {
             var students = Client.getEnrolledStudents(currentCourseId);
-            // sout(var);
             System.out.println(students);
             for (StudentInfo studentInfo : students) {
-                studentData.add(new Student(studentInfo));
+                Student student = new Student(studentInfo);
+                // If grade is "NOT_SET", display as empty string
+                if ("NOT_SET".equals(student.getGrade())) {
+                    student.setGrade("");
+                }
+                studentData.add(student);
                 System.out.println(studentInfo);
             }
         }
@@ -102,13 +109,16 @@ public class TeacherGradingPageController {
 
     private void showGradeDialog(Student student) {
         Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle(student.getGrade() == null ? "Add Grade" : "Update Grade");
+        String currentGrade = student.getGrade();
+        boolean hasGrade = currentGrade != null && !currentGrade.isEmpty() && !"NOT_SET".equals(currentGrade);
+        
+        dialog.setTitle(hasGrade ? "Update Grade" : "Add Grade");
         dialog.setHeaderText("Enter grade for " + student.getName());
 
         ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
 
-        TextField gradeField = new TextField(student.getGrade() != null ? student.getGrade() : "");
+        TextField gradeField = new TextField(hasGrade ? currentGrade : "");
         gradeField.setPromptText("Enter letter grade");
 
         VBox content = new VBox(10);
