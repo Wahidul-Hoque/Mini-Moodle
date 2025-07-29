@@ -72,6 +72,16 @@
     -fx-background-radius: 10px;
 }
 
+.grades-button {
+    -fx-background-color: #105897;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 25px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 10px;
+}
+
 .button:hover {
     -fx-background-color: #062F61;
     -fx-cursor: hand;

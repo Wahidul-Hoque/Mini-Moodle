@@ -96,7 +96,7 @@ public class TeacherGradingPageController {
                 }
                 // Apply the dashboard button styling
                 actionButton.getStyleClass().clear();
-                actionButton.getStyleClass().add("dashboard-button");
+                actionButton.getStyleClass().add("grades-button");
                 actionButton.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
                 actionButton.setOnAction(event -> showGradeDialog(student));
                 setGraphic(actionButton);
