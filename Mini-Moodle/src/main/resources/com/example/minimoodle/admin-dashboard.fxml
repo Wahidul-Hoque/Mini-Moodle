@@ -54,17 +54,17 @@
                         <!-- System Overview Section -->
                         <VBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="280.0" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15; -fx-padding: 20;">
                            <children>
-                              <Label fx:id="totalTeachersLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Teachers: [Count]" textAlignment="CENTER" wrapText="true">
+                              <Label fx:id="totalTeachersLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Teachers: [Count]" wrapText="true">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="totalCoursesLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Courses: [Count]" textAlignment="CENTER">
+                              <Label fx:id="totalCoursesLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Courses: [Count]">
                                  <font>
                                     <Font name="System" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="totalStudentsLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Students: [Count]" textAlignment="CENTER">
+                              <Label fx:id="totalStudentsLabel" styleClass="teacher-text-label" stylesheets="@styles.css" text="Total Students: [Count]">
                                  <font>
                                     <Font name="System" size="14.0" />
                                  </font>
