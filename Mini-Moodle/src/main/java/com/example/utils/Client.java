@@ -90,11 +90,24 @@ public class Client {
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
             dataOut.writeUTF("GET_TEACHER_NAME");
             dataOut.writeInt(teacherId);
-            return dataIn.readUTF();  // Return course ID
+            return dataIn.readUTF();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
             return null;  // Error case
         }
+    }
+
+    public static String getTeacherUsername(int teacherId){
+        TeacherInfo t = getTeacherDetails(teacherId);
+        return t.getUsername();
+    }
+    public static String getTeacherEmail(int teacherId){
+        TeacherInfo t = getTeacherDetails(teacherId);
+        return t.getEmail();
+    }
+    public static String getTeacherCourse(int teacherId){
+        TeacherInfo t = getTeacherDetails(teacherId);
+        return t.getCourse();
     }
 
     public static String getStudentName(int studentId) {
@@ -112,6 +125,15 @@ public class Client {
             return null;  // Error case
         }
     }
+    public static String getStudentUsername(int studentId){
+        StudentInfo s = getStudentDetails(studentId);
+        return s.getUsername();
+    }
+    public static String getStudentEmail(int studentId){
+        StudentInfo s = getStudentDetails(studentId);
+        return s.getEmail();
+    }
+
 
             
 
@@ -644,7 +666,7 @@ public class Client {
         System.out.println(getCourseIdForTeacher(2));
         //boolean a=addTeacher("f","f","f","f");
         //sendNotification(2,"this is a testing message");
-        System.out.println(getNotifications(1));
+        System.out.println(getTeacherUsername(4));
     }
 
 
