@@ -68,7 +68,7 @@ public class TeacherGradingPageController {
         setTeacherId(teacherId);
 
         // Set teacher name in the ribbon
-        String teacherName = Client.getTeacherName(teacherId);
+        String teacherName = Client.getTeacherUsername(teacherId);
         if (teacherNameRibbonLabel != null) {
             teacherNameRibbonLabel.setText(teacherName);
         }

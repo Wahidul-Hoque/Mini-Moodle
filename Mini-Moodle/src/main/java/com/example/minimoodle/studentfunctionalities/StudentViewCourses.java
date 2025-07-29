@@ -75,7 +75,7 @@ public class StudentViewCourses {
         this.studentId = studentId;
 
         // Set student name in the ribbon
-        String studentName = Client.getStudentName(studentId);
+        String studentName = Client.getStudentUsername(studentId);
         if (studentNameRibbonLabel != null) {
             studentNameRibbonLabel.setText(studentName);
         }
@@ -105,6 +105,8 @@ public class StudentViewCourses {
                     CourseRow course = getTableView().getItems().get(getIndex());
                     Client.requestEnrollment(studentId, course.getId());
                     showAlert("Enrollment Requested", "Requested enrollment for course: " + course.getName());
+                    courseTable.getItems().remove(course);
+                    courseData.remove(course);
                 });
                 setGraphic(enrollButton);
             }

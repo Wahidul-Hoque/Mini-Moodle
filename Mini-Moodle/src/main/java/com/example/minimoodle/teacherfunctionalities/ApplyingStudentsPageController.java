@@ -67,7 +67,7 @@ public class ApplyingStudentsPageController {
         setCurrentCourseId(courseId);
 
         // Set teacher name in the ribbon
-        String teacherName = Client.getTeacherName(teacherId);
+        String teacherName = Client.getTeacherUsername(teacherId);
         if (teacherNameRibbonLabel != null) {
             teacherNameRibbonLabel.setText(teacherName);
         }

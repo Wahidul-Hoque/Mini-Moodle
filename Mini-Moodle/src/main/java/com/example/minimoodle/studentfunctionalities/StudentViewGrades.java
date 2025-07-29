@@ -84,7 +84,7 @@ public class StudentViewGrades {
         this.studentId = studentId;
 
         // Set student name in the ribbon
-        String studentName = Client.getStudentName(studentId);
+        String studentName = Client.getStudentUsername(studentId);
         if (studentNameRibbonLabel != null) {
             studentNameRibbonLabel.setText(studentName);
         }

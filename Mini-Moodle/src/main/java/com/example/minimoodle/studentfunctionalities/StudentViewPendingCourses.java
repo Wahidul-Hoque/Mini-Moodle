@@ -44,7 +44,7 @@ public class StudentViewPendingCourses {
         this.studentId = studentId;
         
         // Set student name in the ribbon
-        String studentName = Client.getStudentName(studentId);
+        String studentName = Client.getStudentUsername(studentId);
         if (studentNameRibbonLabel != null) {
             studentNameRibbonLabel.setText(studentName);
         }
@@ -74,7 +74,7 @@ public class StudentViewPendingCourses {
             Parent root = loader.load();
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Student Dashboard - " + Client.getStudentName(studentId));
+            stage.setTitle("Student Dashboard - " + Client.getStudentUsername(studentId));
 
             // Initialize the dashboard controller
             com.example.minimoodle.StudentDashboardController controller = loader.getController();
