@@ -622,7 +622,7 @@ public class Client {
     public static void main(String[] args) {
         System.out.println(getCourseIdForTeacher(2));
         //boolean a=addTeacher("f","f","f","f");
-        System.out.println(getTeacherDetails(1));
+        System.out.println(getStudentDetails(1));
     }
 
 

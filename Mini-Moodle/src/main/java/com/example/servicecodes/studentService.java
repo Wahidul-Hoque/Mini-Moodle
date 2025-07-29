@@ -73,33 +73,26 @@ public class studentService {
 
     public static StudentInfo getStudentDetails(int studentId) {
         StudentInfo studentDetails = null;
-        String sql = "SELECT s.id AS student_id, s.name AS student_name, s.email AS student_email, s.username AS student_username " +
-                "FROM student s " +
-                "WHERE s.id = ?";
+        String sql = "SELECT s.id, s.name, s.email, s.username " + "FROM student s " + "WHERE s.id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, studentId);  // Set the studentId parameter
+            stmt.setInt(1, studentId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String studentName = rs.getString("student_name");
-                String studentEmail = rs.getString("student_email");
-                String studentUsername = rs.getString("student_username");
+                String studentName = rs.getString("name");
+                String studentEmail = rs.getString("email");
+                String studentUsername = rs.getString("username");
                 String grade = "NOT_SET";
-
-                // Create the StudentDetails object and assign the values
                 studentDetails = new StudentInfo(studentId, studentName, studentEmail,grade, studentUsername);
             }
-
         } catch (SQLException e) {
             System.out.println("Error fetching student details: " + e.getMessage());
         }
-
         return studentDetails;
     }
-
 
     public static List<CourseInfo> getUnregisteredCoursesForStudent(int studentId) {
         List<CourseInfo> unregisteredCourses = new ArrayList<>();
