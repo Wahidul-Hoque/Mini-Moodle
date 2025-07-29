@@ -123,6 +123,24 @@ public class StudentDashboardController {
     }
 
     @FXML
+    private void handleViewRequestedCoursesButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("student-dashboard-view-courses.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) viewCoursesButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("View Requested Courses - Student " + Client.getStudentName(studentId));
+
+            // Initialize the controller
+            StudentViewCourses controller = loader.getController();
+            controller.setStudentId(studentId);
+            controller.initialize(studentId);
+        } catch (IOException e) {
+            System.out.println("Error loading requested courses view: " + e.getMessage());
+        }
+    }
+
+    @FXML
     private void handleStudentRefresh() {
         loadStudentDashboardData();
     }
@@ -157,20 +175,18 @@ public class StudentDashboardController {
         changeButton.setDefaultButton(true);
         changeButton.setDisable(true);
 
-        newPasswordField.textProperty().addListener((obs, old, newVal)
-                -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(confirmPasswordField.getText())));
-        confirmPasswordField.textProperty().addListener((obs, old, newVal)
-                -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(newPasswordField.getText())));
+        newPasswordField.textProperty().addListener((obs, old, newValue)
+                -> changeButton.setDisable(newValue.isEmpty() || !newValue.equals(confirmPasswordField.getText())));
+        confirmPasswordField.textProperty().addListener((obs, old, newValue)
+                -> changeButton.setDisable(newValue.isEmpty() || !newValue.equals(newPasswordField.getText())));
 
         dialog.setResultConverter(buttonType -> {
             if (buttonType == changeButtonType) {
-                String oldPassword = oldPasswordField.getText();
                 String newPassword = newPasswordField.getText();
                 String confirmPassword = confirmPasswordField.getText();
 
-                boolean flag = true;
-                flag = newPassword.equals(confirmPassword) && Client.changeStudentPassword(studentId, newPassword);
-                if (flag) {
+                boolean success = newPassword.equals(confirmPassword) && Client.changeStudentPassword(studentId, newPassword);
+                if (success) {
                     javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
                     alert.setHeaderText(null);
