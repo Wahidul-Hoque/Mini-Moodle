@@ -97,7 +97,7 @@ public class Client {
             return dataIn.readUTF();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return null;  // Error case
+            return null;
         }
     }
 
