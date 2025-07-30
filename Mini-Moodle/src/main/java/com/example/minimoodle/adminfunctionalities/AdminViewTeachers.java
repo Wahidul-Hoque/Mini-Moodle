@@ -27,27 +27,19 @@ public class AdminViewTeachers {
 
     @FXML
     private TableView<TeacherTableRow> adminDashboardTeachersTableView;
-
     @FXML
     private TableColumn<TeacherTableRow, String> adminDashboardTeacherNameColumn;
-
     @FXML
     private TableColumn<TeacherTableRow, String> adminDashboardTeacherEmailColumn;
-
     @FXML
     private TableColumn<TeacherTableRow, String> adminDashboardTeacherManagedCourseColumn;
-
     @FXML
     private Button adminTeacherGoBackButton;
-
     @FXML
     private Button adminDashboardAddTeacherButton;
-
     @FXML
     private Label adminNameRibbonLabel;
-
     private ObservableList<TeacherTableRow> teacherList = FXCollections.observableArrayList();
-
     private String currentAdminId;
 
     public void setCurrentAdminId(String adminId) {
@@ -59,6 +51,7 @@ public class AdminViewTeachers {
     }
 
     public static class TeacherTableRow {
+
         private int id;
         private String name;
         private String email;
@@ -71,17 +64,28 @@ public class AdminViewTeachers {
             this.managedCourse = managedCourse;
         }
 
-        public int getId() { return id; }
-        public String getName() { return name; }
-        public String getEmail() { return email; }
-        public String getManagedCourse() { return managedCourse; }
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getManagedCourse() {
+            return managedCourse;
+        }
     }
 
     @FXML
     public void initialize(String adminId) {
         setCurrentAdminId(adminId);
         if (adminNameRibbonLabel != null) {
-            adminNameRibbonLabel.setText("Admin");
+            adminNameRibbonLabel.setText("Administrator");
         }
         adminDashboardTeacherNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         adminDashboardTeacherEmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -109,7 +113,6 @@ public class AdminViewTeachers {
             Stage stage = (Stage) adminTeacherGoBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Dashboard: " + getCurrentAdminId());
-
             AdminDashboardController adminDashboardController = loader.getController();
             adminDashboardController.setCurrentAdminId(currentAdminId);
         } catch (IOException e) {
@@ -122,10 +125,8 @@ public class AdminViewTeachers {
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle("Add Teacher");
         dialog.setHeaderText("Enter teacher details:");
-
         ButtonType addButtonType = new ButtonType("Add", ButtonType.OK.getButtonData());
         dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
-
         TextField nameField = new TextField();
         nameField.setPromptText("Name");
         TextField emailField = new TextField();
@@ -136,16 +137,13 @@ public class AdminViewTeachers {
         passwordField.setPromptText("Password");
         TextField managedCourseField = new TextField();
         managedCourseField.setPromptText("Managed Course");
-
         javafx.scene.control.Label nameLabel = new javafx.scene.control.Label("Name:");
         javafx.scene.control.Label emailLabel = new javafx.scene.control.Label("Email:");
         javafx.scene.control.Label usernameLabel = new javafx.scene.control.Label("Username:");
         javafx.scene.control.Label passwordLabel = new javafx.scene.control.Label("Password:");
-
         javafx.scene.layout.VBox content = new javafx.scene.layout.VBox(10);
         content.getChildren().addAll(nameLabel, nameField, emailLabel, emailField, usernameLabel, usernameField, passwordLabel, passwordField);
         dialog.getDialogPane().setContent(content);
-
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButtonType) {
                 String name = nameField.getText().trim();
@@ -153,7 +151,7 @@ public class AdminViewTeachers {
                 String username = usernameField.getText().trim();
                 String password = passwordField.getText().trim();
                 if (!name.isEmpty() && !email.isEmpty()) {
-                    if (!Client.addTeacher(username, password ,name, email)) {
+                    if (!Client.addTeacher(username, password, name, email)) {
                         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
                         alert.setTitle("Error");
                         alert.setHeaderText("Failed to add teacher");
@@ -166,7 +164,6 @@ public class AdminViewTeachers {
             }
             return null;
         });
-
         dialog.showAndWait();
     }
 }

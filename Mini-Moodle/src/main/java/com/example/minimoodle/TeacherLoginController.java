@@ -14,48 +14,31 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class TeacherLoginController {
+
     @FXML
     private TextField teacherLoginIdBox;
-
     @FXML
     private PasswordField teacherLoginPasswordBox;
-
     @FXML
     private TextField teacherLoginPasswordVisibleBox;
-
     @FXML
     private CheckBox teacherLoginPasswordCheckBox;
-
     @FXML
     private Button teacherLoginButton;
     @FXML
     private Button teacherLoginBackButton;
-
     private boolean showPassword = false;
-
     private String enteredId;
     private String enteredPassword;
 
     @FXML
-    //
-    // initialize() method is called by the JavaFX framework to initialize the controller
-    // This method sets up the initial state of the password visibility box.
-    // It binds the text property of the visible password box to the password field.
-    // 
     private void initialize() {
         teacherLoginPasswordVisibleBox.setManaged(false);
         teacherLoginPasswordVisibleBox.setVisible(false);
-
         teacherLoginPasswordVisibleBox.textProperty().bindBidirectional(teacherLoginPasswordBox.textProperty());
     }
 
     @FXML
-    //
-    // When Show Password Button is clicked, toggle the visibility of the password field
-    // What does this do?
-    // setVisible() method controls whether the password field is visible or not.
-    // setManaged() method controls whether the password field is managed by the layout.
-    //
     private void toggleTeacherLoginPasswordVisibility() {
         showPassword = !showPassword;
         if (showPassword) {
@@ -63,7 +46,7 @@ public class TeacherLoginController {
             teacherLoginPasswordVisibleBox.setVisible(true);
             teacherLoginPasswordVisibleBox.setManaged(true);
             teacherLoginPasswordBox.setVisible(false);
-        teacherLoginBackButton.setOnAction(event -> handleTeacherLoginBack());
+            teacherLoginBackButton.setOnAction(event -> handleTeacherLoginBack());
             teacherLoginPasswordBox.setManaged(false);
         } else {
             teacherLoginPasswordBox.setText(teacherLoginPasswordVisibleBox.getText());
@@ -72,10 +55,8 @@ public class TeacherLoginController {
             teacherLoginPasswordVisibleBox.setVisible(false);
             teacherLoginPasswordVisibleBox.setManaged(false);
         }
-
-        
     }
-    
+
     @FXML
     private void handleTeacherLoginBack() {
         try {
@@ -92,24 +73,15 @@ public class TeacherLoginController {
     }
 
     @FXML
-    // When the login button is clicked, we retrieve the entered ID and password
-    // and print them
     public void processTeacherLogin() {
         enteredId = teacherLoginIdBox.getText();
         enteredPassword = showPassword ? teacherLoginPasswordVisibleBox.getText() : teacherLoginPasswordBox.getText();
-
-        // For demonstration purposes, we print the ID and password to the console
-    
         System.out.println("Entered ID: " + enteredId);
         System.out.println("Entered Password: " + enteredPassword);
-
-        
         int teacherId = Client.sendLoginRequest(enteredId, enteredPassword);
-
-        if (teacherId>0) {
-            // Proceed to the next screen or show a success message
+        if (teacherId > 0) {
             showAlert("Login Successful", "Welcome, Teacher " + enteredId, Alert.AlertType.INFORMATION);
-            try{
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard.fxml"));
                 Parent root = loader.load();
                 TeacherDashboardController controller = loader.getController();
@@ -117,27 +89,20 @@ public class TeacherLoginController {
                 Stage stage = (Stage) teacherLoginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Dashboard - " + enteredId);
-
             } catch (java.io.IOException | NullPointerException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Loading Error");
                 alert.setHeaderText(null);
                 alert.setContentText("Failed to load the login page: " + e.getMessage());
                 alert.showAndWait();
-
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
-        }
-        else {
-            // Show an error message if the credentials are invalid
+        } else {
             showAlert("Login Failed", "Invalid username or password. Please try again.", Alert.AlertType.ERROR);
         }
-
-
-
     }
-    // Helper method to display an alert message
+
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -145,6 +110,4 @@ public class TeacherLoginController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 }

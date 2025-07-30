@@ -1,4 +1,5 @@
 package com.example.utils;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -8,14 +9,27 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import com.example.servicecodes.*;
+import com.example.servicecodes.AdminLoginService;
+import com.example.servicecodes.AdminService;
+import com.example.servicecodes.CourseInfo;
+import com.example.servicecodes.CourseInfoAdmin;
+import com.example.servicecodes.CourseService;
+import com.example.servicecodes.EnrollmentService;
+import com.example.servicecodes.Notification;
+import com.example.servicecodes.StudentInfo;
+import com.example.servicecodes.StudentLoginService;
+import com.example.servicecodes.StudentRegisterService;
+import com.example.servicecodes.TeacherInfo;
+import com.example.servicecodes.TeacherLoginService;
+import com.example.servicecodes.studentService;
 
 public class Server {
+
     private static final int PORT = 12345;
+
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server started, waiting for clients...");
-
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 new ClientHandler(clientSocket).start();
@@ -25,7 +39,9 @@ public class Server {
         }
     }
 }
+
 class ClientHandler extends Thread {
+
     private Socket clientSocket;
 
     public ClientHandler(Socket socket) {
@@ -35,53 +51,41 @@ class ClientHandler extends Thread {
     @Override
     public void run() {
         try (
-                InputStream input = clientSocket.getInputStream();
-                OutputStream output = clientSocket.getOutputStream();
-                DataInputStream dataIn = new DataInputStream(input);
-                DataOutputStream dataOut = new DataOutputStream(output)
-        ) {
+                InputStream input = clientSocket.getInputStream(); OutputStream output = clientSocket.getOutputStream(); DataInputStream dataIn = new DataInputStream(input); DataOutputStream dataOut = new DataOutputStream(output)) {
             String action = dataIn.readUTF();
-
             if ("LOGIN".equals(action)) {
                 String username = dataIn.readUTF();
                 String password = dataIn.readUTF();
                 int teacherId = TeacherLoginService.validateTeacherLogin(username, password);
                 dataOut.writeInt(teacherId);
-            }
-            else if("ADMIN_LOGIN".equals(action)){
+            } else if ("ADMIN_LOGIN".equals(action)) {
                 String username = dataIn.readUTF();
                 String password = dataIn.readUTF();
                 boolean adminId = AdminLoginService.validateAdminLogin(username, password);
                 dataOut.writeBoolean(adminId);
-            }
-            else if("STUDENT_LOGIN".equals(action)){
+            } else if ("STUDENT_LOGIN".equals(action)) {
                 String username = dataIn.readUTF();
                 String password = dataIn.readUTF();
                 int studentId = StudentLoginService.validateStudentLogin(username, password);
                 dataOut.writeInt(studentId);
-            }
-            else if("REGISTER_STUDENT".equals(action)){
+            } else if ("REGISTER_STUDENT".equals(action)) {
                 String username = dataIn.readUTF();
                 String name = dataIn.readUTF();
                 String password = dataIn.readUTF();
                 String email = dataIn.readUTF();
                 boolean registrationSuccessful = StudentRegisterService.registerStudent(username, name, password, email);
                 dataOut.writeBoolean(registrationSuccessful);
-            }
-            else if( "GET_COURSE_ID".equals(action)){
+            } else if ("GET_COURSE_ID".equals(action)) {
                 int teacherId = dataIn.readInt();
                 String courseId = CourseService.getCourseIdForTeacher(teacherId);
                 dataOut.writeUTF(courseId);
-            }
-            else if( "GET_COURSE_NAME".equals(action)){
+            } else if ("GET_COURSE_NAME".equals(action)) {
                 String courseId = dataIn.readUTF();
-                String courseName= CourseService.getCourseName(courseId);
+                String courseName = CourseService.getCourseName(courseId);
                 dataOut.writeUTF(courseName);
-            }
-            else if ("GET_TEACHER_PROFILE".equals(action)) {
+            } else if ("GET_TEACHER_PROFILE".equals(action)) {
                 int teacherId = dataIn.readInt();
                 TeacherInfo profile = CourseService.getTeacherDetails(teacherId);
-
                 if (profile != null) {
                     dataOut.writeInt(profile.getTeacherId());
                     dataOut.writeUTF(profile.getName());
@@ -91,11 +95,9 @@ class ClientHandler extends Thread {
                 } else {
                     dataOut.writeUTF("Error: Teacher not found");
                 }
-            }
-            else if ("GET_STUDENT_DETAILS".equals(action)) {
+            } else if ("GET_STUDENT_DETAILS".equals(action)) {
                 int studentId = dataIn.readInt();
                 StudentInfo details = studentService.getStudentDetails(studentId);
-
                 if (details != null) {
                     dataOut.writeInt(details.getId());
                     dataOut.writeUTF(details.getName());
@@ -105,13 +107,11 @@ class ClientHandler extends Thread {
                 } else {
                     dataOut.writeUTF("Error: Student not found");
                 }
-            }
-            else if( "GET_COURSE_DESCRIPTION".equals(action)){
+            } else if ("GET_COURSE_DESCRIPTION".equals(action)) {
                 String courseId = dataIn.readUTF();
-                String courseDescription= CourseService.getCourseDescription(courseId);
+                String courseDescription = CourseService.getCourseDescription(courseId);
                 dataOut.writeUTF(courseDescription);
-            }
-            else if("SET_STUDENT_GRADE".equals(action)){
+            } else if ("SET_STUDENT_GRADE".equals(action)) {
                 System.out.println(action);
                 int studentId = dataIn.readInt();
                 int courseId = dataIn.readInt();
@@ -119,32 +119,26 @@ class ClientHandler extends Thread {
                 boolean result = CourseService.setStudentGrade(studentId, courseId, grade);
                 System.out.println("Server received grade update request, result: " + result);
                 dataOut.writeBoolean(result);
-            }
-
-            else if( "GET_TEACHER_NAME".equals(action)){
+            } else if ("GET_TEACHER_NAME".equals(action)) {
                 int teacherId = dataIn.readInt();
                 String name = CourseService.getTeacherName(teacherId);
                 dataOut.writeUTF(name);
-            }
-            else if("CHANGE_PASSWORD_TEACHER".equals(action)){
+            } else if ("CHANGE_PASSWORD_TEACHER".equals(action)) {
                 int teacherId = dataIn.readInt();
                 String newPassword = dataIn.readUTF();
                 boolean success = CourseService.changeTeacherPassword(teacherId, newPassword);
                 dataOut.writeBoolean(success);
-            }
-            else if("CHANGE_PASSWORD_ADMIN".equals(action)){
+            } else if ("CHANGE_PASSWORD_ADMIN".equals(action)) {
                 int teacherId = dataIn.readInt();
                 String newPassword = dataIn.readUTF();
                 boolean success = AdminService.changeAdminPassword(teacherId, newPassword);
                 dataOut.writeBoolean(success);
-            }
-            else if("CHANGE_PASSWORD_STUDENT".equals(action)){
+            } else if ("CHANGE_PASSWORD_STUDENT".equals(action)) {
                 int teacherId = dataIn.readInt();
                 String newPassword = dataIn.readUTF();
                 boolean success = studentService.changeStudentPassword(teacherId, newPassword);
                 dataOut.writeBoolean(success);
-            }
-            else if ("GET_APPROVED_STUDENTS".equals(action)){
+            } else if ("GET_APPROVED_STUDENTS".equals(action)) {
                 String courseId = dataIn.readUTF();
                 List<StudentInfo> students = CourseService.getEnrolledStudents(Integer.parseInt(courseId));
                 dataOut.writeInt(students.size());
@@ -154,13 +148,11 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(student.getEmail());
                     dataOut.writeUTF(student.getGrade());
                 }
-            }
-            else if ("GET_APPROVED_STUDENT_COUNT".equals(action)){
+            } else if ("GET_APPROVED_STUDENT_COUNT".equals(action)) {
                 String courseId = dataIn.readUTF();
                 int count = CourseService.getEnrolledStudentCount(Integer.parseInt(courseId));
                 dataOut.writeInt(count);
-            }
-            else if ("GET_PENDING_STUDENTS".equals(action)){
+            } else if ("GET_PENDING_STUDENTS".equals(action)) {
                 String courseId = dataIn.readUTF();
                 List<StudentInfo> students = CourseService.getPendingStudents(Integer.parseInt(courseId));
                 dataOut.writeInt(students.size());
@@ -170,13 +162,11 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(student.getEmail());
                     dataOut.writeUTF(student.getGrade());
                 }
-            }
-            else if("GET_STUDENT_NAME".equals(action)) {
+            } else if ("GET_STUDENT_NAME".equals(action)) {
                 int studentId = dataIn.readInt();
                 String studentName = CourseService.getStudentName(studentId);
                 dataOut.writeUTF(studentName);
-            }
-            else if("GET_ENROLLED_COURSES".equals(action)) {
+            } else if ("GET_ENROLLED_COURSES".equals(action)) {
                 int studentId = dataIn.readInt();
                 List<CourseInfo> Courses = studentService.getEnrolledCoursesForStudent(studentId);
                 dataOut.writeInt(Courses.size());
@@ -186,8 +176,7 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(course.getCourseDescription());
                     dataOut.writeUTF(course.getGrade());
                 }
-            }
-            else if("GET_PENDING_COURSES".equals(action)) {
+            } else if ("GET_PENDING_COURSES".equals(action)) {
                 int studentId = dataIn.readInt();
                 List<CourseInfo> Courses = studentService.getPendingCoursesForStudent(studentId);
                 dataOut.writeInt(Courses.size());
@@ -197,8 +186,7 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(course.getCourseDescription());
                     dataOut.writeUTF(course.getGrade());
                 }
-            }
-            else if("GET_UNREGISTERED_COURSES".equals(action)) {
+            } else if ("GET_UNREGISTERED_COURSES".equals(action)) {
                 int studentId = dataIn.readInt();
                 List<CourseInfo> Courses = studentService.getUnregisteredCoursesForStudent(studentId);
                 dataOut.writeInt(Courses.size());
@@ -208,32 +196,27 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(course.getCourseDescription());
                     dataOut.writeUTF(course.getGrade());
                 }
-            }
-            else if("REQUEST_ENROLLMENT".equals(action)){
+            } else if ("REQUEST_ENROLLMENT".equals(action)) {
                 int studentId = dataIn.readInt();
                 String courseTitle = dataIn.readUTF();
                 boolean success = EnrollmentService.requestEnrollment(studentId, courseTitle);
                 dataOut.writeBoolean(success);
-            }
-            else if("APPROVE_ENROLLMENT".equals(action)){
+            } else if ("APPROVE_ENROLLMENT".equals(action)) {
                 int studentId = dataIn.readInt();
                 int courseId = dataIn.readInt();
                 boolean success = EnrollmentService.approveEnrollment(studentId, courseId);
                 dataOut.writeBoolean(success);
-            }
-            else if("REJECT_ENROLLMENT".equals(action)){
+            } else if ("REJECT_ENROLLMENT".equals(action)) {
                 int studentId = dataIn.readInt();
                 int courseId = dataIn.readInt();
                 boolean success = EnrollmentService.rejectEnrollment(studentId, courseId);
                 dataOut.writeBoolean(success);
-            }
-            else if ("SEND_NOTIFICATION".equals(action)) {
+            } else if ("SEND_NOTIFICATION".equals(action)) {
                 int courseId = dataIn.readInt();
                 String message = dataIn.readUTF();
                 boolean success = CourseService.sendNotification(courseId, message);
                 dataOut.writeBoolean(success);
-            }
-            else if ("GET_NOTIFICATIONS".equals(action)) {
+            } else if ("GET_NOTIFICATIONS".equals(action)) {
                 int studentId = dataIn.readInt();
                 List<Notification> notifications = studentService.getNotifications(studentId);
                 dataOut.writeInt(notifications.size());
@@ -242,67 +225,56 @@ class ClientHandler extends Thread {
                     dataOut.writeUTF(notification.getMessage());
                     dataOut.writeUTF(notification.getTimestamp());
                 }
-            }
-            else if("GET_TOTAL_COURSES".equals(action)){
-                int count= AdminService.getTotalCourseCount();
+            } else if ("GET_TOTAL_COURSES".equals(action)) {
+                int count = AdminService.getTotalCourseCount();
                 dataOut.writeInt(count);
-            }
-            else if("GET_TOTAL_STUDENTS".equals(action)){
-                int count= AdminService.getTotalStudentCount()  ;
+            } else if ("GET_TOTAL_STUDENTS".equals(action)) {
+                int count = AdminService.getTotalStudentCount();
                 dataOut.writeInt(count);
-            }
-            else if("GET_TOTAL_TEACHERS".equals(action)){
-                int count= AdminService.getTotalTeacherCount();
+            } else if ("GET_TOTAL_TEACHERS".equals(action)) {
+                int count = AdminService.getTotalTeacherCount();
                 dataOut.writeInt(count);
-            }
-            else if("GET_ALL_COURSES".equals(action)){
+            } else if ("GET_ALL_COURSES".equals(action)) {
                 List<CourseInfoAdmin> allCourses = AdminService.getAllCourses();
                 dataOut.writeInt(allCourses.size());
-
                 for (CourseInfoAdmin course : allCourses) {
                     dataOut.writeInt(course.getCourseId());
                     dataOut.writeUTF(course.getCourseTitle());
                     dataOut.writeUTF(course.getCourseDescription());
                     dataOut.writeUTF(course.getTeacherName());
                 }
-            }
-            else if("GET_ALL_STUDENTS".equals(action)) {
+            } else if ("GET_ALL_STUDENTS".equals(action)) {
                 List<StudentInfo> students = AdminService.getAllStudents();
                 dataOut.writeInt(students.size());
-
                 for (StudentInfo student : students) {
                     dataOut.writeInt(student.getId());
                     dataOut.writeUTF(student.getName());
                     dataOut.writeUTF(student.getEmail());
                 }
-            }
-            else if ("GET_ALL_TEACHERS".equals(action)) {
+            } else if ("GET_ALL_TEACHERS".equals(action)) {
                 List<TeacherInfo> teachers = AdminService.getAllTeachers();
                 dataOut.writeInt(teachers.size());
-
                 for (TeacherInfo teacher : teachers) {
                     dataOut.writeInt(teacher.getTeacherId());
                     dataOut.writeUTF(teacher.getName());
                     dataOut.writeUTF(teacher.getEmail());
                     dataOut.writeUTF(teacher.getCourse());
                 }
-            }
-            else if("ADD_TEACHER".equals(action)) {
+            } else if ("ADD_TEACHER".equals(action)) {
                 String username = dataIn.readUTF();
                 String password = dataIn.readUTF();
                 String name = dataIn.readUTF();
                 String email = dataIn.readUTF();
                 boolean isAdded = AdminService.addTeacher(username, password, name, email);
                 dataOut.writeBoolean(isAdded);
-            }
-            else if ("ADD_COURSE".equals(action)) {
+            } else if ("ADD_COURSE".equals(action)) {
                 String title = dataIn.readUTF();
                 String description = dataIn.readUTF();
                 String teacherName = dataIn.readUTF();
                 boolean isAdded = AdminService.addCourse(title, description, teacherName);
                 dataOut.writeBoolean(isAdded);
             }
-        } catch (Exception  e) {
+        } catch (Exception e) {
             System.err.println("Error handling client request: " + e.getMessage());
         }
     }

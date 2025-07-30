@@ -12,23 +12,31 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class StudentRegisterController {
-    // FXML fields for registration form
-    @FXML private TextField studentRegisterNameBox;
-    @FXML private TextField studentRegisterEmailBox;
-    @FXML private TextField studentRegisterUsernameBox;
-    @FXML private PasswordField studentRegisterPasswordBox;
-    @FXML private TextField studentRegisterPasswordVisibleBox;
-    @FXML private PasswordField studentRegisterReenterPasswordBox;
-    @FXML private TextField studentRegisterReenterPasswordVisibleBox;
-    @FXML private CheckBox studentRegisterPasswordCheckBox;
-    @FXML private Button studentRegisterButton;
-    @FXML private Button studentRegisterCancelButton;
 
+    @FXML
+    private TextField studentRegisterNameBox;
+    @FXML
+    private TextField studentRegisterEmailBox;
+    @FXML
+    private TextField studentRegisterUsernameBox;
+    @FXML
+    private PasswordField studentRegisterPasswordBox;
+    @FXML
+    private TextField studentRegisterPasswordVisibleBox;
+    @FXML
+    private PasswordField studentRegisterReenterPasswordBox;
+    @FXML
+    private TextField studentRegisterReenterPasswordVisibleBox;
+    @FXML
+    private CheckBox studentRegisterPasswordCheckBox;
+    @FXML
+    private Button studentRegisterButton;
+    @FXML
+    private Button studentRegisterCancelButton;
     private boolean showPassword = false;
 
     @FXML
     public void initialize() {
-        // Bind password fields for visibility toggle
         studentRegisterPasswordVisibleBox.setManaged(false);
         studentRegisterPasswordVisibleBox.setVisible(false);
         studentRegisterReenterPasswordVisibleBox.setManaged(false);
@@ -37,21 +45,13 @@ public class StudentRegisterController {
         studentRegisterReenterPasswordBox.textProperty().bindBidirectional(studentRegisterReenterPasswordVisibleBox.textProperty());
     }
 
-    /**
-     * Handles the Register button click event.
-     */
     @FXML
     private void handleStudentRegisterButton() {
-        // TODO: Validate fields and register student
     }
 
-    /**
-     * Handles the Cancel button click event.
-     */
     @FXML
     private void handleStudentRegisterCancel() {
         try {
-            // Load the login page
             FXMLLoader loader = new FXMLLoader(getClass().getResource("student-login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) studentRegisterCancelButton.getScene().getWindow();
@@ -64,9 +64,6 @@ public class StudentRegisterController {
         }
     }
 
-    /**
-     * Handles toggling password visibility when the checkbox is clicked.
-     */
     @FXML
     private void toggleStudentRegisterPasswordVisibility() {
         showPassword = !showPassword;

@@ -27,27 +27,19 @@ public class AdminViewCourses {
 
     @FXML
     private TableView<CourseInfoAdmin> adminDashboardCoursesTableView;
-
     @FXML
     private TableColumn<CourseInfoAdmin, String> adminDashboardCourseTitleColumn;
-
     @FXML
     private TableColumn<CourseInfoAdmin, String> adminDashboardCourseNameColumn;
-
     @FXML
     private TableColumn<CourseInfoAdmin, String> adminDashboardCourseTeacherColumn;
-
     @FXML
     private Button adminCourseGoBackButton;
-
     @FXML
     private Button adminDashboardAddCourseButton;
-
     @FXML
     private Label adminNameRibbonLabel;
-
     private ObservableList<CourseInfoAdmin> courseList = FXCollections.observableArrayList();
-
     private String currentAdminId;
 
     public void setCurrentAdminId(String adminId) {
@@ -60,25 +52,20 @@ public class AdminViewCourses {
 
     @FXML
     public void initialize(String adminId) {
-        // Set up table columns and load data
         adminDashboardCourseTitleColumn.setCellValueFactory(new PropertyValueFactory<>("courseTitle"));
         adminDashboardCourseNameColumn.setCellValueFactory(new PropertyValueFactory<>("courseDescription"));
         adminDashboardCourseTeacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
-
         setCurrentAdminId(adminId);
-
-        // Set admin name in the ribbon
         if (adminNameRibbonLabel != null) {
-            adminNameRibbonLabel.setText("Admin");
+            adminNameRibbonLabel.setText("Administrator");
         }
-
         loadData();
     }
 
     private void loadData() {
         courseList.clear();
         var courseList = Client.getAllCourses();
-        for(CourseInfoAdmin course : courseList) {
+        for (CourseInfoAdmin course : courseList) {
             this.courseList.add(course);
         }
         adminDashboardCoursesTableView.setItems(this.courseList);
@@ -92,9 +79,7 @@ public class AdminViewCourses {
             Stage stage = (Stage) adminCourseGoBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
             stage.setTitle("Dashboard: " + getCurrentAdminId());
-
             AdminDashboardController adminDashboardController = loader.getController();
             adminDashboardController.setCurrentAdminId(getCurrentAdminId());
         } catch (IOException e) {
@@ -107,34 +92,27 @@ public class AdminViewCourses {
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle("Add Course");
         dialog.setHeaderText("Enter course details:");
-
         ButtonType addButtonType = new ButtonType("Add", ButtonType.OK.getButtonData());
         dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
-
         TextField titleField = new TextField();
         titleField.setPromptText("Course Title");
         TextField nameField = new TextField();
         nameField.setPromptText("Course Name");
         TextField teacherField = new TextField();
         teacherField.setPromptText("Course Teacher");
-
         javafx.scene.control.Label titleLabel = new javafx.scene.control.Label("Course Title:");
         javafx.scene.control.Label nameLabel = new javafx.scene.control.Label("Course Name:");
         javafx.scene.control.Label teacherLabel = new javafx.scene.control.Label("Course Teacher:");
-
         javafx.scene.layout.VBox content = new javafx.scene.layout.VBox(10);
         content.getChildren().addAll(titleLabel, titleField, nameLabel, nameField, teacherLabel, teacherField);
         dialog.getDialogPane().setContent(content);
-
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButtonType) {
                 String title = titleField.getText().trim();
                 String name = nameField.getText().trim();
                 String teacher = teacherField.getText().trim();
                 if (!title.isEmpty() && !name.isEmpty() && !teacher.isEmpty()) {
-
-                    if(!Client.addCourse(title, name, teacher))
-                    {
+                    if (!Client.addCourse(title, name, teacher)) {
                         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
                         alert.setTitle("Error");
                         alert.setHeaderText("Failed to add course");
@@ -143,13 +121,10 @@ public class AdminViewCourses {
                     } else {
                         loadData();
                     }
-
-
                 }
             }
             return null;
         });
-
         dialog.showAndWait();
     }
 }

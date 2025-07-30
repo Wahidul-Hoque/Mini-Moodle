@@ -3,7 +3,6 @@ module com.example.minimoodle {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
-
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
@@ -14,7 +13,7 @@ module com.example.minimoodle {
     requires java.desktop;
     requires javafx.base;
     requires javafx.graphics;
-
+    
     exports com.example.minimoodle;
     opens com.example.minimoodle to javafx.fxml;
     opens com.example.minimoodle.teacherfunctionalities to javafx.fxml, javafx.base;

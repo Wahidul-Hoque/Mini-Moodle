@@ -14,67 +14,48 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-/**
- * Controller for the student registration page. Handles user input, validation,
- * and registration logic.
- */
 public class StudentRegisterController {
 
     @FXML
     private TextField studentRegisterNameBox;
-
     @FXML
     private TextField studentRegisterEmailBox;
-
     @FXML
     private TextField studentRegisterUsernameBox;
-
     @FXML
     private PasswordField studentRegisterPasswordBox;
-
     @FXML
     private TextField studentRegisterPasswordVisibleBox;
-
     @FXML
     private PasswordField studentRegisterReenterPasswordBox;
-
     @FXML
     private TextField studentRegisterReenterPasswordVisibleBox;
-
     @FXML
     private CheckBox studentRegisterPasswordCheckBox;
-
     @FXML
     private Button studentRegisterButton;
-
     private boolean showPassword = false;
 
     @FXML
     public void initialize() {
-        // Initialize any necessary components or listeners
         studentRegisterPasswordVisibleBox.setManaged(false);
         studentRegisterPasswordVisibleBox.setVisible(false);
         studentRegisterReenterPasswordVisibleBox.setManaged(false);
         studentRegisterReenterPasswordVisibleBox.setVisible(false);
-
         studentRegisterPasswordBox.textProperty().bindBidirectional(studentRegisterPasswordVisibleBox.textProperty());
         studentRegisterReenterPasswordBox.textProperty().bindBidirectional(studentRegisterReenterPasswordVisibleBox.textProperty());
-
     }
 
     @FXML
     private void handleStudentRegisterButton() {
-
         if (!areFieldsFilled()) {
             showAlert("Registration Failed", "Please fill in all the fields.", Alert.AlertType.ERROR);
             return;
         }
-
         if (!isValidEmail(studentRegisterEmailBox.getText())) {
             showAlert("Invalid Email", "Please enter a valid email address.", Alert.AlertType.ERROR);
             return;
         }
-
         if (!doPasswordsMatch()) {
             showAlert("Password Mismatch", "The passwords do not match.", Alert.AlertType.ERROR);
             return;
@@ -83,12 +64,11 @@ public class StudentRegisterController {
         String email = studentRegisterEmailBox.getText();
         String username = studentRegisterUsernameBox.getText();
         String password = getPassword();
-        boolean registrationSuccessful = Client.sendStudentRegistrationRequest(username,name , password, email);
+        boolean registrationSuccessful = Client.sendStudentRegistrationRequest(username, name, password, email);
         if (registrationSuccessful) {
             showAlert("Registration Successful", "You have been registered successfully!", Alert.AlertType.INFORMATION);
             handleStudentRegisterCancel();
-        }
-        else{
+        } else {
             showAlert("Registration Failed", "An error occurred while registering. Please try again.", Alert.AlertType.ERROR);
         }
     }
@@ -125,16 +105,13 @@ public class StudentRegisterController {
         }
     }
 
-
     @FXML
     private void toggleStudentRegisterPasswordVisibility(ActionEvent Event) {
         showPassword = !showPassword;
-
         studentRegisterPasswordBox.setVisible(!showPassword);
         studentRegisterPasswordBox.setManaged(!showPassword);
         studentRegisterReenterPasswordBox.setVisible(!showPassword);
         studentRegisterReenterPasswordBox.setManaged(!showPassword);
-
         studentRegisterPasswordVisibleBox.setVisible(showPassword);
         studentRegisterPasswordVisibleBox.setManaged(showPassword);
         studentRegisterReenterPasswordVisibleBox.setVisible(showPassword);
@@ -144,7 +121,6 @@ public class StudentRegisterController {
     @FXML
     private void handleStudentRegisterCancel() {
         try {
-            // Load the login page (use absolute resource path)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/student-login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) studentRegisterButton.getScene().getWindow();
@@ -164,7 +140,4 @@ public class StudentRegisterController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
-
 }

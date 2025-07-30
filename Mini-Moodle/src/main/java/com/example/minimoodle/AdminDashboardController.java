@@ -39,12 +39,10 @@ public class AdminDashboardController {
     private javafx.scene.control.MenuButton adminSettingsButton;
     @FXML
     private javafx.scene.control.MenuItem adminChangePasswordButton;
-
     private String currentAdminId;
 
     public void setCurrentAdminId(String adminId) {
         this.currentAdminId = adminId;
-        // Optionally update adminNameRibbonLabel if present
         if (adminNameRibbonLabel != null) {
             adminNameRibbonLabel.setText("Administrator");
         }
@@ -81,7 +79,6 @@ public class AdminDashboardController {
             Stage stage = (Stage) manageCoursesButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("All Courses");
-
             AdminViewCourses adminViewCourses = loader.getController();
             adminViewCourses.setCurrentAdminId(currentAdminId);
             adminViewCourses.initialize(currentAdminId);
@@ -98,14 +95,12 @@ public class AdminDashboardController {
 
     @FXML
     void handleManageStudentsButton(ActionEvent event) {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-dashboard-student-management.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) manageStudentsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Students' Details");
-
             AdminViewStudents adminViewStudents = loader.getController();
             adminViewStudents.setCurrentAdminId(currentAdminId);
             adminViewStudents.initialize(currentAdminId);
@@ -128,7 +123,6 @@ public class AdminDashboardController {
             Stage stage = (Stage) manageTeachersButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teachers' Details");
-
             AdminViewTeachers adminViewTeachers = loader.getController();
             adminViewTeachers.setCurrentAdminId(currentAdminId);
             adminViewTeachers.initialize(currentAdminId);
@@ -148,11 +142,9 @@ public class AdminDashboardController {
         int teachersCount = Client.getTotalTeacherCount();
         int studentsCount = Client.getTotalStudentCount();
         int coursesCount = Client.getTotalCourseCount();
-
         totalCoursesLabel.setText("Total Courses: " + String.valueOf(coursesCount));
         totalStudentsLabel.setText("Total Students: " + String.valueOf(studentsCount));
         totalTeachersLabel.setText("Total Teachers: " + String.valueOf(teachersCount));
-        
         if (adminNameRibbonLabel != null && currentAdminId != null) {
             adminNameRibbonLabel.setText("Administrator");
         }
@@ -169,41 +161,33 @@ public class AdminDashboardController {
         dialog.initOwner(adminSettingsButton.getScene().getWindow());
         dialog.setTitle("Change Password");
         dialog.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-
         javafx.scene.control.PasswordField oldPasswordField = new javafx.scene.control.PasswordField();
         javafx.scene.control.PasswordField newPasswordField = new javafx.scene.control.PasswordField();
         javafx.scene.control.PasswordField confirmPasswordField = new javafx.scene.control.PasswordField();
-
         oldPasswordField.setPromptText("Old Password");
         newPasswordField.setPromptText("New Password");
         confirmPasswordField.setPromptText("Confirm New Password");
-
         javafx.scene.layout.VBox dialogContent = new javafx.scene.layout.VBox(10,
                 new javafx.scene.control.Label("Old Password:"), oldPasswordField,
                 new javafx.scene.control.Label("New Password:"), newPasswordField,
                 new javafx.scene.control.Label("Confirm New Password:"), confirmPasswordField);
         dialogContent.setPadding(new javafx.geometry.Insets(20));
         dialog.getDialogPane().setContent(dialogContent);
-
         javafx.scene.control.ButtonType changeButtonType = new javafx.scene.control.ButtonType("Change", javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
         javafx.scene.control.ButtonType cancelButtonType = new javafx.scene.control.ButtonType("Cancel", javafx.scene.control.ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(changeButtonType, cancelButtonType);
-
         javafx.scene.control.Button changeButton = (javafx.scene.control.Button) dialog.getDialogPane().lookupButton(changeButtonType);
         changeButton.setDefaultButton(true);
         changeButton.setDisable(true);
-
         newPasswordField.textProperty().addListener((obs, old, newVal)
                 -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(confirmPasswordField.getText())));
         confirmPasswordField.textProperty().addListener((obs, old, newVal)
                 -> changeButton.setDisable(newVal.isEmpty() || !newVal.equals(newPasswordField.getText())));
-
         dialog.setResultConverter(buttonType -> {
             if (buttonType == changeButtonType) {
                 String oldPassword = oldPasswordField.getText();
                 String newPassword = newPasswordField.getText();
                 String confirmPassword = confirmPasswordField.getText();
-
                 boolean flag = true;
                 flag = newPassword.equals(confirmPassword) && Client.changeAdminPassword(1, newPassword);
                 if (flag) {
@@ -222,7 +206,6 @@ public class AdminDashboardController {
             }
             return buttonType;
         });
-
         dialog.showAndWait();
     }
 }

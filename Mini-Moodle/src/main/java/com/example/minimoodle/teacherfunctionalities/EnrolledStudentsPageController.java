@@ -23,54 +23,41 @@ public class EnrolledStudentsPageController {
 
     @FXML
     private TableView<Student> studentTable;
-
     @FXML
     private TableColumn<Student, String> nameColumn;
-
     @FXML
     private TableColumn<Student, String> emailColumn;
-
     @FXML
     private Button goBackButton;
-
     @FXML
     private Label teacherNameRibbonLabel;
-
     private int teacherId;
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
     }
-
-    private String currentCourseId; 
+    private String currentCourseId;
 
     public void setCurrentCourseId(String currentCourseId) {
         this.currentCourseId = currentCourseId;
     }
-
-
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize(int teacherId, String courseId) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-
         setTeacherId(teacherId);
         setCurrentCourseId(courseId);
-
-        // Set teacher name in the ribbon
         String teacherName = Client.getTeacherUsername(teacherId);
         if (teacherNameRibbonLabel != null) {
             teacherNameRibbonLabel.setText(teacherName);
         }
-
         fetchEnrolledStudents();
         studentTable.setItems(studentList);
     }
 
     private void fetchEnrolledStudents() {
-
         if (currentCourseId != null) {
             var students = Client.getEnrolledStudents(currentCourseId);
             for (StudentInfo studentInfo : students) {
@@ -82,16 +69,14 @@ public class EnrolledStudentsPageController {
     @FXML
     public void handleGoBack(ActionEvent event) {
         System.out.println("Going back to the teacher dashboard...");
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/teacher-dashboard.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Dashboard");
-
             TeacherDashboardController controller = loader.getController();
-            controller.initialize(teacherId); 
+            controller.initialize(teacherId);
         } catch (java.io.IOException | NullPointerException e) {
             showAlert("Loading Error", "Failed to load the teacher dashboard: " + e.getMessage());
             e.printStackTrace();
@@ -105,5 +90,4 @@ public class EnrolledStudentsPageController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

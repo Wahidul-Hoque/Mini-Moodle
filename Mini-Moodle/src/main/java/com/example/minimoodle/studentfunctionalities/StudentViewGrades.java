@@ -34,10 +34,8 @@ public class StudentViewGrades {
     private TableColumn<GradeRow, String> gradeColumn;
     @FXML
     private Button goBackButton;
-
     @FXML
     private Label studentNameRibbonLabel;
-
     private int studentId;
 
     public void setStudentId(int studentId) {
@@ -72,7 +70,6 @@ public class StudentViewGrades {
             return "NOT_SET".equalsIgnoreCase(grade) ? "" : grade;
         }
     }
-
     private final ObservableList<GradeRow> gradeData = FXCollections.observableArrayList();
 
     @FXML
@@ -80,17 +77,12 @@ public class StudentViewGrades {
         courseIdColumn.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getCourseId()));
         courseNameColumn.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getCourseName()));
         gradeColumn.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getGrade()));
-
         this.studentId = studentId;
-
-        // Set student name in the ribbon
         String studentName = Client.getStudentUsername(studentId);
         if (studentNameRibbonLabel != null) {
             studentNameRibbonLabel.setText(studentName);
         }
-
         loadGrades();
-
         gradesTable.setItems(gradeData);
     }
 
@@ -109,7 +101,6 @@ public class StudentViewGrades {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Student Dashboard");
-
             StudentDashboardController studentDashboardController = loader.getController();
             studentDashboardController.setStudentId(studentId);
             studentDashboardController.initialize(studentId);
