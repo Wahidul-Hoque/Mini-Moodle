@@ -17,26 +17,24 @@ public class StudentRegisterService {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Set parameters for the query
             stmt.setString(1, username);
             stmt.setString(2, hashedPassword);
             stmt.setString(3, name);
             stmt.setString(4, email);
 
-            // Execute the query
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
                 System.out.println("Student registered successfully!");
-                return true;  // Registration successful
+                return true;
             } else {
                 System.out.println("Student registration failed.");
-                return false;  // Registration failed
+                return false;
             }
 
         } catch (SQLException e) {
             System.out.println("Error registering student: " + e.getMessage());
-            return false;  // Error during registration
+            return false;
         }
     }
 }

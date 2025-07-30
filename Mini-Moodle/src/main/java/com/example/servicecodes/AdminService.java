@@ -10,7 +10,7 @@ import com.example.utils.*;
 public class AdminService {
     public static int getTotalCourseCount() {
         int totalCourses = 0;
-        String sql = "SELECT COUNT(*) FROM course";  // SQL query to count the total number of courses
+        String sql = "SELECT COUNT(*) FROM course";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -37,7 +37,6 @@ public class AdminService {
             if (rs.next()) {
                 totalStudent = rs.getInt(1);
             }
-
         } catch (SQLException e) {
             System.out.println("Error in getting total student count: " + e.getMessage());
         }
@@ -55,7 +54,6 @@ public class AdminService {
             if (rs.next()) {
                 totalTeacher = rs.getInt(1);
             }
-
         } catch (SQLException e) {
             System.out.println("Error in getting total teacher count: " + e.getMessage());
         }
@@ -79,7 +77,6 @@ public class AdminService {
                 CourseInfoAdmin courseInfo = new CourseInfoAdmin(courseId, courseTitle, courseDescription, teacherName);
                 courses.add(courseInfo);
             }
-
         } catch (SQLException e) {
             System.out.println("Error in getting courses: " + e.getMessage());
         }

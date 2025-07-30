@@ -120,13 +120,11 @@ public class Client {
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
             dataOut.writeUTF("GET_STUDENT_NAME");
-
             dataOut.writeInt(studentId);
-
-            return dataIn.readUTF();  // Return student name
+            return dataIn.readUTF();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return null;  // Error case
+            return null;
         }
     }
     public static String getStudentUsername(int studentId){
@@ -138,8 +136,6 @@ public class Client {
         return s.getEmail();
     }
 
-
-            
 
     public static String getCourseIdForTeacher(int teacherId) {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
@@ -153,7 +149,7 @@ public class Client {
             return dataIn.readUTF();
         } catch (IOException e) {
             System.err.println("Error communicating with server: " + e.getMessage());
-            return null;  // Error case
+            return null;
         }
     }
 
@@ -163,7 +159,6 @@ public class Client {
              DataOutputStream dataOut = new DataOutputStream(socket.getOutputStream())) {
 
             dataOut.writeUTF("GET_COURSE_NAME");
-
             dataOut.writeUTF(courseId);
             return dataIn.readUTF();
         } catch (IOException e) {
@@ -300,7 +295,6 @@ public class Client {
             dataOut.writeUTF("GET_TEACHER_PROFILE");
             dataOut.writeInt(teacherId);
 
-            // Read the response from the server
             int id = dataIn.readInt();
             String name = dataIn.readUTF();
             String email = dataIn.readUTF();

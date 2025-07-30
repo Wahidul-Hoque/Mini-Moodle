@@ -17,12 +17,9 @@ public class CourseService {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, teacherId);
-
-            // Execute the query and get the result
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
-                teacherName = rs.getString("name");  // Retrieve teacher name
+                teacherName = rs.getString("name");
             }
 
         } catch (SQLException e) {
@@ -30,8 +27,6 @@ public class CourseService {
         }
         return teacherName;
     }
-
-    // Method to get the student name by studentId
 
     public static String getStudentName(int studentId) {
         String studentName = null;
@@ -41,13 +36,11 @@ public class CourseService {
 
             stmt.setInt(1, studentId);
 
-            // Execute the query and get the result
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                studentName = rs.getString("name");  // Retrieve student name
+                studentName = rs.getString("name");
             }
-
         } catch (SQLException e) {
             System.out.println("Error in getting student name: " + e.getMessage());
         }
@@ -62,10 +55,8 @@ public class CourseService {
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, teacherId);
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
@@ -92,7 +83,7 @@ public class CourseService {
             stmt.setInt(1, teacherId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                courseId = rs.getString("id");  // Retrieve the course ID
+                courseId = rs.getString("id");
             }
         } catch (SQLException e) {
             System.out.println("Error in getting course ID for teacher: " + e.getMessage());
@@ -177,7 +168,6 @@ public class CourseService {
         }
     }
 
-    // (only approved students)
     public static List<StudentInfo> getEnrolledStudents(int courseId) {
         List<StudentInfo> approvedStudents = new ArrayList<>();
         String sql = "SELECT s.id, s.name, s.email, e.grade " +
@@ -191,14 +181,12 @@ public class CourseService {
             stmt.setInt(1, courseId);
             ResultSet rs = stmt.executeQuery();
 
-            // Process the results
             while (rs.next()) {
                 int studentId = rs.getInt("id");
                 String studentName = rs.getString("name");
                 String studentEmail = rs.getString("email");
                 String studentGrade = rs.getString("grade");
 
-                // Create a StudentInfo object for each approved student
                 StudentInfo student = new StudentInfo(studentId, studentName, studentEmail, studentGrade);
                 approvedStudents.add(student);
             }
@@ -218,7 +206,7 @@ public class CourseService {
             stmt.setInt(1, courseId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                count = rs.getInt(1);  // Retrieve the count of approved students
+                count = rs.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println("Error in getting enrolled student count: " + e.getMessage());

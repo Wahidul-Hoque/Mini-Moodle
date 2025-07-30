@@ -162,7 +162,7 @@ public class studentService {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, studentId);  // Set the studentId to filter notifications for a specific student
+            stmt.setInt(1, studentId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
