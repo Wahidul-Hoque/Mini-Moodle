@@ -14,7 +14,7 @@ import com.example.servicecodes.StudentInfo;
 import com.example.servicecodes.TeacherInfo;
 
 public class Client {
-    private static String SERVER_ADDRESS = "127.0.0.1";
+    private static String SERVER_ADDRESS = "10.114.111.145";
     private static final int SERVER_PORT = 12345;
     public Client(String serverAddress) {
         this.SERVER_ADDRESS = serverAddress;
@@ -661,11 +661,7 @@ public class Client {
 
 
     public static void main(String[] args) {
-        System.out.println(getCourseIdForTeacher(2));
-        boolean a=addTeacher("f","f","f","f");
-        //sendNotification(2,"this is a testing message laskjfaslkjflk;asjfklasf" + "\n" + "oasijfo;asdjfoidjsfgoi;fm;lskf\nljf;lkjf;ldjfs");
-        //System.out.println(getTeacherUsername(4));
-        System.out.println(getNotifications(1));
+        changeStudentPassword(29,"29");
     }
 
 
