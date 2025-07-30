@@ -16,22 +16,16 @@ public class PasswordUtils {
                 hexString.append(String.format("%02x", b));
             }
 
-            return hexString.toString();  // Return hashed password
+            return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Error hashing password", e);
         }
     }
 
-    // Method to validate password
     public static boolean validatePassword(String enteredPassword, String storedHash) {
 
         String enteredPasswordHash = hashPassword(enteredPassword);
         return enteredPasswordHash.equals(storedHash);
     }
-    public static void main(String[] args) {
-        // Test hashing of passwords
-        String teacherPassword = "4";
 
-        System.out.println("Teacher Hashed Password: " + hashPassword(teacherPassword));
-    }
 }

@@ -1,7 +1,5 @@
 package com.example.servicecodes;
 
-import java.sql.*;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -9,7 +7,7 @@ import java.sql.SQLException;
 import com.example.utils.DatabaseConnection;
 
 public class EnrollmentService {
-    //for student
+
     public static boolean requestEnrollment(int studentId, String courseTitle) {
         String sql = "INSERT INTO enrollment (student_id, course_id, status, email, grade) " +
                 "SELECT ?, c.id, 'pending', s.email, 'NOT_SET' " +
@@ -19,10 +17,9 @@ public class EnrollmentService {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Set the parameters for the query
-            stmt.setInt(1, studentId);  // student_id
-            stmt.setString(2, courseTitle);  // courseTitle
-            stmt.setInt(3, studentId);  // student_id again to ensure email is correctly linked to the student
+            stmt.setInt(1, studentId);
+            stmt.setString(2, courseTitle);
+            stmt.setInt(3, studentId);
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -61,7 +58,7 @@ public class EnrollmentService {
         }
     }
 
-    // Method for teacher
+
     public static boolean rejectEnrollment(int studentId, int courseId) {
         String sql = "UPDATE enrollment SET status = 'rejected' WHERE student_id = ? AND course_id = ? AND status = 'pending'";
         try (Connection conn = DatabaseConnection.getConnection();
