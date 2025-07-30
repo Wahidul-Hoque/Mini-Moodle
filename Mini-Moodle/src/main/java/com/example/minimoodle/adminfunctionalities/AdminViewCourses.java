@@ -60,14 +60,12 @@ public class AdminViewCourses {
 
     @FXML
     public void initialize(String adminId) {
-        // Set up table columns and load data
         adminDashboardCourseTitleColumn.setCellValueFactory(new PropertyValueFactory<>("courseTitle"));
         adminDashboardCourseNameColumn.setCellValueFactory(new PropertyValueFactory<>("courseDescription"));
         adminDashboardCourseTeacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
 
         setCurrentAdminId(adminId);
 
-        // Set admin name in the ribbon
         if (adminNameRibbonLabel != null) {
             adminNameRibbonLabel.setText("Admin");
         }

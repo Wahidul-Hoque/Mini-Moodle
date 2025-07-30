@@ -46,12 +46,10 @@ public class TeacherGradingPageController {
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
-        // System.out.println("Teacher ID set to: " + teacherId);
     }
 
     public void setCurrentCourseId(String courseId) {
         this.currentCourseId = new String(courseId);
-        // System.out.println("Current Course ID set to: " + courseId);
     }
 
     private ObservableList<Student> studentData = FXCollections.observableArrayList();
@@ -67,7 +65,6 @@ public class TeacherGradingPageController {
         setCurrentCourseId(courseId);
         setTeacherId(teacherId);
 
-        // Set teacher name in the ribbon
         String teacherName = Client.getTeacherUsername(teacherId);
         if (teacherNameRibbonLabel != null) {
             teacherNameRibbonLabel.setText(teacherName);
@@ -88,13 +85,11 @@ public class TeacherGradingPageController {
                 }
                 Student student = getTableView().getItems().get(getIndex());
                 String grade = student.getGrade();
-                // Show empty string if grade is "NOT_SET" or null
                 if (grade == null || "NOT_SET".equals(grade) || "".equals(grade)) {
                     actionButton.setText("Add Grade");
                 } else {
                     actionButton.setText("Update Grade");
                 }
-                // Apply the dashboard button styling
                 actionButton.getStyleClass().clear();
                 actionButton.getStyleClass().add("grades-button");
                 actionButton.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
@@ -110,7 +105,6 @@ public class TeacherGradingPageController {
             System.out.println(students);
             for (StudentInfo studentInfo : students) {
                 Student student = new Student(studentInfo);
-                // If grade is "NOT_SET", display as empty string
                 if ("NOT_SET".equals(student.getGrade())) {
                     student.setGrade("");
                 }

@@ -1,6 +1,6 @@
 package com.example.minimoodle;
 
-import com.example.utils.Client; // Importing the service class for teacher login validation
+import com.example.utils.Client; 
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

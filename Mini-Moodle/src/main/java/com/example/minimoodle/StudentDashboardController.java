@@ -81,14 +81,11 @@ public class StudentDashboardController {
             studentIdLabel.setText("Student ID: " + studentId);
         }
         if (currentGradeLabel != null) {
-            // Placeholder: Replace with actual grade retrieval logic
             currentGradeLabel.setText("Current Grade: " + getCurrentGradeForStudent(studentId));
         }
     }
 
-    // Placeholder for grade retrieval
     private String getCurrentGradeForStudent(int studentId) {
-        // TODO: Replace with actual logic
         return "N/A";
     }
 
@@ -135,7 +132,6 @@ public class StudentDashboardController {
             stage.setScene(new Scene(root));
             stage.setTitle("View Applied Courses - Student " + Client.getStudentName(studentId));
 
-            // Initialize the controller
             com.example.minimoodle.studentfunctionalities.StudentViewPendingCourses controller = loader.getController();
             controller.setStudentId(studentId);
             controller.initialize(studentId);

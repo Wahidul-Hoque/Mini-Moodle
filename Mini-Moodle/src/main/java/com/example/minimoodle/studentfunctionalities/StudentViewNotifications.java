@@ -136,13 +136,11 @@ public class StudentViewNotifications {
         }
     }
 
-    // Method to refresh notifications (can be called when new notifications arrive)
     public void refreshNotifications() {
         notificationsList.clear();
         loadDummyNotifications();
     }
 
-    // Method to set student name in the ribbon
     public void setStudentName(String studentName) {
         studentNameRibbonLabel.setText(studentName);
     }

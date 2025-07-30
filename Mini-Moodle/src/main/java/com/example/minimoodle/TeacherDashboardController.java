@@ -100,7 +100,6 @@ public class TeacherDashboardController {
         courseNameLabel.setText("Course Name: " + CourseDescription);
         enrolledStudentsLabel.setText("Enrolled Students: " + studentCount);
 
-        // Optionally update teacherNameRibbonLabel if present
         if (teacherNameRibbonLabel != null) {
             teacherNameRibbonLabel.setText(Client.getTeacherUsername(getTeacherId()));
         }
@@ -310,7 +309,6 @@ public class TeacherDashboardController {
         notificationTextArea.setPrefHeight(180);
         notificationTextArea.setPrefWidth(380);
         
-        // Enable newline characters and prevent tab traversal
         notificationTextArea.setStyle("-fx-focus-traversable: false;");
 
         Label instructionLabel = new Label("Compose your notification message:");

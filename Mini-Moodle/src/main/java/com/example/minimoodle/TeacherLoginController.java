@@ -1,6 +1,6 @@
 package com.example.minimoodle;
 
-import com.example.utils.Client; // Importing the service class for teacher login validation
+import com.example.utils.Client; 
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,11 +37,6 @@ public class TeacherLoginController {
     private String enteredPassword;
 
     @FXML
-    //
-    // initialize() method is called by the JavaFX framework to initialize the controller
-    // This method sets up the initial state of the password visibility box.
-    // It binds the text property of the visible password box to the password field.
-    // 
     private void initialize() {
         teacherLoginPasswordVisibleBox.setManaged(false);
         teacherLoginPasswordVisibleBox.setVisible(false);
@@ -50,12 +45,6 @@ public class TeacherLoginController {
     }
 
     @FXML
-    //
-    // When Show Password Button is clicked, toggle the visibility of the password field
-    // What does this do?
-    // setVisible() method controls whether the password field is visible or not.
-    // setManaged() method controls whether the password field is managed by the layout.
-    //
     private void toggleTeacherLoginPasswordVisibility() {
         showPassword = !showPassword;
         if (showPassword) {
@@ -92,13 +81,10 @@ public class TeacherLoginController {
     }
 
     @FXML
-    // When the login button is clicked, we retrieve the entered ID and password
-    // and print them
     public void processTeacherLogin() {
         enteredId = teacherLoginIdBox.getText();
         enteredPassword = showPassword ? teacherLoginPasswordVisibleBox.getText() : teacherLoginPasswordBox.getText();
 
-        // For demonstration purposes, we print the ID and password to the console
     
         System.out.println("Entered ID: " + enteredId);
         System.out.println("Entered Password: " + enteredPassword);
@@ -107,13 +93,12 @@ public class TeacherLoginController {
         int teacherId = Client.sendLoginRequest(enteredId, enteredPassword);
 
         if (teacherId>0) {
-            // Proceed to the next screen or show a success message
             showAlert("Login Successful", "Welcome, Teacher " + enteredId, Alert.AlertType.INFORMATION);
             try{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("teacher-dashboard.fxml"));
                 Parent root = loader.load();
                 TeacherDashboardController controller = loader.getController();
-                controller.initialize(teacherId);  // Pass the teacherId to the dashboard controller
+                controller.initialize(teacherId);  
                 Stage stage = (Stage) teacherLoginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Dashboard - " + enteredId);
@@ -130,14 +115,12 @@ public class TeacherLoginController {
             }
         }
         else {
-            // Show an error message if the credentials are invalid
             showAlert("Login Failed", "Invalid username or password. Please try again.", Alert.AlertType.ERROR);
         }
 
 
 
     }
-    // Helper method to display an alert message
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

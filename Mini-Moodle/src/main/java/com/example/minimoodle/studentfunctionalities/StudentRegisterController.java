@@ -51,7 +51,6 @@ public class StudentRegisterController {
 
     @FXML
     public void initialize() {
-        // Initialize any necessary components or listeners
         studentRegisterPasswordVisibleBox.setManaged(false);
         studentRegisterPasswordVisibleBox.setVisible(false);
         studentRegisterReenterPasswordVisibleBox.setManaged(false);
@@ -144,7 +143,6 @@ public class StudentRegisterController {
     @FXML
     private void handleStudentRegisterCancel() {
         try {
-            // Load the login page (use absolute resource path)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/student-login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) studentRegisterButton.getScene().getWindow();

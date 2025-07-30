@@ -37,7 +37,6 @@ public class StudentViewCourses {
     @FXML
     private Label studentNameRibbonLabel;
 
-    // Dummy data class for table rows
     public static class CourseRow {
 
         private String id;
@@ -74,7 +73,6 @@ public class StudentViewCourses {
 
         this.studentId = studentId;
 
-        // Set student name in the ribbon
         String studentName = Client.getStudentUsername(studentId);
         if (studentNameRibbonLabel != null) {
             studentNameRibbonLabel.setText(studentName);
@@ -97,7 +95,6 @@ public class StudentViewCourses {
                     setGraphic(null);
                     return;
                 }
-                // Apply the dashboard button styling
                 enrollButton.getStyleClass().clear();
                 enrollButton.getStyleClass().add("dashboard-button");
                 enrollButton.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());

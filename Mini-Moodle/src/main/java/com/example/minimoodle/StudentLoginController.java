@@ -46,15 +46,11 @@ public class StudentLoginController {
 
     @FXML
     private void initialize() {
-        // Bind password fields for visibility toggle
         studentLoginPasswordVisibleBox.textProperty().bindBidirectional(studentLoginPasswordBox.textProperty());
         studentLoginPasswordVisibleBox.setVisible(false);
         studentLoginPasswordVisibleBox.setManaged(false);
     }
 
-    /**
-     * Handles toggling password visibility when the checkbox is clicked.
-     */
     @FXML
     private void toggleStudentLoginPasswordVisibility() {
         showPassword = !showPassword;
@@ -64,9 +60,6 @@ public class StudentLoginController {
         studentLoginPasswordVisibleBox.setManaged(showPassword);
     }
 
-    /**
-     * Handles the login button click event.
-     */
     @FXML
     public void handleStudentLogin() {
         enteredId = studentLoginIdBox.getText();
@@ -79,7 +72,7 @@ public class StudentLoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("student-dashboard.fxml"));
                 Parent root = loader.load();
                 StudentDashboardController controller = loader.getController();
-                controller.initialize(studentId);  // Pass the studentId to the dashboard controller
+                controller.initialize(studentId);  
                 Stage stage = (Stage) studentLoginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Dashboard - " + enteredId);
@@ -94,9 +87,6 @@ public class StudentLoginController {
         }
     }
 
-    /**
-     * Handles the back button click event to return to the welcome page.
-     */
     @FXML
     private void handleStudentLoginBack(javafx.event.ActionEvent event) {
         try {
@@ -112,10 +102,6 @@ public class StudentLoginController {
         }
     }
 
-    /**
-     * Handles the register button click event to go to the registration page.
-     * TODO: Implement navigation to student registration page.
-     */
     @FXML
     private void handleStudentRegister() {
         try {
@@ -131,7 +117,6 @@ public class StudentLoginController {
         }
     }
 
-    // Helper method to display an alert message
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

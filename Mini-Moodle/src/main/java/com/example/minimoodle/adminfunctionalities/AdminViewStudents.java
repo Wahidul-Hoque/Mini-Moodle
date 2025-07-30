@@ -182,7 +182,6 @@ public class AdminViewStudents {
         tableView.getColumns().add(gradeCol);
         tableView.getItems().addAll(courses);
 
-        // Add styling to the table
         tableView.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
         tableView.setStyle("-fx-background-color: #f4f4f9; -fx-border-color: #d1d5db; -fx-border-radius: 8;");
 
@@ -203,7 +202,6 @@ public class AdminViewStudents {
 
         dialog.getDialogPane().setContent(container);
         
-        // Create custom close button with grades-button style
         Button closeButton = new Button("Close");
         closeButton.getStyleClass().add("grades-button");
         closeButton.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
@@ -212,11 +210,9 @@ public class AdminViewStudents {
         dialog.getDialogPane().getButtonTypes().clear();
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         
-        // Apply the custom button styling
         dialog.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("grades-button");
         dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
         
-        // Set dialog size
         dialog.getDialogPane().setPrefSize(700, 500);
         dialog.getDialogPane().setMinSize(650, 450);
         dialog.setResizable(true);

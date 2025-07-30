@@ -14,10 +14,6 @@ import javafx.stage.Stage;
 
 public class WelcomePageController {
 
-    //
-    // Inject all the UI elements in the welcome-page.fxml file
-    // here in the controller
-    //
     @FXML
     private ToggleGroup roleGroup;
 
@@ -36,15 +32,10 @@ public class WelcomePageController {
     @FXML
     private Button connectToServer;
 
-    //
-    // handle the continue button and update the current scene accordingly
-    //
     @FXML
     private void handleWelcomePageContinueButton() {
-        // returns which button we selected, I think as a reference? 
         RadioButton selectedRole = (RadioButton) roleGroup.getSelectedToggle();
 
-        // If no role is selected, we show an error
         if (selectedRole == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -89,21 +80,17 @@ public class WelcomePageController {
 
     @FXML
     public void handleConnectToServer() {
-        // Create a custom dialog for IP input
         javafx.scene.control.Dialog<String> dialog = new javafx.scene.control.Dialog<>();
         dialog.setTitle("Connect to Server");
         dialog.setHeaderText("Enter the server IP address:");
 
-        // Set the button types
         javafx.scene.control.ButtonType connectButtonType = new javafx.scene.control.ButtonType("Connect", javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
         javafx.scene.control.ButtonType cancelButtonType = new javafx.scene.control.ButtonType("Cancel", javafx.scene.control.ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(connectButtonType, cancelButtonType);
 
-        // Create the IP address input field
         javafx.scene.control.TextField ipField = new javafx.scene.control.TextField();
         ipField.setPromptText("127.0.0.1");
 
-        // Layout for the dialog
         javafx.scene.layout.GridPane grid = new javafx.scene.layout.GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -112,10 +99,8 @@ public class WelcomePageController {
 
         dialog.getDialogPane().setContent(grid);
 
-        // Request focus on the IP field by default
         javafx.application.Platform.runLater(ipField::requestFocus);
 
-        // Convert the result to the IP address when the Connect button is clicked
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == connectButtonType) {
                 return ipField.getText();
@@ -126,11 +111,10 @@ public class WelcomePageController {
         java.util.Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(ip -> {
-            // Here you can handle the IP address (e.g., attempt to connect)
             new Thread(() -> {
                 boolean reachable = false;
                 try (java.net.Socket testSocket = new java.net.Socket()) {
-                    testSocket.connect(new java.net.InetSocketAddress(ip, 12345), 2000); // 2s timeout
+                    testSocket.connect(new java.net.InetSocketAddress(ip, 12345), 10000); // 2s timeout
                     reachable = true;
                 } catch (Exception e) {
                     reachable = false;
