@@ -138,18 +138,17 @@ public class WelcomePageController {
                 final boolean finalReachable = reachable;
                 javafx.application.Platform.runLater(() -> {
                     if (finalReachable) {
-                        // Set server address for your Client
-                        new Client(ip);
+                        new Client(ip.equals("") ? "127.0.0.1" : ip);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Connection Success");
                         alert.setHeaderText(null);
-                        alert.setContentText("Connected to server at: " + ip);
+                        alert.setContentText("Connected to server at: " + (ip.equals("") ? "127.0.0.1" : ip));
                         alert.showAndWait();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Connection Failed");
                         alert.setHeaderText(null);
-                        alert.setContentText("Could not connect to server at: " + ip);
+                        alert.setContentText("Could not connect to server at: " + (ip.equals("") ? "127.0.0.1" : ip));
                         alert.showAndWait();
                     }
                 });
