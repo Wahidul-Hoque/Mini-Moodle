@@ -1,20 +1,18 @@
 package com.example.servicecodes;
 
 public class CourseInfo {
-
     private int courseId;
     private String courseTitle;
     private String courseDescription;
     private String grade;
 
-    public CourseInfo(int courseId, String courseTitle, String courseDescription, String grade) {
+    public CourseInfo(int courseId, String courseTitle,String courseDescription, String grade) {
         this.courseId = courseId;
         this.courseTitle = courseTitle;
         this.courseDescription = courseDescription;
         this.grade = grade;
     }
-
-    public CourseInfo(int courseId, String courseTitle, String courseDescription) {
+    public CourseInfo(int courseId, String courseTitle,String courseDescription) {
         this.courseId = courseId;
         this.courseTitle = courseTitle;
         this.courseDescription = courseDescription;
@@ -28,11 +26,9 @@ public class CourseInfo {
     public String getCourseTitle() {
         return courseTitle;
     }
-
     public String getCourseDescription() {
         return courseDescription;
     }
-
     public String getGrade() {
         return grade;
     }
@@ -42,3 +38,4 @@ public class CourseInfo {
         return "Course ID: " + courseId + ", Title: " + courseTitle + ", Grade: " + grade;
     }
 }
+

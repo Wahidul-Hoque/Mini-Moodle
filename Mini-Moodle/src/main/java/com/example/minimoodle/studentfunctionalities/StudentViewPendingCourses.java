@@ -21,14 +21,19 @@ public class StudentViewPendingCourses {
 
     @FXML
     private Button goBackButton;
+
     @FXML
     private Label studentNameRibbonLabel;
+
     @FXML
     private TableView<CourseInfo> courseTable;
+
     @FXML
     private TableColumn<CourseInfo, Integer> idColumn;
+
     @FXML
     private TableColumn<CourseInfo, String> titleColumn;
+
     private int studentId;
 
     public void setStudentId(int studentId) {
@@ -37,10 +42,13 @@ public class StudentViewPendingCourses {
 
     public void initialize(int studentId) {
         this.studentId = studentId;
+        
+        // Set student name in the ribbon
         String studentName = Client.getStudentUsername(studentId);
         if (studentNameRibbonLabel != null) {
             studentNameRibbonLabel.setText(studentName);
         }
+        
         setupTable();
         loadAppliedCourses();
     }
@@ -67,6 +75,8 @@ public class StudentViewPendingCourses {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Student Dashboard - " + Client.getStudentUsername(studentId));
+
+            // Initialize the dashboard controller
             com.example.minimoodle.StudentDashboardController controller = loader.getController();
             controller.setStudentId(studentId);
             controller.initialize(studentId);

@@ -12,6 +12,7 @@ public class WelcomePageApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("welcome-page.fxml"));
         Parent root = loader.load();
+
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Welcome - Mini Moodle");
@@ -21,4 +22,5 @@ public class WelcomePageApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+
 }

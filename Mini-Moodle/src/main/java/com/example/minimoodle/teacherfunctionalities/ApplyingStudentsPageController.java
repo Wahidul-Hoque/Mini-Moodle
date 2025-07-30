@@ -24,44 +24,60 @@ public class ApplyingStudentsPageController {
 
     @FXML
     private Button approveButton;
+
     @FXML
     private Button goBackButton;
+
     @FXML
     private TableColumn<Student, String> nameColumn;
+
     @FXML
     private TableColumn<Student, String> emailColumn;
+
     @FXML
     private Button rejectButton;
+
     @FXML
     private TableView<Student> requestTable;
+
     @FXML
     private Label teacherNameRibbonLabel;
-    private int teacherId;
+
+    private int  teacherId;
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
     }
-    private String courseId;
+
+    private String courseId; 
 
     public void setCurrentCourseId(String courseId) {
         this.courseId = courseId;
     }
+
     private ObservableList<Student> requestList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize(int teacherId, String courseId) {
+        // Initializing the columns to display student name and email
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+
         setTeacherId(teacherId);
         setCurrentCourseId(courseId);
+
+        // Set teacher name in the ribbon
         String teacherName = Client.getTeacherUsername(teacherId);
         if (teacherNameRibbonLabel != null) {
             teacherNameRibbonLabel.setText(teacherName);
         }
+
         fetchApplyingStudents();
         requestTable.setItems(requestList);
         approveButton.setDisable(true);
         rejectButton.setDisable(true);
+
+        // Set up event handler for when a row is clicked
         requestTable.setRowFactory(tv -> {
             TableRow<Student> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -75,6 +91,10 @@ public class ApplyingStudentsPageController {
     }
 
     private void fetchApplyingStudents() {
+        // requestList.add(new Student("1", "John Doe", "johndoe@example.com", null));
+        // requestList.add(new Student("2", "Jane Smith", "janesmith@example.com", null));
+
+        // System.out.println(courseId);        
         var students = Client.getPendingStudents(courseId);
         System.out.println(students);
         for (StudentInfo studentInfo : students) {
@@ -86,6 +106,7 @@ public class ApplyingStudentsPageController {
     void handleApproveRequest(ActionEvent event) {
         Student selectedStudent = requestTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
+            // Call the service to approve the enrollment
             Client.approveEnrollment(Integer.parseInt(selectedStudent.getId()), Integer.parseInt(courseId));
             showAlert("Success", "Enrollment approved for " + selectedStudent.getName());
             requestList.remove(selectedStudent);
@@ -99,14 +120,16 @@ public class ApplyingStudentsPageController {
     @FXML
     void handleGoBack(ActionEvent event) {
         System.out.println("Going back to the teacher dashboard...");
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/minimoodle/teacher-dashboard.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Teacher Dashboard");
+
             TeacherDashboardController controller = loader.getController();
-            controller.initialize(teacherId);
+            controller.initialize(teacherId); 
         } catch (java.io.IOException | NullPointerException e) {
             showAlert("Loading Error", "Failed to load the teacher dashboard: " + e.getMessage());
             e.printStackTrace();
@@ -134,4 +157,5 @@ public class ApplyingStudentsPageController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

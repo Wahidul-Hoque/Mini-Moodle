@@ -29,9 +29,11 @@ public class StudentLoginController {
     private CheckBox studentLoginPasswordCheckBox;
     @FXML
     private Button studentRegisterButton;
+
     private boolean showPassword = false;
     private String enteredId;
     private String enteredPassword;
+
     private int studentId;
 
     public int getStudentId() {
@@ -44,11 +46,15 @@ public class StudentLoginController {
 
     @FXML
     private void initialize() {
+        // Bind password fields for visibility toggle
         studentLoginPasswordVisibleBox.textProperty().bindBidirectional(studentLoginPasswordBox.textProperty());
         studentLoginPasswordVisibleBox.setVisible(false);
         studentLoginPasswordVisibleBox.setManaged(false);
     }
 
+    /**
+     * Handles toggling password visibility when the checkbox is clicked.
+     */
     @FXML
     private void toggleStudentLoginPasswordVisibility() {
         showPassword = !showPassword;
@@ -58,10 +64,14 @@ public class StudentLoginController {
         studentLoginPasswordVisibleBox.setManaged(showPassword);
     }
 
+    /**
+     * Handles the login button click event.
+     */
     @FXML
     public void handleStudentLogin() {
         enteredId = studentLoginIdBox.getText();
         enteredPassword = showPassword ? studentLoginPasswordVisibleBox.getText() : studentLoginPasswordBox.getText();
+
         studentId = Client.sendStudentLoginRequest(enteredId, enteredPassword);
         if (studentId > 0) {
             showAlert("Login Successful", "Welcome Student " + enteredId, Alert.AlertType.INFORMATION);
@@ -73,6 +83,7 @@ public class StudentLoginController {
                 Stage stage = (Stage) studentLoginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Dashboard - " + enteredId);
+
                 StudentDashboardController studentDashboardController = loader.getController();
                 studentDashboardController.setStudentId(studentId);
             } catch (java.io.IOException | NullPointerException e) {
@@ -83,6 +94,9 @@ public class StudentLoginController {
         }
     }
 
+    /**
+     * Handles the back button click event to return to the welcome page.
+     */
     @FXML
     private void handleStudentLoginBack(javafx.event.ActionEvent event) {
         try {
@@ -98,6 +112,10 @@ public class StudentLoginController {
         }
     }
 
+    /**
+     * Handles the register button click event to go to the registration page.
+     * TODO: Implement navigation to student registration page.
+     */
     @FXML
     private void handleStudentRegister() {
         try {
@@ -113,6 +131,7 @@ public class StudentLoginController {
         }
     }
 
+    // Helper method to display an alert message
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

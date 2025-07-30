@@ -1,7 +1,6 @@
 package com.example.servicecodes;
 
 public class Notification {
-
     private String courseName;
     private String message;
     private String timestamp;
@@ -29,3 +28,4 @@ public class Notification {
         return "Course: " + courseName + ", Message: " + message + ", Time: " + timestamp;
     }
 }
+

@@ -1,7 +1,9 @@
 package com.example.minimoodle.studentfunctionalities;
 
 import java.util.List;
+
 import com.example.servicecodes.Notification;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,45 +26,57 @@ public class StudentViewNotifications {
 
     @FXML
     private Label studentNameRibbonLabel;
+    
     @FXML
     private Button goBackButton;
+    
     @FXML
     private TableView<Notification> notificationsTable;
+    
     @FXML
     private TableColumn<Notification, String> timestampColumn;
+    
     @FXML
     private TableColumn<Notification, String> courseIdColumn;
+    
     @FXML
     private TableColumn<Notification, String> messageColumn;
-    private ObservableList<Notification> notificationsList = FXCollections.observableArrayList();
-    private int studentId;
 
+    private ObservableList<Notification> notificationsList = FXCollections.observableArrayList();
+
+    private int studentId;
     public void setStudentId(int studentId) {
         this.studentId = studentId;
-    }
-
+    }       
     public int getStudentId() {
         return studentId;
     }
 
     @FXML
     public void initialize(int studentId) {
+
         this.studentId = studentId;
+
         setupTableColumns();
+        
         loadDummyNotifications();
+        
         studentNameRibbonLabel.setText(com.example.utils.Client.getStudentUsername(studentId));
     }
 
     private void setupTableColumns() {
+        
         timestampColumn.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         courseIdColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
+        
         timestampColumn.setStyle("-fx-alignment: CENTER;");
         courseIdColumn.setStyle("-fx-alignment: CENTER;");
+        
         messageColumn.setCellFactory(_ -> {
             TableCell<Notification, String> cell = new TableCell<Notification, String>() {
                 private Text text = new Text();
-
+                
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
@@ -79,9 +93,13 @@ public class StudentViewNotifications {
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
             return cell;
         });
+        
         messageColumn.setResizable(true);
+        
         notificationsTable.setItems(notificationsList);
+        
         notificationsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        
         notificationsTable.setRowFactory(_ -> {
             TableRow<Notification> row = new TableRow<>();
             row.setPrefHeight(Control.USE_COMPUTED_SIZE);
@@ -108,19 +126,23 @@ public class StudentViewNotifications {
             stage.setScene(scene);
             stage.show();
             stage.setTitle("Dashboard - " + com.example.utils.Client.getStudentName(studentId));
+
             com.example.minimoodle.StudentDashboardController controller = loader.getController();
             controller.setStudentId(studentId);
             controller.initialize(studentId);
+
         } catch (Exception e) {
             System.err.println("Error navigating back: " + e.getMessage());
         }
     }
 
+    // Method to refresh notifications (can be called when new notifications arrive)
     public void refreshNotifications() {
         notificationsList.clear();
         loadDummyNotifications();
     }
 
+    // Method to set student name in the ribbon
     public void setStudentName(String studentName) {
         studentNameRibbonLabel.setText(studentName);
     }

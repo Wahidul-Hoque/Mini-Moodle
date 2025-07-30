@@ -33,9 +33,11 @@ public class StudentViewCourses {
     private TableColumn<CourseRow, Void> actionColumn;
     @FXML
     private Button goBackButton;
+
     @FXML
     private Label studentNameRibbonLabel;
 
+    // Dummy data class for table rows
     public static class CourseRow {
 
         private String id;
@@ -54,31 +56,37 @@ public class StudentViewCourses {
             return name;
         }
     }
-    private int studentId;
 
+    private int studentId;
     public void setStudentId(int studentId) {
         this.studentId = studentId;
-    }
-
+    }  
     public int getStudentId() {
         return studentId;
     }
+
     private ObservableList<CourseRow> courseData = FXCollections.observableArrayList();
 
     @FXML
     public void initialize(int studentId) {
         idColumn.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getId()));
         nameColumn.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getName()));
+
         this.studentId = studentId;
+
+        // Set student name in the ribbon
         String studentName = Client.getStudentUsername(studentId);
         if (studentNameRibbonLabel != null) {
             studentNameRibbonLabel.setText(studentName);
         }
+
         List<CourseInfo> courses = Client.getUnregisteredCoursesForStudent(studentId);
         for (CourseInfo course : courses) {
             courseData.add(new CourseRow(String.valueOf(course.getCourseTitle()), course.getCourseDescription()));
         }
+        
         courseTable.setItems(courseData);
+
         actionColumn.setCellFactory(param -> new TableCell<>() {
             private final Button enrollButton = new Button("Request Enrollment");
 
@@ -89,6 +97,7 @@ public class StudentViewCourses {
                     setGraphic(null);
                     return;
                 }
+                // Apply the dashboard button styling
                 enrollButton.getStyleClass().clear();
                 enrollButton.getStyleClass().add("dashboard-button");
                 enrollButton.getStylesheets().add(getClass().getResource("/com/example/minimoodle/styles.css").toExternalForm());
@@ -112,6 +121,7 @@ public class StudentViewCourses {
             Stage stage = (Stage) goBackButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Student Dashboard");
+
             StudentDashboardController studentDashboardController = loader.getController();
             studentDashboardController.setStudentId(studentId);
             studentDashboardController.initialize(studentId);
@@ -128,4 +138,5 @@ public class StudentViewCourses {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }
