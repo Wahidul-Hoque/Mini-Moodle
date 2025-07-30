@@ -84,6 +84,8 @@ public class StudentLoginController {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
+        } else {
+            showAlert("Login Failed", "Invalid username or password. Please try again.", Alert.AlertType.ERROR);
         }
     }
 
