@@ -54,7 +54,8 @@ Here is the link for the screenshots: [mehedihasankanon/Mini-Moodle/files/Mini-M
    ```
 2. Open the project in your preferred IDE (e.g., IntelliJ IDEA, Eclipse).
 3. Make sure JavaFX is properly configured in your project settings.
-4. Build and run the `Mini-Moodle` main class.
+4. Build and run the `Server` class inside the `utils` folder.
+5. Build and run the `WelcomePageApplication` class inside the `minimoodle` folder.
 
 ## Project Structure
 
