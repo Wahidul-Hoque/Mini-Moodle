@@ -1,6 +1,8 @@
 # Mini Moodle
 
-Mini Moodle is a lightweight Learning Management System (LMS) developed as a term project for the CSE 108 (Object-Oriented Programming Sessional) course (L-1 T-2). The platform is built using Java and JavaFX, offering a graphical user interface for efficient course and user management.
+Mini Moodle is a lightweight Learning Management System (LMS) developed as a term project for the CSE 108 (Object-Oriented Programming Sessional) course (L-1 T-2). 
+
+The platform is built using Java and JavaFX, offering a graphical user interface for efficient course and user management.
 
 ## Table of Contents
 
@@ -96,6 +98,10 @@ Mini-Moodle/
 
 - **Mehedi Hasan Kanon**  
   [GitHub](https://github.com/mehedihasankanon)
+
+## Acknowledgments
+
+Supervised by Professor Dr. M Saifur Rahman (Dept. of CSE, BUET).
 
 ## License
 
